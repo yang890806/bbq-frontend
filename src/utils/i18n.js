@@ -8,11 +8,13 @@ i18n.use(initReactI18next).init({
 		en: {
 			translation: {
 				'Home': 'Home', 
+				'Back': 'Back', 
 			}
 		},
 		zh: {
 			translation: {
 				'Home': '首頁', 
+				'Back': '返回', 
 			}
 		},
 	},

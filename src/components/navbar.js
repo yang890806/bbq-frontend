@@ -29,18 +29,18 @@ function NavBar() {
 	return (
 		<Navbar>
 			<Container>
-				<Navbar.Brand href='/' bsPrefix='text-2xl no-underline' className='text-black font-bold'>
+				<Navbar.Brand href="/" bsPrefix="text-2xl no-underline" className="text-black font-bold">
 					BBQ
 				</Navbar.Brand>
-				<Navbar.Toggle aria-controls='responsive-navbar-nav' />
-				<Navbar.Collapse id='responsive-navbar-nav' className='flex justify-end mt-1 border-b-white'>
-					<Nav className='me-auto' />
+				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+				<Navbar.Collapse id="responsive-navbar-nav" className="flex justify-end mt-1 border-b-white">
+					<Nav className="me-auto" />
 					<Nav>
-						<Nav.Link href='/' className='text-black'>
+						<Nav.Link href="/" className="text-black">
 							{ t('Home') }
 						</Nav.Link>
-						<Nav.Link className='text-black' onClick={handleLang}>
-							<FontAwesomeIcon icon={faEarthAmericas} className='mr-2 flex flex-row' />
+						<Nav.Link className="text-black" onClick={handleLang}>
+							<FontAwesomeIcon icon={ faEarthAmericas } className="mr-2 flex flex-row" />
 							中 | EN
 						</Nav.Link>
 					</Nav>
