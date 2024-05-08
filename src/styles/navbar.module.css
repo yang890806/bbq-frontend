@@ -1,0 +1,17 @@
+.loginBtn {
+	height: 30px;
+	width: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #C05E51;
+	border-radius: 50px;
+
+	color: #FFFFFF;
+	text-align: center;
+}
+
+.loginBtn:hover {
+	color: #FFFFFF;
+	background-color: #C46557;
+}

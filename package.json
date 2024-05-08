@@ -26,7 +26,9 @@
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18",
     "react-fontawesome": "^1.7.1",
-    "react-i18next": "^14.1.1"
+    "react-i18next": "^14.1.1",
+    "react-native": "^0.74.1",
+    "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
     "eslint": "^8",
