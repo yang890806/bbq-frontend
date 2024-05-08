@@ -1,11 +1,8 @@
 import Image from 'next/image';
-import getConfig from 'next/config';
 import { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 
-const { publicRuntimeConfig } = getConfig();
-
-function ImageCarousel({ images }) {
+function ImageCarousel({ images, width, height, onClick }) {
 	const [index, setIndex] = useState(0);
 
 	const handleSelect = (selectedIndex) => {
@@ -16,7 +13,7 @@ function ImageCarousel({ images }) {
 		<Carousel activeIndex={index} onSelect={handleSelect} data-bs-theme="dark">
 		{
 			images.map((image, i) => <Carousel.Item key={i}>
-				<div style={{width: `${publicRuntimeConfig.imageWidth}px`, height: `${publicRuntimeConfig.imageHeight}px`}}>
+				<div onClick={onClick} style={{width: `${width}px`, height: `${height}px`}}>
 					<Image 
 						src={image}
 						fill={true}

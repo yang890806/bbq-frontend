@@ -2,9 +2,13 @@ import Head from 'next/head';
 import getConfig from 'next/config';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy, faPlus } from '@fortawesome/free-solid-svg-icons';
 import NavBar from '@/components/navbar';
+import ImageUpload from '@/components/imageUpload';
 import styles from '@/styles/book-create.module.css';
 
 const { publicRuntimeConfig } = getConfig();
@@ -16,6 +20,7 @@ function BookCreate() {
 	const [permission, setPermission] = useState('PUBLIC');
 	const [showCode, setShowCode] = useState(false);
 	const [code, setCode] = useState('');
+	const [copied, setCopied] = useState(false);
 
 	// 隨機產生活動碼
 	const randomGenCode = (length) => {
@@ -31,12 +36,22 @@ function BookCreate() {
 	useEffect(() => {
 		if (permission == 'PRIVATE') {
 			setShowCode(true);
+			setCopied(false);
 			setCode(randomGenCode(7));
 		}
 		else {
 			setShowCode(false);
 		}
 	}, [permission]);
+
+	const onCopyCode = () => {
+		setCopied(true);
+
+		const timer = setTimeout(() => {
+			setCopied(false);
+		}, 2000);
+		return () => clearTimeout(timer);
+	};
 
 	return (
 		<>
@@ -50,12 +65,9 @@ function BookCreate() {
 		<NavBar/>
 		<Container>
 			{/* 創建書本資訊 */}
-			<Row className='my-12'>
+			<Row className='my-10'>
 				<Col xs={4}>
-					<div 
-						style={{width: `${publicRuntimeConfig.imageWidth / 1.5}px`, height: `${publicRuntimeConfig.imageHeight / 1.5}px`}}
-						className='bg-zinc-200 rounded'
-					></div>
+					<ImageUpload />
 				</Col>
 				<Col className='flex flex-col justify-center'>
 					<Row>
@@ -67,7 +79,7 @@ function BookCreate() {
 					<Row className='my-3'>
 						<Col className='flex text-lg'>
 							<div className={styles.attribute}>{ t('Introduction') }</div>
-							<textarea className={styles.introInput} />
+							<textarea className={styles.introInput} placeholder={`${t('Describe')}...`}/>
 						</Col>
 					</Row>
 					<Row className='my-3'>
@@ -82,9 +94,15 @@ function BookCreate() {
 								<option value='PRIVATE'>{ t('Private') }</option>
 							</select>
 							{showCode && (
-								<div className={styles.codeSection}>
-									{ `${t('Code')}: ${code}`}
-								</div>
+								<CopyToClipboard text={code} onCopy={() => onCopyCode()}>
+									<div className={styles.codeSection}>
+										{ `${t('Code')}: ${code}`}
+										<FontAwesomeIcon icon={ faCopy } className="ml-2 mt-1 cursor-pointer" />
+									</div>
+								</CopyToClipboard>
+							)}
+							{ copied && (
+								<span className='ml-2 mt-1 text-dark-cream'>{ t('Copied') }</span>
 							)}
 						</Col>
 					</Row>

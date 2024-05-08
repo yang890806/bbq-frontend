@@ -42,10 +42,10 @@ function NavBar() {
 						<Nav.Link href="/" className="text-black hover:underline">
 							{ t('Home') }
 						</Nav.Link>
-						<Nav.Link href="/book/overview" className="text-black hover:underline">
+						<Nav.Link href="/" className="text-black hover:underline">
 							{ t('Books') }
 						</Nav.Link>
-						<Nav.Link href="/book/overview">
+						<Nav.Link href="/">
 							<Button className={ styles.loginBtn }>
 								{ t('Login') }
 							</Button>

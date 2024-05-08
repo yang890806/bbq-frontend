@@ -27,6 +27,7 @@ i18n.use(initReactI18next).init({
 				'Voting Time': 'Voting Time', 
 				'Cancel': 'Cancel', 
 				'Save': 'Save', 
+				'Copied': 'Copied', 
 			}
 		},
 		zh: {
@@ -51,6 +52,7 @@ i18n.use(initReactI18next).init({
 				'Voting Time': '投票時間', 
 				'Cancel': '取消', 
 				'Save': '儲存', 
+				'Copied': '已複製', 
 			}
 		},
 	},
