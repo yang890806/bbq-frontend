@@ -1,0 +1,118 @@
+.attribute {
+	width: 15%;
+	text-align: end;
+	padding-right: 20px;
+}
+
+.titleInput {
+	width: 60%;
+	background-color: transparent;
+	outline: none;
+	margin-left: 20px;
+	padding: 3px 3px;
+	
+	border-style: solid;
+	border-color: #000000;
+	border-width: 0 0 1px 0;
+}
+
+.introInput {
+	width: 60%;
+	height: 150px;
+	background-color: transparent;
+	outline: none;
+	margin-left: 20px;
+	padding: 10px 10px;
+
+	border-radius: 10px;
+	border: 1px solid #000000;
+}
+
+.permissionSelect {
+	text-align: center;
+	margin-left: 20px;
+	padding: 0px 3px;
+}
+
+.codeSection {
+	display: flex;
+	background-color: #D8D5C4;
+	color: #A09C8A;
+	margin-left: 30px;
+	padding: 3px 10px;
+
+	border-radius: 7px;
+	border: 1px solid #BEBAA1;
+}
+
+.chapterSection {
+	margin: 20px 12px;
+	padding: 20px 30px;
+	color: #A09C8A;
+	font-weight: bold;
+
+	border-radius: 7px;
+	border: 2px dashed #504D41;
+}
+
+.chapterNameInput {
+	width: 30%;
+	outline: none;
+	background-color: transparent;
+	margin-left: 10px;
+
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-color: #504D41;
+}
+
+.chapterIntroInput {
+	width: 100%;
+	height: 150px;
+	outline: none;
+	background-color: #F6F6F2;
+
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.chapterTimeAttribute {
+	width: 150px;;
+	text-align: end;
+}
+
+.datetimeInput {
+	background-color: transparent;
+	outline: none;
+	margin-left: 20px;
+
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-color: #504D41;
+}
+
+.saveBtn {
+	background-color: #5A6E5A;
+	color: #FFFFFF;
+	margin: 0px 5px;
+	padding: 5px 20px;
+
+	border-radius: 50px;
+}
+
+.saveBtn:hover {
+	background-color: #6A7B67;
+}
+
+.cancelBtn {
+	background-color: #C05E51;
+	color: #FFFFFF;
+	margin: 0px 5px;
+	padding: 5px 20px;
+
+	border-radius: 50px;
+}
+
+.cancelBtn:hover {
+	background-color: #C46557;
+}

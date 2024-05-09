@@ -11,21 +11,16 @@ yarn
 
 # 安裝指定套件
 yarn add [package]
-
-# Run
-yarn dev
 ```
 
-Second, run the development server:
+Second, create `.env` file:
+* Copy `env.example` to `.env`
+
+Third, run the development server:
 
 ```bash
-npm run dev
-# or
+# Run
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -33,6 +28,72 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## About GitHub
+
+### Clone Repository
+
+
+```bash
+git clone https://github.com/yang890806/bbq-frontend.git
+```
+
+### Branch
+Check all branches in local:
+* main: 正式版
+* dev: 開發測試版
+* feat/[...]: 個別開發功能的分支
+
+```bash
+git branch
+```
+
+Checkout branch (切換分支):
+
+```bash
+git checkout [your-branch]
+```
+
+Create new branch:
+```bash
+git branch [new-branch-name]
+```
+
+If you want to push to origin branch:
+
+```bash
+git add .
+git commit -m "[Write something]"
+git push origin [your-branch]
+```
+
+Pull from origin branch to local (把遠端分支的最新版本拉下來到本地端):
+* 記得將分支切換到相對應的分支 (`git checkout [your-branch]`)
+
+```bash
+git pull origin [your-branch]
+```
+
+Merge the other branch to your branch
+* Example: 將遠端dev分支最新版本更新至我目前開發的分支(`feat/abc`)
+
+```bash
+git checkout dev
+git pull origin dev
+git checkout feat/abc
+git merge dev
+```
+
+If merged, conflicts happen:
+
+* Resolve manually
+* Add, commit, and push to origin branch
+
+```bash
+git add .
+git commit -m "fix: Resolve conflict"
+git push origin feat/abc
+```
 
 ## Learn More
 

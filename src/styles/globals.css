@@ -18,9 +18,19 @@
 
 body {
 	background-color: #FCFBF7;
-	color: #000000;
-	max-width: 100vw;
-	overflow-x: hidden;
 	width: 100%;
 	height: 100%;
+	overflow-x: hidden;
+}
+
+main {
+	font-family: var(--default-font) !important;
+}
+
+select {
+	background-color: transparent;
+	outline: none;
+
+	border-radius: 7px;
+	border: 1px solid #000000;
 }
