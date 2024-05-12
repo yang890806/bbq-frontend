@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faEye, faPlay } from '@fortawesome/free-solid-svg-icons';
 import NavBar from '@/components/navbar';
 import ImageCarousel from '@/components/imageCarousel';
-import styles from '@/styles/book-overview.module.css';
+import styles from '@/styles/book.module.css';
 
 const { publicRuntimeConfig } = getConfig();
 
