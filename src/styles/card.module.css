@@ -1,0 +1,108 @@
+/* 全部完成 */
+.bookcard_allfinished {
+	height: auto;
+	border: none;
+	background-color: #FCFBF7 !important;
+}
+/* 全部完成_簡介圖片 */
+.bookcard_allfinished_image {
+	width: auto;
+	height: 200px;
+	object-fit: cover;
+}
+/* 全部完成_滑過 */
+.bookcard_allfinished:hover {
+	transform: translateY(-5px);
+	transition: transform 0.5s;
+	
+
+}
+/* 全部完成_點擊 */
+.bookcard_allfinished:active {
+	transform: translateY(15px);
+	transition: transform 0.5s;
+}
+
+/* 正在進行 */
+.bookcard_allprocessing  {
+	height: auto;
+	
+	background-color: #FCFBF7 !important;
+}
+/* 正在進行_簡介圖片 */
+.bookcard_allprocessing_image {
+	width: auto;
+	height: 200px;
+	object-fit: cover;
+	border-bottom-left-radius: 0 !important;
+  	border-bottom-right-radius: 0 !important;
+}
+/* 正在進行_滑過 */
+.bookcard_allprocessing:hover {
+	transform: translateY(-5px);
+	transition: transform 0.5s;
+	
+
+}
+/* 正在進行_點擊 */
+.bookcard_allprocessing:active {
+	transform: translateY(15px);
+	transition: transform 0.5s;
+}
+
+
+
+
+.bookcard {
+	height: 540px;
+}
+
+.bookcard:hover {
+	transform: translateY(-5px);
+	transition: transform 0.5s, box-shadow 0.5s;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bookcard:active {
+	transform: translateY(15px);
+	transition: transform 0.5s, box-shadow 0.5s;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+/* 單行文本截斷 */
+.text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 多行文本截斷 */
+.text_truncate_multiline {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* 限制顯示的行數，例如3行 */
+    overflow: hidden;
+    max-width: 100%; /* 確保寬度限制生效 */
+}
+
+/* 簡介圖片 */
+.card_image{
+	width: auto;
+	height: 384px;
+	object-fit: cover;
+}
+
+
+
+.btn-outline-custom {
+	border-color: #5cb85c;
+	color: #5cb85c;
+}
+
+.btn-outline-custom:hover {
+	background-color: #5cb85c;
+	color: #fff;
+}

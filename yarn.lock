@@ -1816,6 +1816,24 @@
     "@typescript-eslint/types" "7.2.0"
     eslint-visitor-keys "^3.4.1"
 
+"@uiw/copy-to-clipboard@~1.0.11":
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/@uiw/copy-to-clipboard/-/copy-to-clipboard-1.0.17.tgz#86f501ddc8a6db0b45e6899bcd9d48e0b78f233e"
+  integrity sha512-O2GUHV90Iw2VrSLVLK0OmNIMdZ5fgEg4NhvtwINsX+eZ/Wf6DWD0TdsK9xwV7dNRnK/UI2mQtl0a2/kRgm1m1A==
+
+"@uiw/react-copy-to-clipboard@^4.22.3":
+  version "4.22.3"
+  resolved "https://registry.yarnpkg.com/@uiw/react-copy-to-clipboard/-/react-copy-to-clipboard-4.22.3.tgz#084559acbc3b988fcb8043a09d7726fcc702652c"
+  integrity sha512-YdzUCWDBwIFS4L5CybhWKaAGNuoYe2Knp4eSB3l/cs9hiPFguqSG7FgTFiLTgmefYtBc0X0pFDwQ/m3Mv1arDg==
+  dependencies:
+    "@uiw/copy-to-clipboard" "~1.0.11"
+    "@uiw/utils" "^4.22.3"
+
+"@uiw/utils@^4.22.3":
+  version "4.22.3"
+  resolved "https://registry.yarnpkg.com/@uiw/utils/-/utils-4.22.3.tgz#cb346c589620a89479b39ec6a81dd3d04f09d7e2"
+  integrity sha512-XEi6PBE7mvL1P+6Wa/+npKmmDovkVeXpw0XDfsdrmaRXYTUc05RYXyOy3olVmglgutagTQlCUJzAP+GXaSgw/A==
+
 "@ungap/structured-clone@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"

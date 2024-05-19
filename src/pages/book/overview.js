@@ -30,11 +30,12 @@ function BookOverview() {
 				content="BBQ - BoundlessBrushQuill"
 			/>
 		</Head>
+
 		<NavBar/>
 		<Container>
 			<Row className='my-12'>
 				<Col>
-					<Link href='/' className='no-underline'>
+					<Link href='/book/home' className='no-underline'>
 						<div className={styles.btn} style={{width: '90px'}}>
 							<FontAwesomeIcon icon={ faChevronLeft } className="mr-2 mt-1 flex flex-row" />
 							{ t('Back') }
@@ -99,7 +100,7 @@ function BookOverview() {
 							</div>
 						</Col>
 						<Col>
-							<Link href='/book/view' className='no-underline flex justify-end'>
+							<Link href='/book/home' className='no-underline flex justify-end'>
 								<div className={styles.btn} style={{width: '100px'}}>
 									{ t('Read') }
 									<FontAwesomeIcon icon={faPlay} className="ml-2 mt-1 flex flex-row" />

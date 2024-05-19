@@ -28,9 +28,9 @@ function NavBar() {
 	}, []);
 
 	return (
-		<Navbar className='shadow-md'>
+		<Navbar  className={ styles.header } >
 			<Container>
-				<Navbar.Brand href="/" bsPrefix="text-2xl no-underline" className="text-black font-bold">
+				<Navbar.Brand href="/book/home" bsPrefix="text-2xl no-underline" className="text-black font-bold">
 					<span className='text-red'>B</span>
 					<span className='text-yellow'>B</span>
 					<span className='text-green'>Q</span>
@@ -39,7 +39,7 @@ function NavBar() {
 				<Navbar.Collapse id="responsive-navbar-nav" className="flex justify-end mt-1 border-b-white">
 					<Nav className="me-auto" />
 					<Nav>
-						<Nav.Link href="/" className="text-black hover:underline">
+						<Nav.Link href="/book/home" className="text-black hover:underline">
 							{ t('Home') }
 						</Nav.Link>
 						<Nav.Link href="/" className="text-black hover:underline">
