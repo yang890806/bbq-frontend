@@ -1,0 +1,43 @@
+.block {
+  /* display: flex; */
+  align-items: center;
+  background-color: #e2e0d3;
+  color: #5b6e5a;
+  font-weight: bold;
+  padding: 1rem 1.5rem; /* 這裡的 0.75rem 對應到 p-3 */
+  border-radius: 0.375rem; /* 這裡的 0.375rem 對應到 rounded */
+}
+
+.vote {
+  margin-left: auto;
+  color: #c76f64;
+}
+
+.chain {
+  margin-left: auto;
+  color: #fadead;
+}
+
+.voting {
+  display: flex;
+  align-items: center;
+  background-color: #e2e0d3;
+  color: #c76f64;
+  font-weight: bold;
+  /* padding: 1rem 1.5rem;  */
+  /* 這裡的 0.75rem 對應到 p-3 */
+  border-radius: 0.375rem; /* 這裡的 0.375rem 對應到 rounded */
+}
+
+.chaining {
+  align-items: center;
+  background-color: #a09c8a;
+  font-weight: bold;
+  /* padding: 1rem 1.5rem;  */
+  /* 這裡的 0.75rem 對應到 p-3 */
+  border-radius: 0.375rem; /* 這裡的 0.375rem 對應到 rounded */
+}
+
+.card-container:hover {
+  border-color: #ff7e29; /* 悬停时的边框颜色 */
+}
