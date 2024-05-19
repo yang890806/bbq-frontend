@@ -18,7 +18,7 @@ function ImageCarousel({ images, width, height, onClick }) {
 						src={image}
 						fill={true}
 						alt={`Image ${i}`}
-						className='rounded shadow'
+						className='rounded shadow object-cover'
 					/>
 				</div>
 			</Carousel.Item>)
