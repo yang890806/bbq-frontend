@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import NavBar from '@/components/navbar';
-import BookReader from '@/components/bookReader';
+import BookViewer from '@/components/bookViewer';
 import styles from '@/styles/book.module.css';
 
 // TEST
@@ -41,8 +41,8 @@ function BookView() {
 				</Col>
 			</Row>
 			<Row>
-				<Col>
-					<BookReader pages={pages}/>
+				<Col className='flex justify-center'>
+					<BookViewer pages={pages}/>
 				</Col>
 			</Row>
 		</Container>

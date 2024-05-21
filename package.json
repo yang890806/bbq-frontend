@@ -29,6 +29,7 @@
     "react-fontawesome": "^1.7.1",
     "react-i18next": "^14.1.1",
     "react-native": "^0.74.1",
+    "react-pageflip": "^2.0.3",
     "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
