@@ -4,13 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ImageCarousel from '@/components/imageCarousel';
 
-const { publicRuntimeConfig } = getConfig();
+const { 
+	publicRuntimeConfig: { imageWidth, imageHeight } 
+} = getConfig();
 
 const ImageUpload = () => {
 	const [imagesURL, setImagesURL] = useState([]);
-	const imageWidth = publicRuntimeConfig.imageWidth / 1.3;
-	const imageHeight = publicRuntimeConfig.imageHeight / 1.3;
-
 	const fileUploadRef = useRef();
 
 	const handleImageUpload = (event) => {
@@ -40,8 +39,8 @@ const ImageUpload = () => {
 				{ (imagesURL.length > 0) && (
 					<ImageCarousel 
 						images={imagesURL} 
-						width={imageWidth} 
-						height={imageHeight} 
+						width={imageWidth / 1.3} 
+						height={imageHeight / 1.3} 
 						onClick={handleImageUpload} 
 					/>
 				)}

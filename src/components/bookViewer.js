@@ -5,12 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Page from '@/components/page';
 
-const { publicRuntimeConfig } = getConfig();
+const { 
+	publicRuntimeConfig: { imageWidth, imageHeight } 
+} = getConfig();
 
 function BookViewer({ pages }) {
-
-	const imageWidth = publicRuntimeConfig.imageWidth;
-	const imageHeight = publicRuntimeConfig.imageHeight;
 
 	const book = useRef();
 	const [curPage, setCurPage] = useState(0);

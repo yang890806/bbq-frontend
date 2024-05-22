@@ -117,7 +117,7 @@ function BookOverview() {
 						<Col>
 							<div className={styles.view}>
 								<FontAwesomeIcon icon={faEye} className="mr-2 mt-1 flex flex-row" />
-								1,234
+								{ bookInfo.viewCount }
 							</div>
 						</Col>
 						<Col>
