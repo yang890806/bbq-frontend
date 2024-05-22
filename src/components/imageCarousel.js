@@ -18,6 +18,7 @@ function ImageCarousel({ images, width, height, onClick }) {
 						src={image}
 						fill={true}
 						alt={`Image ${i}`}
+						priority={true}
 						className='rounded shadow object-cover'
 					/>
 				</div>

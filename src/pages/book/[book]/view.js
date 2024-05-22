@@ -1,10 +1,12 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
+import axios from '@/utils/axios';
 import NavBar from '@/components/navbar';
 import BookViewer from '@/components/bookViewer';
 import styles from '@/styles/book.module.css';
@@ -13,8 +15,25 @@ import styles from '@/styles/book.module.css';
 import pages from '@/mock/pages';
 
 function BookView() {
-
+	const router = useRouter();
+	const { book } = router.query;
 	const { t } = useTranslation();
+
+	const fetchBook = async() => {
+		if (book) {
+			await axios.get(`/event/${book}`, {}, {})
+			.then((res) => {
+				console.log('event:', res.event);
+			})
+			.catch((error) => {
+				console.log('Fetch book error:', error);
+			});
+		}
+	};
+
+	useEffect(() => {
+		fetchBook();
+	}, [book]);
 
 	return (
 		<>

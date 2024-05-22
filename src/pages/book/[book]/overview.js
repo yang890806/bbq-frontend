@@ -1,25 +1,49 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import getConfig from 'next/config';
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Carousel } from 'react-bootstrap';
 import { Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faEye, faPlay } from '@fortawesome/free-solid-svg-icons';
+import axios from '@/utils/axios';
 import NavBar from '@/components/navbar';
 import ImageCarousel from '@/components/imageCarousel';
 import styles from '@/styles/book.module.css';
 
-const { publicRuntimeConfig } = getConfig();
+const { 
+	publicRuntimeConfig: { imageWidth, imageHeight } 
+} = getConfig();
 
 function BookOverview() {
 
+	const router = useRouter();
+	const { book } = router.query;
 	const { t } = useTranslation();
 	const profileSize = [35, 35];
 
+	const [bookInfo, setBookInfo] = useState({});
+
 	// TEST
 	const exampleImages = ['/book-example.jpg', '/book-example-2.jpg'];
+
+	const fetchBook = async() => {
+		if (book) {
+			await axios.get(`/event/${book}`, {}, {})
+			.then((res) => {
+				setBookInfo(res.event[0]);
+			})
+			.catch((error) => {
+				console.log('Fetch book error:', error);
+			});
+		}
+	};
+
+	useEffect(() => {
+		fetchBook();
+	}, [book]);
 
 	return (
 		<>
@@ -46,13 +70,13 @@ function BookOverview() {
 				<Col>
 					<ImageCarousel 
 						images={exampleImages} 
-						width={publicRuntimeConfig.imageWidth}
-						height={publicRuntimeConfig.imageHeight}
+						width={imageWidth}
+						height={imageHeight}
 					/>
 				</Col>
 				<Col className='flex flex-col justify-center'>
 					<Row>
-						<Col className='text-4xl font-bold my-3'>Book Title</Col>
+						<Col className='text-4xl font-bold my-3'>{ bookInfo.eventTitle }</Col>
 					</Row>
 					<Row className='my-2'>
 						<Col className='flex text-lg'>
@@ -87,9 +111,7 @@ function BookOverview() {
 						</Col>
 					</Row>
 					<Row>
-						<Col className='h-24 overflow-y-scroll'>
-							A student template for teachers to use introduce Book Creator to middle school students. A student template for teachers to use introduce Book Creator to middle school students. A student template for teachers to use introduce Book Creator to middle school students. A student template for teachers to use introduce Book Creator to middle school students. A student template for teachers to use introduce Book Creator to middle school students. A student template for teachers to use introduce Book Creator to middle school students. 
-						</Col>
+						<Col className='h-24 overflow-y-scroll'>{ bookInfo.eventIntro }</Col>
 					</Row>
 					<Row className='mt-12'>
 						<Col>

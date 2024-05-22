@@ -1,26 +1,78 @@
 import Head from 'next/head';
-import getConfig from 'next/config';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
+import axios from '@/utils/axios';
 import NavBar from '@/components/navbar';
 import ImageUpload from '@/components/imageUpload';
 import styles from '@/styles/book-create.module.css';
-
-const { publicRuntimeConfig } = getConfig();
 
 function BookCreate() {
 
 	const { t } = useTranslation();
 
+	const [bookTitle, setBookTitle] = useState('');
+	const [bookIntro, setBookIntro] = useState('');
 	const [permission, setPermission] = useState('PUBLIC');
 	const [showCode, setShowCode] = useState(false);
-	const [code, setCode] = useState('');
+	const [code, setCode] = useState(null);
 	const [copied, setCopied] = useState(false);
+
+	const showSuccessMsg = () => {
+		Swal.fire({
+			'title': t('Success'), 
+			'text': `${bookTitle} ${t('has been created.')}`, 
+			'icon': 'success', 
+			'confirmButtonColor': '#F5C265', 
+		});
+	};
+
+	const showErrorMsg = () => {
+		Swal.fire({
+			'title': t('Error'), 
+			'text': `${bookTitle} ${t('fails to be created.')}`, 
+			'icon': 'error', 
+			'confirmButtonColor': '#F5C265', 
+		});
+	};
+
+	const handleCancel = () => {
+		setBookTitle('');
+		setBookIntro('');
+		setPermission('PUBLIC');
+		setShowCode(false);
+		setCode(null);
+		setCopied(false);
+	};
+
+	// 發送創建書本API
+	const createBook = async() => {
+		const params = {
+			'creatorId': 1, // TEST
+			'eventTitle': bookTitle,
+			'eventIntro': bookIntro,
+			'eventKey': code, 
+		};
+
+		await axios.post('/event', params)
+			.then((res) => {
+				if (res.createResult.status === 200) {
+					showSuccessMsg();
+				} 
+				else {
+					showErrorMsg();
+				}
+			})
+			.catch((error) => {
+				showErrorMsg();
+				console.log('Create book error:', error);
+			});
+	};
 
 	// 隨機產生活動碼
 	const randomGenCode = (length) => {
@@ -67,19 +119,19 @@ function BookCreate() {
 			{/* 創建書本資訊 */}
 			<Row className='my-10'>
 				<Col xs={4}>
-					<ImageUpload />
+					<ImageUpload/>
 				</Col>
 				<Col className='flex flex-col justify-center'>
 					<Row>
 						<Col className='flex text-lg'>
 							<div className={styles.attribute}>{ t('Book Title') }</div>
-							<input className={styles.titleInput}/>
+							<input value={bookTitle} onChange={(e) => setBookTitle(e.target.value)} className={styles.titleInput}/>
 						</Col>
 					</Row>
 					<Row className='my-3'>
 						<Col className='flex text-lg'>
 							<div className={styles.attribute}>{ t('Introduction') }</div>
-							<textarea className={styles.introInput} placeholder={`${t('Describe')}...`}/>
+							<textarea value={bookIntro} onChange={(e) => setBookIntro(e.target.value)} className={styles.introInput} placeholder={`${t('Describe')}...`}/>
 						</Col>
 					</Row>
 					<Row className='my-3'>
@@ -163,8 +215,8 @@ function BookCreate() {
 			{/* 按鈕區塊 */}
 			<Row className='mb-3'>
 				<Col className='text-center'>
-					<Button className={`${styles.cancelBtn} `}>{ t('Cancel') }</Button>
-					<Button className={`${styles.saveBtn} `}>{ t('Save') }</Button>
+					<Button className={`${styles.cancelBtn} `} onClick={handleCancel}>{ t('Cancel') }</Button>
+					<Button className={`${styles.saveBtn} `} onClick={createBook}>{ t('Save') }</Button>
 				</Col>
 			</Row>
 		</Container>
