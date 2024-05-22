@@ -49,12 +49,7 @@ Third, checkout `develop` branch:
 git checkout develop
 ```
 
-Fourth, run the development server:
-```bash
-node server.js
-```
-
-Fifth, modify `.env` of frontend and backend:
+Fourth, modify `.env` of frontend and backend:
 * Frontend:
 ```bash
 API_ROOT = http://localhost:5000 # 若port已被佔用，可自行更改port，但port要與後端的.env一致
@@ -63,6 +58,11 @@ API_ROOT = http://localhost:5000 # 若port已被佔用，可自行更改port，�
 * Backend:
 ```bash
 SERVER_PORT=5000
+```
+
+Fifth, run the development server:
+```bash
+node server.js
 ```
 
 ## About GitHub
