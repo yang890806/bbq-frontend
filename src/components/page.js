@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Page = React.forwardRef((props, ref) => {
 	return (
-		<div ref={ref} style={{width: '500px'}} className='mx-1'>
+		<div ref={ref} style={{width: '500px'}} className='mx-1 bg-light-cream'>
 			<div className='flex my-2 justify-center text-lg'>
 				<span className='mx-3'>{props.page.title}</span>
 				<Image 
