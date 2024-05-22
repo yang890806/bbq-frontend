@@ -57,12 +57,12 @@ node server.js
 Fifth, modify `.env` of frontend and backend:
 * Frontend:
 ```bash
-API_ROOT = http://localhost:8000 # 若port已被佔用，可自行更改port，但port要與後端的.env一致
+API_ROOT = http://localhost:5000 # 若port已被佔用，可自行更改port，但port要與後端的.env一致
 ```
 
 * Backend:
 ```bash
-SERVER_PORT=8000
+SERVER_PORT=5000
 ```
 
 ## About GitHub

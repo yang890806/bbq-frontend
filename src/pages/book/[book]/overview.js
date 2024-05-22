@@ -3,7 +3,7 @@ import Image from 'next/image';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Carousel } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
