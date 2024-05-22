@@ -121,7 +121,7 @@ function BookOverview() {
 							</div>
 						</Col>
 						<Col>
-							<Link href='/book/view' className='no-underline flex justify-end'>
+							<Link href={`/book/${book}/view`} className='no-underline flex justify-end'>
 								<div className={styles.btn} style={{width: '100px'}}>
 									{ t('Read') }
 									<FontAwesomeIcon icon={faPlay} className="ml-2 mt-1 flex flex-row" />
