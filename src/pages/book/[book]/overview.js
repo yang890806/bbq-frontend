@@ -4,7 +4,7 @@ import getConfig from 'next/config';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from '@mui/material';
+import { Link, Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faEye, faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -33,7 +33,8 @@ function BookOverview() {
 		if (book) {
 			await axios.get(`/event/${book}`, {}, {})
 			.then((res) => {
-				setBookInfo(res.event[0]);
+				setBookInfo(res);
+				console.log(res);
 			})
 			.catch((error) => {
 				console.log('Fetch book error:', error);
@@ -81,33 +82,31 @@ function BookOverview() {
 					<Row className='my-2'>
 						<Col className='flex text-lg'>
 							<span className='mr-3'>{ t('Creator') }</span>
-							<Image 
-								src='/profile-1.JPG' 
+							<Image
+								src='/profile-1.JPG' // TEST
 								width={profileSize[0]}
 								height={profileSize[1]}
 								alt='Example of Profile'
 								className='rounded-full shadow-sm'
 							/>
-							<span className='mx-2'>Puppy</span>
+							<span className='mx-2'>{bookInfo?.creator?.username}</span>
 						</Col>
 					</Row>
 					<Row className='my-2'>
 						<Col className='flex text-lg'>
 							<span className='mr-3'>{ t('Authors') }</span>
-							<Image 
-								src='/profile-2.jpeg' 
-								width={profileSize[0]}
-								height={profileSize[1]}
-								alt='Example of Profile'
-								className='rounded-full shadow-sm mr-1'
-							/>
-							<Image 
-								src='/profile-2.jpeg' 
-								width={profileSize[0]}
-								height={profileSize[1]}
-								alt='Example of Profile'
-								className='rounded-full shadow-sm mr-1'
-							/>
+							{
+								bookInfo?.users?.map((user, i) => 
+								<Tooltip title={user?.username} arrow>
+									<Image 
+										src='/profile-2.jpeg' // TEST
+										width={profileSize[0]}
+										height={profileSize[1]}
+										alt={user?.username}
+										className='rounded-full shadow-sm mr-1'
+									/>
+								</Tooltip>)
+							}
 						</Col>
 					</Row>
 					<Row>

@@ -19,20 +19,37 @@ function BookView() {
 	const { book } = router.query;
 	const { t } = useTranslation();
 
+	const [bookInfo, setBookInfo] = useState({});
+	// const [pages, setPages] = useState([]);
+
 	const fetchBook = async() => {
 		if (book) {
 			await axios.get(`/event/${book}`, {}, {})
-			.then((res) => {
-				console.log('event:', res.event);
-			})
-			.catch((error) => {
-				console.log('Fetch book error:', error);
-			});
+				.then((res) => {
+					setBookInfo(res);
+				})
+				.catch((error) => {
+					console.log('Fetch book error:', error);
+				});
+		}
+	};
+
+	const fetchChapters = async() => {
+		if (book) {
+			await axios.get(`/allChapter/${book}`, {}, {})
+				.then((res) => {
+					// setPages(res.allChapter);
+					console.log('All chapters:', res);
+				})
+				.catch((error) => {
+					console.log('Fetch chapters error:', error);
+				});
 		}
 	};
 
 	useEffect(() => {
 		fetchBook();
+		fetchChapters();
 	}, [book]);
 
 	return (
@@ -56,7 +73,7 @@ function BookView() {
 					</Link>
 				</Col>
 				<Col xs={{span: 4, offset: 2}} className='text-4xl font-bold'>
-					Book Title
+					{ bookInfo.eventTitle }
 				</Col>
 			</Row>
 			<Row>

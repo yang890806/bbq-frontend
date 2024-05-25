@@ -31,6 +31,7 @@ i18n.use(initReactI18next).init({
 				'Success': 'Success', 
 				'has been created.': 'has been created.', 
 				'fails to be created.': 'fails to be created.', 
+				'Chapter 1': 'Chapter 1', 
 			}
 		},
 		zh: {
@@ -59,6 +60,7 @@ i18n.use(initReactI18next).init({
 				'Success': '成功', 
 				'has been created.': '已被建立。', 
 				'fails to be created.': '創建失敗。', 
+				'Chapter 1': '第一章', 
 			}
 		},
 	},

@@ -9,6 +9,9 @@ const {
 } = getConfig();
 
 const ImageUpload = () => {
+	const imgWidth = imageWidth / 1.3;
+	const imgHeight = imageHeight / 1.3;
+
 	const [imagesURL, setImagesURL] = useState([]);
 	const fileUploadRef = useRef();
 
@@ -39,8 +42,8 @@ const ImageUpload = () => {
 				{ (imagesURL.length > 0) && (
 					<ImageCarousel 
 						images={imagesURL} 
-						width={imageWidth / 1.3} 
-						height={imageHeight / 1.3} 
+						width={imgWidth} 
+						height={imgHeight} 
 						onClick={handleImageUpload} 
 					/>
 				)}
@@ -48,10 +51,10 @@ const ImageUpload = () => {
 					<button
 						type='submit'
 						onClick={handleImageUpload}
-						style={{width: `${imageWidth}px`, height: `${imageHeight}px`}}
+						style={{width: `${imgWidth}px`, height: `${imgHeight}px`}}
 						className='bg-zinc-200 rounded'
 					>
-						<FontAwesomeIcon icon={ faPlus } size='2xl' className='text-white'/>
+						<FontAwesomeIcon icon={faPlus} size='2xl' className='text-white'/>
 					</button>
 				)}
 				<input 
