@@ -21,7 +21,6 @@
 
 
 
-
 .btn {
 	display: flex;
 	justify-content: center;
@@ -38,23 +37,6 @@
 
 
 .btn_outline_finish {
-	background-color: #fff;
-	border-radius: 5px;
-	font-size: 16px;
-	border:none ;
-	text-decoration: underline;
-	color: #5A6E5A;
-}
-
-.btn_outline_finish:hover {
-	background-color: #5A6E5A; 
-	color: #fff;
-	border-color: #fff;
-}
-
-
-.btn_outline_processing {
-	background-color: #fff;
 	border-radius: 5px;
 	font-size: 16px;
 	border:none ;
@@ -62,19 +44,37 @@
 	color: #C05E51;
 }
 
-.btn_outline_processing:hover {
-	background-color: #C05E51; 
+.btn_outline_finish:hover {
+	background-color:  #C05E51; 
 	color: #fff;
-	border-color: #fff;
 }
 
-.btn_outline_processing:active {
-	background-color: #5d1d10; 
-	color: #fff;
-	border-color: #fff;
-}
+
 
   
+
+.btn_outline_processing {
+	border-radius: 5px;
+	font-size: 16px;
+	border:none ;
+	text-decoration: underline;
+	color:  #5A6E5A;
+}
+
+.btn_outline_processing:hover {
+	background-color: #5A6E5A; 
+	color: #fff;
+}
+
+
+  
+.btn_group_process {
+	border-color: #5A6E5A !important;
+	font-size: 16px;
+	border:none ;
+	color:  #5A6E5A !important ;
+}
+
 
  
   

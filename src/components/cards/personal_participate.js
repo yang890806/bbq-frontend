@@ -1,10 +1,12 @@
 import {Button ,Card, Image} from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import styles from '@/styles/card.module.css';
+import styles from '@/styles/component-card.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 
 
-function All_processing({ title, image, author, profile, targetDate, State} ) {
+function Personal_participate({ title, image, targetDate, state, part, published, code} ) {
 
   const [timeRemaining, setTimeRemaining] = useState('');
 
@@ -19,7 +21,7 @@ function All_processing({ title, image, author, profile, targetDate, State} ) {
       const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
       setTimeRemaining(
-        `${days}d ${hours}h ${minutes}m ${seconds}s`
+        `${days}d ${hours}h ${minutes}m `
       );
 
       if (timeDiff <= 0) {
@@ -41,35 +43,39 @@ function All_processing({ title, image, author, profile, targetDate, State} ) {
 
 
   return (
-    <div className={styles.bookcard_allprocessing} >
+    <div className={styles.bookcard_personal} >
 
-      <div  className="d-flex justify-content-between align-items-center mb-2">
-        <Card.Title className=' fw-bold fs-4 text-center'  >{title}</Card.Title>
-        <div style={{ display: 'flex'}}>
-          <Image src={profile} 
-          roundedCircle 
-          style={{ width:"20px", objectFit: "scale-down" }}
-          className='mr-2 '
-          />
-          <Card.Text >{author}</Card.Text>
+        <div  className="d-flex justify-content-between align-items-center mb-2">
+            <Card.Title className=' fw-bold fs-4 text-center'  >{title}</Card.Title>
+            <div style={{ display: 'flex'}}>
+                <Card.Text >
+                    {published === 0
+                        ? `活動代碼: ${code}`
+                        : published === 1
+                        ? "狀態: 公開"
+                        : "代碼"
+                    } 
+                </Card.Text>
+            </div>
         </div>
-      </div>
 
       <Card   onClick={() => window.location.href='/book/overview'} >
 
         <Card.Img 
           src={image} 
-          className={styles.bookcard_allprocessing_image}
+          className={styles.bookcard_personal_image}
         />
+
+        
 
         <Card.Body style={{marginTop: -5 }}>
           <div  className="d-flex justify-content-between align-items-center">
-            <div style={{ display: 'flex' }} >
+            <div >
+                <Card.Text className="mr-2 flex flex-row fw-semibold text-green" >段落 {part}</Card.Text>
                 <Card.Text className="mr-2 flex flex-row " >{timeRemaining}</Card.Text>
             </div>
-            <Button style={{fontSize:"12px"}}className={State ? 'px-3 py-1': 'px-1 py-1'} variant={State ? 'success' : 'outline-success'} > {State ? <p> 我要投票!</p> : <p>接龍進行中...</p>} </Button>
-
-            
+            <Button style={{fontSize:"12px"}}className={state ? 'py-1': ' py-1'} variant={state ? 'success' : 'warning'} > {state ? <p className='text'>前往設定  <FontAwesomeIcon icon={ faArrowRight }/></p> : <p className='text'>前往設定  <FontAwesomeIcon icon={ faArrowRight }/></p>} </Button>
+  
           </div>
         </Card.Body>
 
@@ -79,4 +85,4 @@ function All_processing({ title, image, author, profile, targetDate, State} ) {
   )
 }
 
-export default All_processing;
+export default Personal_participate;

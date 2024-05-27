@@ -1,5 +1,5 @@
 import {Card, Image} from 'react-bootstrap';
-import styles from '@/styles/card.module.css';
+import styles from '@/styles/component-card.module.css';
 
 function Cards({ title , content, image, author, profile }) {
   return (
@@ -7,7 +7,7 @@ function Cards({ title , content, image, author, profile }) {
       <Card.Img 
         variant="top" 
         src={image} 
-        className={styles.card_image}
+        className={styles.bookcard_image}
         />
         
 

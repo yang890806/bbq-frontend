@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import {Card, Image, Button} from 'react-bootstrap';
-import styles from '@/styles/card.module.css';
+import styles from '@/styles/component-card.module.css';
 
 function Processing({ title , content, image, Stage, targetDate  }) {
 
@@ -42,7 +42,7 @@ function Processing({ title , content, image, Stage, targetDate  }) {
       <Card.Img 
         variant="top" 
         src={image} 
-        className={styles.card_image}
+        className={styles.bookcard_image}
         />
       
       <Card.Body>

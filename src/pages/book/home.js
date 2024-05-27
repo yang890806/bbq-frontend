@@ -3,26 +3,28 @@ import Image from 'next/image';
 import getConfig from 'next/config';
 ////////////////////////////////////
 import NavBar from '@/components/navbar';
-import Cards from '@/components/cards_finished';
-import Processing from '@/components/cards_processing.js';
+import Cards from '@/components/cards/cards_finished';
+import Processing from '@/components/cards/cards_processing.js';
 ////////////////////////////////////
 import { Container, Row, Col, Carousel, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 ///////////////////////////////////////
-import styles from '@/styles/book-home.module.css';
+import styles from '@/styles/book-brief.module.css';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 function home() {
+    
+    //第一個滾動軸
     const { t } = useTranslation();
+
     //第一個滾動軸
     const [index1, setIndex1] = useState(0);
     //第二個滾動軸
     const [index2, setIndex2] = useState(0);
     //第三個滾動軸
     const [index3, setIndex3] = useState(0);
-
 
   return (
     <>
@@ -66,7 +68,7 @@ function home() {
                         <h2 class="text-2xl mt-5">All Publication</h2>
                         <h2 class="text-4xl font-bold mb-4 text-red">最新出版！</h2>
                     </div>
-                    <Button variant="outline-danger" className={`${styles.btn_outline_processing}  mt-5 fs-5`}   onClick={() => window.location.href='/book/book_finished'} >所有刊物</Button>
+                    <Button variant="outline-danger" className={`${styles.btn_outline_finish}  mt-5 fs-5`}   onClick={() => window.location.href='/book/book_processing'} >所有刊物</Button>
                 </Col>
             </Row>
 
@@ -212,7 +214,7 @@ function home() {
                     <h2 class="text-xl mt-5">Hot Story Continuation</h2>
                     <h2 class="text-4xl font-bold mb-4 text-green">熱門串串串！</h2>
                 </div>
-                <Button variant="outline-success" className={`${styles.btn_outline_finish} mt-5  fs-5 `}   onClick={() => window.location.href='/book/book_processing'}>所有接龍</Button>
+                <Button variant="outline-success" className={`${styles.btn_outline_processing} mt-5  fs-5 `}   onClick={() => window.location.href='/book/book_processing'}>所有接龍</Button>
                 
             
                 </Col>
@@ -223,6 +225,7 @@ function home() {
                 activeIndex={index2} 
                 onSelect={(selectedIndex) => setIndex2(selectedIndex)}
                 variant="dark" 
+                
                 >
                 {/* <!-- 第一篇簡介書本 --> */}
                 <Carousel.Item interval={10000} >
@@ -355,7 +358,7 @@ function home() {
                         <h2 class="text-4xl font-bold mb-4 text-green">我要投票！</h2>
 
                     </div>
-                <Button variant="outline-success" className={`${styles.btn_outline_finish}  mt-5 fs-5`}   onClick={() => window.location.href='/book/overview'}>所有投票</Button>
+                <Button variant="outline-success" className={`${styles.btn_outline_processing}  mt-5 fs-5`}   onClick={() => window.location.href='/book/overview'}>所有投票</Button>
                 </Col>
 
 

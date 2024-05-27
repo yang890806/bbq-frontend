@@ -1,5 +1,5 @@
 import {Card, Image} from 'react-bootstrap';
-import styles from '@/styles/card.module.css';
+import styles from '@/styles/component-card.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faEye, faPlay } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,7 +7,7 @@ import { faChevronLeft, faEye, faPlay } from '@fortawesome/free-solid-svg-icons'
 function All_finished({ title, image, author, profile, viewer }) {
   return (
     <Card  className={styles.bookcard_allfinished} onClick={() => window.location.href='/book/overview'} >
-      <Card.Title className=' fw-bold fs-5 text-center'  >{title}</Card.Title>
+      <Card.Title className=' fw-bold fs-4 text-center '  >{title}</Card.Title>
       <Card.Img 
         src={image} 
         className={styles.bookcard_allfinished_image}
