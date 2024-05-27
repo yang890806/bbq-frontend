@@ -28,6 +28,10 @@ i18n.use(initReactI18next).init({
 				'Cancel': 'Cancel', 
 				'Save': 'Save', 
 				'Copied': 'Copied', 
+				'Success': 'Success', 
+				'has been created.': 'has been created.', 
+				'fails to be created.': 'fails to be created.', 
+				'Chapter 1': 'Chapter 1', 
 			}
 		},
 		zh: {
@@ -53,6 +57,10 @@ i18n.use(initReactI18next).init({
 				'Cancel': '取消', 
 				'Save': '儲存', 
 				'Copied': '已複製', 
+				'Success': '成功', 
+				'has been created.': '已被建立。', 
+				'fails to be created.': '創建失敗。', 
+				'Chapter 1': '第一章', 
 			}
 		},
 	},

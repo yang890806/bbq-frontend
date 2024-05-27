@@ -19,7 +19,7 @@ module.exports = {
 				"green": "#5A6E5A", 
 				"cream": "#D8D5C4", 
 				"dark-cream": "#A09C8A", 
-				"bg-cream": "#FCFBF7",
+				"light-cream": "#FCFBF7",
 			},
 		},
 	},
