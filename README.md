@@ -29,6 +29,42 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Fetch API
+
+First, git clone backend api repository:
+
+```bash
+git clone https://github.com/Yslin0728/webapp.git
+```
+
+Second, install packages:
+
+```bash
+npm install
+```
+
+Third, checkout `develop` branch:
+
+```bash
+git checkout develop
+```
+
+Fourth, modify `.env` of frontend and backend:
+* Frontend:
+```bash
+API_ROOT = http://localhost:5000 # 若port已被佔用，可自行更改port，但port要與後端的.env一致
+```
+
+* Backend:
+```bash
+SERVER_PORT=5000
+```
+
+Fifth, run the development server:
+```bash
+node server.js
+```
+
 ## About GitHub
 
 ### Clone Repository

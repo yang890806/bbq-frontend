@@ -17,10 +17,13 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/material": "^5.15.16",
+    "@mui/styles": "^5.15.18",
+    "axios": "^1.7.2",
     "@uiw/react-copy-to-clipboard": "^4.22.3",
     "bootstrap": "^5.3.3",
     "cookies-next": "^4.1.1",
     "i18next": "^23.11.3",
+    "moment": "^2.30.1",
     "next": "14.2.3",
     "next-i18next": "^15.3.0",
     "react": "^18",
@@ -30,7 +33,9 @@
     "react-fontawesome": "^1.7.1",
     "react-i18next": "^14.1.1",
     "react-native": "^0.74.1",
-    "react-router-dom": "^6.23.0"
+    "react-pageflip": "^2.0.3",
+    "react-router-dom": "^6.23.0",
+    "sweetalert2": "^11.11.0"
   },
   "devDependencies": {
     "eslint": "^8",
