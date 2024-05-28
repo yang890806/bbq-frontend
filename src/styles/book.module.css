@@ -24,3 +24,18 @@
 .btn:hover {
 	background-color: #EABB60;
 }
+
+.userTitle {
+	height: 30px;
+	display: flex;
+	align-items: center;
+
+	color: #5A6E5A;
+	font-weight: bold;
+
+	border: #5A6E5A 1px solid;
+	border-radius: 50px;
+
+	padding: 0px 10px;
+	margin-right: 10px;
+}

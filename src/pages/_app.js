@@ -12,14 +12,14 @@ const theme = createTheme({
 	}
 });
 
-function App({ Component, pageProps }) {
-  	return (
+const App = ({ Component, pageProps }) => {
+	return (
 		<ThemeProvider theme={theme}>
 			<main className={zenMaruGothic.variable}>
 				<Component {...pageProps} />
 			</main>
 		</ThemeProvider>
 	);
-}
+};
 
 export default App;

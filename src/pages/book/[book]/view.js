@@ -11,16 +11,13 @@ import NavBar from '@/components/navbar';
 import BookViewer from '@/components/bookViewer';
 import styles from '@/styles/book.module.css';
 
-// TEST
-import pages from '@/mock/pages';
-
 function BookView() {
 	const router = useRouter();
 	const { book } = router.query;
 	const { t } = useTranslation();
 
 	const [bookInfo, setBookInfo] = useState({});
-	// const [pages, setPages] = useState([]);
+	const [pages, setPages] = useState([]);
 
 	const fetchBook = async() => {
 		if (book) {
@@ -38,7 +35,7 @@ function BookView() {
 		if (book) {
 			await axios.get(`/allChapter/${book}`, {}, {})
 				.then((res) => {
-					// setPages(res.allChapter);
+					setPages(res);
 					console.log('All chapters:', res);
 				})
 				.catch((error) => {
@@ -78,7 +75,7 @@ function BookView() {
 			</Row>
 			<Row>
 				<Col className='flex justify-center'>
-					<BookViewer pages={pages}/>
+					{pages.length && <BookViewer pages={pages}/>}
 				</Col>
 			</Row>
 		</Container>

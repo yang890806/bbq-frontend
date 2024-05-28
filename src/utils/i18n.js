@@ -11,6 +11,7 @@ i18n.use(initReactI18next).init({
 				'Back': 'Back',
 				'Books': 'Books', 
 				'Login': 'Login',  
+				'Logout': 'Logout', 
 				'Creator': 'Creator', 
 				'Authors': 'Authors', 
 				'Read': 'Read',
@@ -32,6 +33,10 @@ i18n.use(initReactI18next).init({
 				'has been created.': 'has been created.', 
 				'fails to be created.': 'fails to be created.', 
 				'Chapter 1': 'Chapter 1', 
+				'Join Event': 'Join Event', 
+				'My Events': 'My Events', 
+				'Enter Code': 'Enter Code', 
+				'Confirm': 'Confirm', 
 			}
 		},
 		zh: {
@@ -40,6 +45,7 @@ i18n.use(initReactI18next).init({
 				'Back': '返回', 
 				'Books': '所有書本', 
 				'Login': '登入', 
+				'Logout': '登出', 
 				'Creator': '建立者', 
 				'Authors': '作者', 
 				'Read': '閱讀', 
@@ -61,6 +67,10 @@ i18n.use(initReactI18next).init({
 				'has been created.': '已被建立。', 
 				'fails to be created.': '創建失敗。', 
 				'Chapter 1': '第一章', 
+				'Join Event': '加入活動', 
+				'My Events': '我的活動', 
+				'Enter Code': '輸入活動碼',
+				'Confirm': '確定',  
 			}
 		},
 	},

@@ -15,3 +15,29 @@
 	color: #FFFFFF;
 	background-color: #C46557;
 }
+
+.confirmBtn {
+	background-color: #C05E51;
+	color: #FFFFFF;
+	padding: 5px 20px;
+	font-weight: bold;
+	border-radius: 50px;
+}
+
+.confirmBtn:hover {
+	background-color: #C46557;
+}
+
+.codeInput {
+	background-color: transparent;
+	color: #A09C8A;
+	outline: none;
+	text-align: center;
+	font-weight: bold;
+
+	border-width: 0 0 1px 0;
+	border-color: #A09C8A;
+	border-style: solid;
+
+	padding: 5px 5px;
+}
