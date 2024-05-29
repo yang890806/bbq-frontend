@@ -35,7 +35,7 @@ i18n.use(initReactI18next).init({
 				'Chapter 1': 'Chapter 1', 
 				'Join Event': 'Join Event', 
 				'My Events': 'My Events', 
-				'Enter Code': 'Enter Code', 
+				'Enter event code': 'Enter event code', 
 				'Confirm': 'Confirm', 
 			}
 		},
@@ -69,7 +69,7 @@ i18n.use(initReactI18next).init({
 				'Chapter 1': '第一章', 
 				'Join Event': '加入活動', 
 				'My Events': '我的活動', 
-				'Enter Code': '輸入活動碼',
+				'Enter event code': '輸入活動碼',
 				'Confirm': '確定',  
 			}
 		},

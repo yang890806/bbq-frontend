@@ -148,10 +148,10 @@ function NavBar() {
 			</Container>
 		</Navbar>
 		{showJoinModal && (
-			<BaseModal className='text-md text-center' show={showJoinModal} handleClose={() => setShowJoinModal(false)}>
+			<BaseModal className='text-md text-center' show={showJoinModal} handleClose={() => setShowJoinModal(false)} style={{width: '30vw'}}>
 				<Row>
 					<Col>
-						<h1 className='text-3xl font-bold'>{t('Enter Code')}</h1>
+						<h1 className='text-3xl font-bold'>{t('Join Event')}</h1>
 					</Col>
 				</Row>
 				<Row>
@@ -161,6 +161,7 @@ function NavBar() {
 								id='eventCode' 
 								type='text' 
 								className={styles.codeInput}
+								placeholder={`${t('Enter event code')}`}
 								value={eventCode}
 								onChange={(e) => setEventCode(e.target.value)}
 							/>

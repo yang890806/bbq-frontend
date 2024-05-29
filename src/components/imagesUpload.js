@@ -8,7 +8,7 @@ const {
 	publicRuntimeConfig: { imageWidth, imageHeight } 
 } = getConfig();
 
-const ImageUpload = () => {
+const ImagesUpload = () => {
 	const imgWidth = imageWidth / 1.3;
 	const imgHeight = imageHeight / 1.3;
 
@@ -70,4 +70,4 @@ const ImageUpload = () => {
 	);
 }
 
-export default ImageUpload;
+export default ImagesUpload;
