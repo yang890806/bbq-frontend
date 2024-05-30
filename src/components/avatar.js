@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import convertImage from '@/components/convertImage';
 
 function Avatar({ avatar, username, width, height, className }) {
 	return (
 		avatar ? (
 			<Image
-				src={avatar}
+				src={convertImage(avatar)}
 				width={width}
 				height={height}
 				alt={username}

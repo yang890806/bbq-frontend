@@ -2,20 +2,21 @@ import Head from 'next/head';
 import Image from 'next/image';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
-import { Buffer } from 'buffer';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link, Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faEye, faPlay } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 import axios from '@/utils/axios';
 import NavBar from '@/components/navbar';
 import Avatar from '@/components/avatar';
+import convertImage from '@/components/convertImage';
 import styles from '@/styles/book.module.css';
 
 const { 
-	publicRuntimeConfig: { imageWidth, imageHeight } 
+	publicRuntimeConfig: { frontendRoot, imageWidth, imageHeight } 
 } = getConfig();
 
 function BookOverview() {
@@ -27,27 +28,38 @@ function BookOverview() {
 
 	const [bookInfo, setBookInfo] = useState({});
 
+	const showErrorMsg = (text) => {
+		Swal.fire({
+			'title': t('Oops...'), 
+			'text': text, 
+			'icon': 'error', 
+			'confirmButtonColor': '#F5C265', 
+		}).then(() => {
+			window.location.replace(frontendRoot);
+		});
+	};
+
 	const fetchBook = async() => {
 		if (book) {
 			await axios.get(`/event/${book}`, {}, {})
 				.then((res) => {
 					if (res.status === 200) {
-						res.data.eventImage = convertImage(res?.data?.eventImage);
-						setBookInfo(res.data);
+						if (res?.data?.isPublish === 1) {
+							res.data.eventImage = convertImage(res?.data?.eventImage);
+							setBookInfo(res.data);
+						}
+						else {
+							showErrorMsg(t('The book has not been published yet...'));
+						}
+					}
+					else {
+						showErrorMsg(t('The book is not found...'));
 					}
 				})
 				.catch((error) => {
 					console.log('Fetch book error:', error);
 				});
 		}
-	};
-
-	const convertImage = (image) => {
-		if (image) {
-			const base64 = Buffer.from(image.data, 'binary').toString('base64');
-			return `data:image/png;base64,${base64}`;
-		}
-		return null;
 	};
 
 	useEffect(() => {

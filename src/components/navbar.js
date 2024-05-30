@@ -1,24 +1,26 @@
+import getConfig from 'next/config';
 import { forwardRef, useState, useEffect } from 'react';
-import getConfig from "next/config";
-import { setCookie, getCookie, deleteCookie } from 'cookies-next';
+import { setCookie, getCookie } from 'cookies-next';
 import { Row, Col, Navbar, Nav, Container, Dropdown, DropdownItemText } from 'react-bootstrap';
 import { Button } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/utils/i18n';
-import axios from '@/utils/axios';
-import getMyInfo from '@/auth/my-info';
+import getMyInfo from '@/auth/me';
+import handleLogin from '@/auth/handleLogin';
+import handleLogout from '@/auth/handleLogout';
 import Avatar from '@/components/avatar';
 import BaseModal from '@/components/modal';
 import styles from '@/styles/navbar.module.css';
 
-const { 
-	publicRuntimeConfig: { accessTokenMaxAge } 
+const {
+    publicRuntimeConfig: { frontendRoot, apiRoot }
 } = getConfig();
 
 function NavBar() {
 	const { t } = useTranslation();
+	const [url, setUrl] = useState(frontendRoot);
 	const [lang, setLang] = useState(getCookie('lang') ?? 'en');
 	const [user, setUser] = useState({});
 	const [showJoinModal, setShowJoinModal] = useState(false);
@@ -35,8 +37,9 @@ function NavBar() {
 		i18n.changeLanguage(newLang);
 	};
 
-	const getUser = () => {
-		setUser(getMyInfo());
+	const getUser = async() => {
+		const info = await getMyInfo();
+		setUser(info);
 	};
 
 	const userMenu = forwardRef(({ children, onClick }, ref) => {
@@ -54,34 +57,9 @@ function NavBar() {
 		);
 	});
 
-	const login = async() => {
-
-		const accessToken = '12345'; // TEST
-		setCookie('access-token', accessToken, { maxAge: accessTokenMaxAge });
-
-		getUser();
-		
-		// const params = { redirectURL: window.location.href };
-		// await axios.get('/auth/google', { params })
-		// 	.then((res) => {
-				
-		// 		// access token存入cookie
-		// 		const accessToken = '12345'; // TEST
-		// 		setCookie('access-token', accessToken, { maxAge: accessTokenMaxAge });
-
-		// 		// 根據access token取得user資料
-		// 		getUser();
-
-		// 		console.log('Success');
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log('Error:', error);
-		// 	});
-	};
-
 	// 登出
 	const logout = () => {
-		deleteCookie('access-token');
+		handleLogout();
 		getUser();
 	};
 
@@ -91,7 +69,9 @@ function NavBar() {
 	};
 
 	useEffect(() => {
+		setUrl(window.location.href);
 		initalLang();
+		handleLogin();
 		getUser();
 	}, []);
 
@@ -114,7 +94,7 @@ function NavBar() {
 						<Nav.Link href="/" className="text-black hover:underline">
 							{ t('Books') }
 						</Nav.Link>
-						{user?.userId ? (
+						{user?.uId ? (
 							<Dropdown className='flex justify-center items-center mx-2'>
 								<Dropdown.Toggle as={userMenu}>
 									<Avatar 
@@ -133,10 +113,8 @@ function NavBar() {
 								</Dropdown.Menu>
 							</Dropdown>
 						) : (
-							<Nav.Link>
-								<Button onClick={login} className={ styles.loginBtn }>
-									{ t('Login') }
-								</Button>
+							<Nav.Link href={`${apiRoot}/auth/google/login?client_url=${url}`}>
+								<div className={ styles.loginBtn }>{ t('Login') }</div>
 							</Nav.Link>
 						)}
 						<Nav.Link className="text-black hover:underline" onClick={ handleLang }>

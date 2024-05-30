@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCookie } from 'cookies-next';
 import getConfig from 'next/config';
 
 const { 
@@ -12,13 +13,10 @@ const instance = axios.create();
 // 前攔截器
 instance.interceptors.request.use(
     (config) => {
-        // const accessToken = getAccessToken();
-        // if (accessToken) {
-        //     config.headers.Authorization = `Bearer ${accessToken}`;
-        // }
-        // else {
-        //     console.log("No access token found.");
-        // }
+        const accessToken = getCookie('access-token');
+        if (accessToken) {
+            config.headers.Authorization = `Bearer ${accessToken}`;
+        }
         return config;
     },
     (error) => Promise.reject(error)

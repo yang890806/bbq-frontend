@@ -37,6 +37,8 @@ i18n.use(initReactI18next).init({
 				'My Events': 'My Events', 
 				'Enter event code': 'Enter event code', 
 				'Confirm': 'Confirm', 
+				'The book has not been published yet...': 'The book has not been published yet...', 
+				'The book is not found...': 'The book is not found...', 
 			}
 		},
 		zh: {
@@ -70,7 +72,9 @@ i18n.use(initReactI18next).init({
 				'Join Event': '加入活動', 
 				'My Events': '我的活動', 
 				'Enter event code': '輸入活動碼',
-				'Confirm': '確定',  
+				'Confirm': '確定', 
+				'The book has not been published yet...': '該書本尚未發行...', 
+				'The book is not found...': '查無此書...', 
 			}
 		},
 	},

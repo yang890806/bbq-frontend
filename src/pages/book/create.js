@@ -85,9 +85,8 @@ function BookCreate() {
 		setShowLoading(true);
 		await axios.post('/event', formData, { headers: {'Content-Type': 'multipart/form-data'} })
 			.then((res) => {
-				console.log('res:', res);
+				setShowLoading(false);
 				if (res.status === 200) {
-					setShowLoading(false);
 					setShowModal(true);
 				}
 				else {
