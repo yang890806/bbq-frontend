@@ -26,7 +26,7 @@ instance.interceptors.request.use(
 
 // 後攔截器
 instance.interceptors.response.use(
-    ({ data }) => data,
+    ({ data }) => ({ status: 200, data }), 
     ({
         response: {
             status,

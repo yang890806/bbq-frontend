@@ -31,8 +31,10 @@ function BookOverview() {
 		if (book) {
 			await axios.get(`/event/${book}`, {}, {})
 				.then((res) => {
-					res.eventImage = convertImage(res?.eventImage);
-					setBookInfo(res);
+					if (res.status === 200) {
+						res.data.eventImage = convertImage(res?.data?.eventImage);
+						setBookInfo(res.data);
+					}
 				})
 				.catch((error) => {
 					console.log('Fetch book error:', error);
