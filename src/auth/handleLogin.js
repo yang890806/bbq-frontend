@@ -10,7 +10,9 @@ const {
 } = getConfig();
 
 const setToken = ({ userId, accessToken, refreshToken }) => {
-	setCookie('user-id', userId);
+	setCookie('user-id', userId, {
+		maxAge: refreshTokenMaxAge
+	});
 	
 	setCookie('access-token', accessToken, {
 		maxAge: accessTokenMaxAge
