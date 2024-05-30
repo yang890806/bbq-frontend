@@ -3,7 +3,6 @@ import { setCookie } from 'cookies-next';
 
 const {
     publicRuntimeConfig: {
-		frontendRoot, 
         accessTokenMaxAge,
         refreshTokenMaxAge
     }
