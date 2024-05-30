@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Divider } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faLock, faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
-import { XlviLoader } from 'react-awesome-loaders';
+import { HashLoader } from 'react-spinners';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import axios from '@/utils/axios';
@@ -372,11 +372,7 @@ function BookCreate() {
 		{/* Loading動畫 */}
 		{showLoading && (
 			<div className='w-screen h-screen absolute z-50 top-0 left-0 flex justify-center items-center bg-opacity-50 bg-black'>
-				<XlviLoader
-					boxColors={["#F5C265", "#C05E51", "#5A6E5A"]}
-					desktopSize={'50px'}
-					mobileSize={'50px'}
-				/>
+				<HashLoader color='#F5C265' loading={showLoading} aria-label='Loading' />
 			</div>
 		)}
 		</>
