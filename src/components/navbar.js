@@ -1,8 +1,7 @@
 import getConfig from 'next/config';
 import { forwardRef, useState, useEffect } from 'react';
 import { setCookie, getCookie } from 'cookies-next';
-import { Row, Col, Navbar, Nav, Container, Dropdown, DropdownItemText } from 'react-bootstrap';
-import { Button } from '@mui/material';
+import { Navbar, Nav, Container, Dropdown, DropdownItemText } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +10,6 @@ import getMyInfo from '@/auth/me';
 import handleLogin from '@/auth/handleLogin';
 import handleLogout from '@/auth/handleLogout';
 import Avatar from '@/components/avatar';
-import BaseModal from '@/components/modal';
 import styles from '@/styles/navbar.module.css';
 
 const {
@@ -23,8 +21,6 @@ function NavBar() {
 	const [url, setUrl] = useState(frontendRoot);
 	const [lang, setLang] = useState(getCookie('lang') ?? 'en');
 	const [user, setUser] = useState({});
-	const [showJoinModal, setShowJoinModal] = useState(false);
-	const [eventCode, setEventCode] = useState('');
 
 	const initalLang = () => {
 		i18n.changeLanguage(lang);
@@ -61,11 +57,6 @@ function NavBar() {
 	const logout = () => {
 		handleLogout();
 		getUser();
-	};
-
-	// 加入活動
-	const joinEvent = () => {
-		console.log('eventCode:', eventCode);
 	};
 
 	useEffect(() => {
@@ -108,7 +99,6 @@ function NavBar() {
 								<Dropdown.Menu className='text-center'>
 									<DropdownItemText>Hello, {user?.username}!</DropdownItemText>
 									<Dropdown.Item className='hover:bg-light-yellow focus:bg-yellow' href='/'>{t('My Events')}</Dropdown.Item>
-									<Dropdown.Item className='hover:bg-light-green focus:bg-green' onClick={() => setShowJoinModal(true)}>{t('Join Event')}</Dropdown.Item>
 									<Dropdown.Item className='hover:bg-light-red focus:bg-red' onClick={logout}>{t('Logout')}</Dropdown.Item>
 								</Dropdown.Menu>
 							</Dropdown>
@@ -125,30 +115,6 @@ function NavBar() {
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>
-		{showJoinModal && (
-			<BaseModal className='text-md text-center' show={showJoinModal} handleClose={() => setShowJoinModal(false)} style={{width: '30vw'}}>
-				<Row>
-					<Col>
-						<h1 className='text-3xl font-bold'>{t('Join Event')}</h1>
-					</Col>
-				</Row>
-				<Row>
-					<Col>
-						<div className='my-6'>
-							<input 
-								id='eventCode' 
-								type='text' 
-								className={styles.codeInput}
-								placeholder={`${t('Enter event code')}`}
-								value={eventCode}
-								onChange={(e) => setEventCode(e.target.value)}
-							/>
-						</div>
-						<Button className={styles.confirmBtn} onClick={joinEvent}>{ t('Confirm') }</Button>
-					</Col>
-				</Row>
-			</BaseModal>
-		)}
 		</>
 	);
 }
