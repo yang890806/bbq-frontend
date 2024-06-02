@@ -17,7 +17,7 @@ function VotingComponent() {
           <div
             className={`flex-none w-full sm:w-auto md:w-1/4 px-1 py-1 mx-2 rounded-lg ${
               selectedItemIndex === index ? "bg-orange-300" : ""
-            } hover:bg-orange-300`}
+            } hover:bg-orange-300 cursor-pointer`}
             key={index}
             style={{ minWidth: "300px" }}
             onClick={() => handleItemClick(index)}
