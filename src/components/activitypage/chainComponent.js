@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "@/styles/activity-activity.module.css";
 
 function ChainComponent() {
   const [showOriginalContent, setShowOriginalContent] = useState(true);
@@ -21,7 +22,7 @@ function ChainComponent() {
     <div style={{ position: "relative" }}>
       {showOriginalContent ? (
         <div className="flex justify-center items-start p-2">
-          <div className="border-dashed border-4 border-gray-300 w-96 h-80 flex justify-center items-center mr-8">
+          <div className="bg-white border-dashed border-4 border-gray-300 w-96 h-80 flex justify-center items-center mr-8">
             {/* 空白框框 */}
           </div>
           <div className="flex flex-col justify-between ml-4">
@@ -32,7 +33,7 @@ function ChainComponent() {
             <div className="flex justify-end">
               {/* 我要接龍按鈕 */}
               <button
-                className="bg-orange-300 text-black font-semibold py-2 px-4 rounded-full"
+                className="bg-orange-300 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded-full transition-colors duration-300"
                 style={{ position: "absolute", bottom: "10px", right: "20px" }}
                 onClick={handleButtonClick}
               >
@@ -44,7 +45,7 @@ function ChainComponent() {
       ) : (
         <div className="flex justify-center items-start p-2">
           {/* 新的空白內容 */}
-          <div className="border-dashed border-4 border-gray-300 w-96 h-80 flex justify-center items-center mr-8">
+          <div className="bg-white border-dashed border-4 border-gray-300 w-96 h-80 flex justify-center items-center mr-8">
             <input
               type="file"
               id="fileInput"
@@ -74,12 +75,12 @@ function ChainComponent() {
               style={{ position: "absolute", bottom: "10px", right: "20px" }}
             >
               <button
-                className="bg-orange-300 text-black font-semibold py-2 px-4 rounded-full self-start mt-auto mr-2"
+                className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-300 mr-2"
                 onClick={handleCancelClick} // 將取消按鈕的點擊事件設定為 handleCancelClick
               >
                 取消
               </button>
-              <button className="bg-orange-300 text-black font-semibold py-2 px-4 rounded-full self-start mt-auto">
+              <button className="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded-full transition-colors duration-300">
                 投稿
               </button>
             </div>

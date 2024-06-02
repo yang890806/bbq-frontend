@@ -53,7 +53,7 @@ function activity() {
           <div className="flex">
             <Introduction />
             <div className="text-right">
-              <button className="bg-orange-300 text-white font-bold py-3 px-6 rounded-full ml-12">
+              <button className="bg-orange-300 hover:bg-orange-400 text-white font-bold py-3 px-6 rounded-full ml-12">
                 發布故事！
               </button>
             </div>

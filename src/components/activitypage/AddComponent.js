@@ -54,12 +54,12 @@ function AddComponent() {
               </div>
               <div className="flex">
                 <button
-                  className="bg-orange-300 text-white font-bold py-2 px-4 rounded-full"
+                  className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded-full"
                   onClick={handleCancel}
                 >
                   取消
                 </button>
-                <button className="bg-orange-300 text-white font-bold py-2 px-4 rounded-full ml-2">
+                <button className="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded-full ml-2">
                   創建
                 </button>
               </div>
