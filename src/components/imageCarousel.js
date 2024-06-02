@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 
 function ImageCarousel({ images, width, height, onClick }) {
+	
 	const [index, setIndex] = useState(0);
 
 	const handleSelect = (selectedIndex) => {

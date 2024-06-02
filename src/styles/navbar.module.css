@@ -1,3 +1,13 @@
+.header{
+    position: sticky;
+    top:0 ;
+    background-color: white;
+    z-index: 100;
+    border: 1px solid var(--twitter-background);
+    padding: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 調整陰影的大小和顏色 */
+}
+
 .loginBtn {
 	height: 30px;
 	width: 80px;
@@ -6,7 +16,7 @@
 	align-items: center;
 	background-color: #C05E51;
 	border-radius: 50px;
-
+	z-index: 1;
 	color: #FFFFFF;
 	text-align: center;
 }
