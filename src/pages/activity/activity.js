@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import NavBar from "@/components/navbar";
 import { Container } from "react-bootstrap";
 import styles from "@/styles/activity-activity.module.css";
-import Introduction from "./introduction";
-import CompleteComponent from "./completeComponent";
-import VotingComponent from "./votingComponent";
-import ChainComponent from "./chainComponent";
+import Introduction from "../../components/activitypage/introduction";
+import CompleteComponent from "../../components/activitypage/completeComponent";
+import VotingComponent from "../../components/activitypage/votingComponent";
+import ChainComponent from "../../components/activitypage/chainComponent";
 
 function activity() {
   // 使用物件來追蹤每個章節的展開狀態
