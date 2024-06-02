@@ -7,6 +7,7 @@ import Introduction from "./introduction";
 import CompleteComponent from "./completeComponent";
 import VotingComponent from "./votingComponent";
 import ChainComponent from "./chainComponent";
+import AddComponent from "./AddComponent";
 
 function activity() {
   // 使用物件來追蹤每個章節的展開狀態
@@ -49,7 +50,14 @@ function activity() {
       <Container>
         <div className="pt-16 pb-20">
           {/* 簡介 */}
-          <Introduction />
+          <div className="flex">
+            <Introduction />
+            <div className="text-right">
+              <button className="bg-orange-300 text-white font-bold py-3 px-6 rounded-full ml-12">
+                發布故事！
+              </button>
+            </div>
+          </div>
 
           {/* 章節部分開始 */}
           <div className="space-y-6 my-4">
@@ -94,6 +102,7 @@ function activity() {
                 )}
               </div>
             ))}
+            <AddComponent />
           </div>
         </div>
       </Container>

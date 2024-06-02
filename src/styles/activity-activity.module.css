@@ -18,6 +18,40 @@
   color: #fadead;
 }
 
+.add {
+  display: flex; /* 使元素成為一個 flex 容器 */
+  justify-content: center; /* 水平居中對齊 */
+  align-items: center; /* 垂直居中對齊 */
+  background-color: #FCFBF7;
+  color: #5b6e5a;
+  font-weight: bold;
+  padding: 1rem 1.5rem; /* 這裡的 1rem 和 1.5rem 分別對應上下和左右的 padding */
+  border-radius: 0.375rem; /* 這裡的 0.375rem 對應到 rounded */
+  border: 2px dashed #5b6e5a; /* 添加虛線邊框 */
+  width: 100%; /* 確保按鈕佔滿父容器的寬度 */
+  cursor: pointer; /* 添加鼠標懸停時的指針樣式 */
+  text-align: center; /* 確保文本居中對齊 */
+  outline: none; /* 移除默認的按鈕邊框 */
+}
+
+/* 添加按鈕的懸停和點擊效果 */
+.add:hover {
+  background-color: #f6f4eb;
+}
+
+.add:active {
+  background-color: #e9e5d7;
+}
+
+
+.newChapter {
+  color: #5b6e5a;
+  padding: 1rem 1.5rem; /* 這裡的 1rem 和 1.5rem 分別對應上下和左右的 padding */
+  border-radius: 0.375rem; /* 這裡的 0.375rem 對應到 rounded */
+  border: 2px dashed #5b6e5a; /* 添加虛線邊框 */
+}
+
+
 .voting {
   display: flex;
   align-items: center;
@@ -40,4 +74,13 @@
 
 .card-container:hover {
   border-color: #ff7e29; /* 悬停时的边框颜色 */
+}
+
+.expand-animation {
+  transition: max-height 0.3s ease-in-out; /* 使用 transition 屬性來定義動畫效果 */
+}
+
+.expand-animation.collapsed {
+  max-height: 0; /* 初始時設置最大高度為 0 */
+  overflow: hidden; /* 隱藏溢出內容 */
 }

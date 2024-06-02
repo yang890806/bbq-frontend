@@ -1,8 +1,8 @@
 import React from "react";
 
-function Expand() {
+function CompleteComponent() {
   return (
-    <div className="flex justify-center items-start ">
+    <div className="flex justify-center items-start">
       <div className="flex flex-row space-x-6 p-2">
         <div className="w-96 h-80 bg-gray-300 shadow-md rounded-[10px]"></div>
         <div className="bg-white p-6 shadow-md">
@@ -17,4 +17,4 @@ function Expand() {
   );
 }
 
-export default Expand;
+export default CompleteComponent;
