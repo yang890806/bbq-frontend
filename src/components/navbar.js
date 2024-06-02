@@ -10,8 +10,8 @@ import getMyInfo from '@/auth/me';
 import handleLogin from '@/auth/handleLogin';
 import handleLogout from '@/auth/handleLogout';
 import Avatar from '@/components/avatar';
+import BookSearch from '@/components/bookSearch';
 import styles from '@/styles/navbar.module.css';
-import BookSearch from '@/components/BookSearch';
 
 const {
     publicRuntimeConfig: { frontendRoot, apiRoot }
@@ -70,17 +70,17 @@ function NavBar() {
 	return (
 		<Navbar  className={ styles.header } >
 			<Container>
-				<Navbar.Brand href="/book/home" bsPrefix="text-2xl no-underline" className="text-black font-bold">
+				<Navbar.Brand href='/' bsPrefix='text-2xl no-underline' className='text-black font-bold'>
 					<span className='text-red'>B</span>
 					<span className='text-yellow'>B</span>
 					<span className='text-green'>Q</span>
 				</Navbar.Brand>
-				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
-				<Navbar.Collapse id="responsive-navbar-nav" className="flex justify-end mt-1 border-b-white">
-					<Nav className="me-auto" />
+				<Navbar.Toggle aria-controls='responsive-navbar-nav' />
+				<Navbar.Collapse id='responsive-navbar-nav' className='flex justify-end mt-1 border-b-white'>
+					<Nav className='me-auto' />
 					<Nav>
 						<BookSearch/>
-						<Nav.Link href="/book/book_processing?status=finished" className="text-black hover:underline">
+						<Nav.Link href='/book/processing?status=finished' className='text-black hover:underline'>
 							{ t('Books') }
 						</Nav.Link>
 						{user?.uId ? (
@@ -96,7 +96,7 @@ function NavBar() {
 								</Dropdown.Toggle>
 								<Dropdown.Menu className='text-center'>
 									<DropdownItemText>Hello, {user?.username}!</DropdownItemText>
-									<Dropdown.Item className='hover:bg-light-yellow focus:bg-yellow' href='/'>{t('My Events')}</Dropdown.Item>
+									<Dropdown.Item className='hover:bg-light-yellow focus:bg-yellow' href='/book/personal'>{t('My Events')}</Dropdown.Item>
 									<Dropdown.Item className='hover:bg-light-red focus:bg-red' onClick={logout}>{t('Logout')}</Dropdown.Item>
 								</Dropdown.Menu>
 							</Dropdown>
@@ -105,8 +105,8 @@ function NavBar() {
 								<div className={ styles.loginBtn }>{ t('Login') }</div>
 							</Nav.Link>
 						)}
-						<Nav.Link className="text-black hover:underline" onClick={ handleLang }>
-							<FontAwesomeIcon icon={ faEarthAmericas } className="mr-2"/>
+						<Nav.Link className='text-black hover:underline' onClick={ handleLang }>
+							<FontAwesomeIcon icon={ faEarthAmericas } className='mr-2'/>
 							中 | EN
 						</Nav.Link>
 					</Nav>

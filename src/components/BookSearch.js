@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Image, Row, Col, Button } from 'react-bootstrap';
 import { useSpring, animated } from '@react-spring/web';
-import styles from '@/styles/BookSearch.module.css';
+import styles from '@/styles/book-search.module.css';
 import { useTranslation } from 'react-i18next';
 
 const BookSearch = () => {
@@ -58,7 +58,7 @@ const BookSearch = () => {
 
 
   return (
-    <div>
+    <>
       <button className= {`text-black hover:underline ${styles.button}`} onClick={openModal}>{ t('Find Events') }</button>
       {isOpen && (
         <div className={styles.modalOverlay} onClick={closeModal}>
@@ -114,7 +114,7 @@ const BookSearch = () => {
                      <span className={`ml-1 mt-2  ${styles.text_truncate_multiline}`}>{results[0].eventIntro}</span>
                    </Row>
                    <Row>
-                     <Button variant="outline-success" className={`${styles.btn_outline_finish}  mt-4 fs-8`}   onClick={() => window.location.href='/book/book_processing'} >
+                     <Button variant="outline-success" className={`${styles.btn_outline_finish}  mt-4 fs-8`}   onClick={() => window.location.href='/book/processing'} >
                        {t('Join Activity!')}
                      </Button>
                    </Row>
@@ -130,7 +130,7 @@ const BookSearch = () => {
           </animated.div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
