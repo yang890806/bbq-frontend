@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import { makeStyles } from '@mui/styles';
+import { StylesContext, makeStyles } from '@mui/styles';
 import Modal from '@mui/material/Modal';
 import zenMaruGothic from '@/utils/font';
 
@@ -31,7 +31,7 @@ function BaseModal(props) {
 			aria-labelledby='modal-modal-title'
 			aria-describedby='modal-modal-description'
 		>
-			<Container className={`${modalStyles.modal} ${props.className}`}>
+			<Container className={`${modalStyles.modal} ${props.className}`} style={props.style}>
 				<Row>
 					<Col className='text-end text-3xl text-green font-bold'>
 						<button className='hover:rotate-12' onClick={props.handleClose}>&times;</button>

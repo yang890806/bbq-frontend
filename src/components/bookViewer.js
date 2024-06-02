@@ -15,26 +15,26 @@ function BookViewer({ pages }) {
 	const [curPage, setCurPage] = useState(0);
 
 	const goToPrevPage = () => {
-		book.current.pageFlip().flipPrev();
+		book?.current?.pageFlip().flipPrev();
 	};
 
 	const goToNextPage = () => {
-		book.current.pageFlip().flipNext();
+		book?.current?.pageFlip().flipNext();
 	};
 
 	const onFlip = () => {
-		setCurPage(book.current.pageFlip().getCurrentPageIndex());
+		setCurPage(book?.current?.pageFlip().getCurrentPageIndex());
 	};
 
 	return (
 		<>
-		<button onClick={goToPrevPage} disabled={curPage === 0} className='mr-2'>
+		<button onClick={goToPrevPage} disabled={curPage === 0}className={`mr-2 ${curPage === 0 ? 'hidden' : ''}`}>
 			<FontAwesomeIcon icon={ faChevronLeft } size='xl'/>
 		</button>
         <HTMLFlipBook ref={book} onFlip={onFlip} width={imageWidth} height={imageHeight} drawShadow={false}>
-			{ pages.map((page, i) => <Page key={i + 1} number={i+1} page={page}></Page>) }
+			{ pages?.map((page, i) => <Page key={i + 1} number={i+1} page={page}></Page>) }
         </HTMLFlipBook>
-		<button onClick={goToNextPage} disabled={curPage === pages.length - 1} className='ml-2'>
+		<button onClick={goToNextPage} disabled={curPage === pages?.length - 1} className={`ml-2 ${curPage === pages?.length - 1 ? 'hidden' : ''}`}>
 			<FontAwesomeIcon icon={ faChevronRight } size='xl'/>
 		</button>
 		</>

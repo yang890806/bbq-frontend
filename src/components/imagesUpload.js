@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import getConfig from 'next/config';
 import { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,10 +8,11 @@ const {
 	publicRuntimeConfig: { imageWidth, imageHeight } 
 } = getConfig();
 
-const ImageUpload = ({ image, handleImage }) => {
-	const imgWidth = imageWidth / 1.6;
-	const imgHeight = imageHeight / 1.6;
+const ImagesUpload = () => {
+	const imgWidth = imageWidth / 1.3;
+	const imgHeight = imageHeight / 1.3;
 
+	const [imagesURL, setImagesURL] = useState([]);
 	const fileUploadRef = useRef();
 
 	const handleImageUpload = (event) => {
@@ -22,27 +22,32 @@ const ImageUpload = ({ image, handleImage }) => {
 
 	const uploadImageDisplay = async() => {
 		try {
-			const uploadedFile = fileUploadRef.current.files[0];
-			handleImage(uploadedFile);
+			const uploadedFiles = fileUploadRef.current.files;
+
+			var newImagesURL = [];
+			for (var i=0; i < uploadedFiles.length; i++) {
+				newImagesURL.push(URL.createObjectURL(uploadedFiles[i]));
+			}
+
+			setImagesURL(newImagesURL);
 		} catch(error) {
 			console.error(error);
+			setImagesURL([]);
 		}
 	};
 	
 	return (
-		<div className='flex justify-center items-center'>
+		<div>
 			<form id="form" encType='multipart/form-data'>
-				{ image && (
-					<Image 
-						src={URL.createObjectURL(image)}
-						width={imgWidth}
-						height={imgHeight}
-						alt='Image'
-						className='rounded shadow object-cover cursor-pointer'
-						onClick={handleImageUpload}
+				{ (imagesURL.length > 0) && (
+					<ImageCarousel 
+						images={imagesURL} 
+						width={imgWidth} 
+						height={imgHeight} 
+						onClick={handleImageUpload} 
 					/>
 				)}
-				{!image && (
+				{ !(imagesURL.length > 0) && (
 					<button
 						type='submit'
 						onClick={handleImageUpload}
@@ -55,7 +60,7 @@ const ImageUpload = ({ image, handleImage }) => {
 				<input 
 					type='file'
 					id='file'
-					accept='image/*'
+					multiple='multiple'
 					ref={fileUploadRef}
 					onChange={uploadImageDisplay}
 					hidden
@@ -65,4 +70,4 @@ const ImageUpload = ({ image, handleImage }) => {
 	);
 }
 
-export default ImageUpload;
+export default ImagesUpload;

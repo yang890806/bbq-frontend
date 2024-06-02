@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import Image from 'next/image';
+import getConfig from 'next/config';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -6,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Divider } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faLock, faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
+import { HashLoader } from 'react-spinners';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import axios from '@/utils/axios';
@@ -14,10 +17,15 @@ import ImageUpload from '@/components/imageUpload';
 import BaseModal from '@/components/modal';
 import styles from '@/styles/book-create.module.css';
 
+const { 
+	publicRuntimeConfig: { imageWidth, imageHeight } 
+} = getConfig();
+
 function BookCreate() {
 
 	const { t } = useTranslation();
 
+	const [bookImage, setBookImage] = useState('');
 	const [bookTitle, setBookTitle] = useState('');
 	const [bookIntro, setBookIntro] = useState('');
 	const [chapterTitle, setChapterTitle] = useState('');
@@ -27,10 +35,11 @@ function BookCreate() {
 
 	const [permission, setPermission] = useState('PUBLIC');
 	const [showCode, setShowCode] = useState(false);
-	const [code, setCode] = useState(null);
+	const [code, setCode] = useState('');
 	const [copied, setCopied] = useState(false);
 
 	const [showModal, setShowModal] = useState(false);
+	const [showLoading, setShowLoading] = useState(false);
 
 	const showErrorMsg = () => {
 		Swal.fire({
@@ -60,23 +69,29 @@ function BookCreate() {
 		// 取得現在時間
 		const now = getNow();
 
-		// 準備參數
-		const params = {
-			'creatorId': 1, // TEST
-			'eventTitle': bookTitle,
-			'eventIntro': bookIntro,
-			'eventKey': code, 
-			'chapterTitle': chapterTitle, 
-			'chapterIntro': chapterIntro, 
-			'createTime': now, 
-			'submitTime': submitTime, 
-			'voteTime': voteTime, 
-		};
+		var formData = new FormData();
+		formData.append('eventImage', bookImage);
+		formData.append('creatorId', 1); // TEST
+		formData.append('eventTitle', bookTitle);
+		formData.append('eventIntro', bookIntro);
+		formData.append('eventKey', code);
+		formData.append('chapterTitle', chapterTitle);
+		formData.append('chapterIntro', chapterIntro);
+		formData.append('createTime', now);
+		formData.append('submitTime', submitTime);
+		formData.append('voteTime', voteTime);
 
 		// 傳送request
-		await axios.post('/event', params)
+		setShowLoading(true);
+		await axios.post('/event', formData, { headers: {'Content-Type': 'multipart/form-data'} })
 			.then((res) => {
-				setShowModal(true);
+				setShowLoading(false);
+				if (res.status === 200) {
+					setShowModal(true);
+				}
+				else {
+					showErrorMsg();
+				}
 			})
 			.catch((error) => {
 				showErrorMsg();
@@ -157,9 +172,9 @@ function BookCreate() {
 		<NavBar/>
 		<Container>
 			{/* 創建書本資訊 */}
-			<Row className='my-10'>
+			<Row className='my-8'>
 				<Col xs={4}>
-					<ImageUpload/>
+					<ImageUpload image={bookImage} handleImage={setBookImage} />
 				</Col>
 				<Col className='flex flex-col justify-center'>
 					<Row>
@@ -274,8 +289,20 @@ function BookCreate() {
 		{/* 創建書本成功 Modal */}
 		{showModal && (
 			<BaseModal className='text-md text-center' show={showModal} handleClose={() => setShowModal(false)}>
-				{/* 書名 */}
+				{/* 繪本圖 */}
 				<Row>
+					<Col className='flex justify-center'>
+						<Image 
+							src={URL.createObjectURL(bookImage)}
+							width={imageWidth / 2.5}
+							height={imageHeight / 2.5}
+							alt='Image'
+							className='rounded shadow object-cover'
+						/>
+					</Col>
+				</Row>
+				{/* 書名 */}
+				<Row className='mt-3'>
 					<Col>
 						<span className='text-3xl font-bold'>{bookTitle}</span>
 					</Col>
@@ -303,7 +330,7 @@ function BookCreate() {
 				{/* 書本簡介 */}
 				<Row className='my-2'>
 					<Col>
-						<span className='whitespace-pre-wrap'>{bookIntro}</span>
+						<div className='max-h-24 overflow-y-scroll whitespace-pre-wrap'>{bookIntro}</div>
 					</Col>
 				</Row>
 				<Divider className='my-3 border-dashed border-black'/>
@@ -317,7 +344,7 @@ function BookCreate() {
 				<Row className='my-2'>
 					<Col>
 						<div 
-							className='px-2 py-2 text-left rounded-md whitespace-pre-wrap text-dark-cream'
+							className='px-2 py-2 text-left rounded-md max-h-20 overflow-y-scroll whitespace-pre-wrap text-dark-cream'
 						>
 							{chapterIntro}
 						</div>
@@ -335,7 +362,7 @@ function BookCreate() {
 					<Col>
 						<div className={`text-red ${styles.timeSection}`}>
 							<div className={styles.timeTitle}>{t('Voting Time')}</div>
-							<span>{submitTime}</span>
+							<span>{voteTime}</span>
 						</div>
 					</Col>
 				</Row>
@@ -345,6 +372,13 @@ function BookCreate() {
 					</Col>
 				</Row>
 			</BaseModal>
+		)}
+
+		{/* Loading動畫 */}
+		{showLoading && (
+			<div className='w-screen h-screen absolute z-50 top-0 left-0 flex justify-center items-center bg-opacity-50 bg-black'>
+				<HashLoader color='#F5C265' loading={showLoading} aria-label='Loading' />
+			</div>
 		)}
 		</>
 	);

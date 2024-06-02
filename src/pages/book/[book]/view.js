@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import getConfig from 'next/config';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from '@mui/material';
+import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
@@ -11,8 +13,9 @@ import NavBar from '@/components/navbar';
 import BookViewer from '@/components/bookViewer';
 import styles from '@/styles/book.module.css';
 
-// TEST
-import pages from '@/mock/pages';
+const { 
+	publicRuntimeConfig: { frontendRoot } 
+} = getConfig();
 
 function BookView() {
 	const router = useRouter();
@@ -20,13 +23,51 @@ function BookView() {
 	const { t } = useTranslation();
 
 	const [bookInfo, setBookInfo] = useState({});
-	// const [pages, setPages] = useState([]);
+	const [pages, setPages] = useState([]);
 
+	const showErrorMsg = (text) => {
+		Swal.fire({
+			'title': t('Oops...'), 
+			'text': text, 
+			'icon': 'error', 
+			'confirmButtonColor': '#F5C265', 
+		}).then(() => {
+			window.location.replace(frontendRoot);
+		});
+	};
+
+	// 增加閱覽數
+	const addViewCount = async() => {
+		if (book) {
+			await axios.put(`/event/viewCount/${book}`, {}, {})
+				.then((res) => {
+					if (res.status === 200) {
+						fetchBook();
+					}
+				})
+				.catch((error) => {
+					console.log('Add view count error:', error);
+				});
+		}
+	};
+
+	// 取得書本資訊
 	const fetchBook = async() => {
 		if (book) {
 			await axios.get(`/event/${book}`, {}, {})
 				.then((res) => {
-					setBookInfo(res);
+					if (res.status === 200) {
+						if (res?.data?.isPublish === 1) {
+							setBookInfo(res.data);
+							fetchChapters();
+						}
+						else {
+							showErrorMsg(t('The book has not been published yet...'));
+						}
+					}
+					else {
+						showErrorMsg(t('The book is not found...'));
+					}
 				})
 				.catch((error) => {
 					console.log('Fetch book error:', error);
@@ -34,12 +75,14 @@ function BookView() {
 		}
 	};
 
+	// 取得書本篇章
 	const fetchChapters = async() => {
 		if (book) {
 			await axios.get(`/allChapter/${book}`, {}, {})
 				.then((res) => {
-					// setPages(res.allChapter);
-					console.log('All chapters:', res);
+					if (res.status === 200) {
+						setPages(res.data);
+					}
 				})
 				.catch((error) => {
 					console.log('Fetch chapters error:', error);
@@ -47,9 +90,10 @@ function BookView() {
 		}
 	};
 
+	// 初始化
 	useEffect(() => {
+		addViewCount();
 		fetchBook();
-		fetchChapters();
 	}, [book]);
 
 	return (
@@ -78,7 +122,7 @@ function BookView() {
 			</Row>
 			<Row>
 				<Col className='flex justify-center'>
-					<BookViewer pages={pages}/>
+					{pages.length && <BookViewer pages={pages}/>}
 				</Col>
 			</Row>
 		</Container>

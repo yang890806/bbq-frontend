@@ -1,9 +1,7 @@
- 
-.button {
-  padding: 10px 10px;
+ .button {
+  padding: 8px 8px;
   font-size: 16px;
   cursor: pointer;
-
 }
 
 .modalOverlay {

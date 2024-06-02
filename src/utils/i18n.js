@@ -11,6 +11,7 @@ i18n.use(initReactI18next).init({
 				'Back': 'Back',
 				'Books': 'Books', 
 				'Login': 'Login',  
+				'Logout': 'Logout', 
 				'Creator': 'Creator', 
 				'Authors': 'Authors', 
 				'Creat New Book +':'Creat New Book +',
@@ -34,6 +35,12 @@ i18n.use(initReactI18next).init({
 				'has been created.': 'has been created.', 
 				'fails to be created.': 'fails to be created.', 
 				'Chapter 1': 'Chapter 1', 
+				'Join Event': 'Join Event', 
+				'My Events': 'My Events', 
+				'Enter event code': 'Enter event code', 
+				'Confirm': 'Confirm', 
+				'The book has not been published yet...': 'The book has not been published yet...', 
+				'The book is not found...': 'The book is not found...', 
 				'Find Events': 'Find Events',
 				'Go to All Publication': 'Go to All Publication',
 				'Go to All Activity_chain': 'Go to All Activity',
@@ -50,11 +57,9 @@ i18n.use(initReactI18next).init({
 				'Search by Book Title...': 'Search by Book Title...',
 				'Search by Authors...': 'Search by Authors...',
 				'Search by Activity Code...': 'Search by Activity Code...',
-				'Search by Event Code':'Search by Event Code',
-				'Enter Event Code...':'Enter Event Code...',
-				'No relevant books found.':'No relevant books found.'
-
-				
+				'Search by Event Code': 'Search by Event Code',
+				'Enter Event Code...': 'Enter Event Code...',
+				'No relevant books found.': 'No relevant books found.', 
 			}
 		},
 		zh: {
@@ -63,6 +68,7 @@ i18n.use(initReactI18next).init({
 				'Back': '返回', 
 				'Books': '所有書本', 
 				'Login': '登入', 
+				'Logout': '登出', 
 				'Creator': '建立者', 
 				'Authors': '作者', 
 				'Create New Book +':'建立繪本+',
@@ -86,6 +92,12 @@ i18n.use(initReactI18next).init({
 				'has been created.': '已被建立。', 
 				'fails to be created.': '創建失敗。', 
 				'Chapter 1': '第一章', 
+				'Join Event': '加入活動', 
+				'My Events': '我的活動', 
+				'Enter event code': '輸入活動碼',
+				'Confirm': '確定', 
+				'The book has not been published yet...': '該書本尚未發行...', 
+				'The book is not found...': '查無此書...', 
 				'Find Events': '尋找活動',
 				'Go to All Publication': '所有刊物',
 				'Go to All Activity_chain': '所有接龍',
@@ -102,11 +114,10 @@ i18n.use(initReactI18next).init({
 				'Search by Book Title...': '以書名搜尋...',
 				'Search by Authors...': '以作者搜尋...',
 				'Search by Activity Code...': '以活動碼搜尋...',
-				'Search by Activity Code':'以活動代碼搜尋',
-				'Search by Event Code':'以活動代碼搜尋',
-				'Enter Event Code...':'輸入活動代碼...',
-				'No relevant books found.':'沒有找到相關書本。'
-				
+				'Search by Activity Code': '以活動代碼搜尋',
+				'Search by Event Code': '以活動代碼搜尋',
+				'Enter Event Code...': '輸入活動代碼...',
+				'No relevant books found.': '沒有找到相關書本。', 
 			}
 		},
 	},

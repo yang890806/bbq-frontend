@@ -8,43 +8,68 @@ import { Link, Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faEye, faPlay } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 import axios from '@/utils/axios';
 import NavBar from '@/components/navbar';
-import ImageCarousel from '@/components/imageCarousel';
+import Avatar from '@/components/avatar';
+import convertImage from '@/components/convertImage';
 import styles from '@/styles/book.module.css';
 
 const { 
-	publicRuntimeConfig: { imageWidth, imageHeight } 
+	publicRuntimeConfig: { frontendRoot, imageWidth, imageHeight } 
 } = getConfig();
 
 function BookOverview() {
 
-	const router = useRouter()
-    const { book } = router.query
+	const router = useRouter();
+    const { book } = router.query;
 
 	const { t } = useTranslation();
-	const profileSize = [35, 35];
+	const profileSize = [30, 30];
+
 	const [bookInfo, setBookInfo] = useState({});
 
-	// TEST
-	const exampleImages = ['/book-example.jpg', '/book-example-2.jpg'];
+	const showErrorMsg = (text) => {
+		Swal.fire({
+			'title': t('Oops...'), 
+			'text': text, 
+			'icon': 'error', 
+			'confirmButtonColor': '#F5C265', 
+		}).then(() => {
+			window.location.replace(frontendRoot);
+		});
+	};
 
 	const fetchBook = async() => {
 		if (book) {
 			await axios.get(`/event/${book}`, {}, {})
-			.then((res) => {
-				setBookInfo(res);
-				console.log(res);
-			})
-			.catch((error) => {
-				console.log('Fetch book error:', error);
-			});
+				.then((res) => {
+					if (res.status === 200) {
+						if (res?.data?.isPublish === 1) {
+							res.data.eventImage = convertImage(res?.data?.eventImage);
+							setBookInfo(res.data);
+						}
+						else {
+							showErrorMsg(t('The book has not been published yet...'));
+						}
+					}
+					else {
+						showErrorMsg(t('The book is not found...'));
+					}
+				})
+				.catch((error) => {
+					console.log('Fetch book error:', error);
+				});
 		}
 	};
 
 	useEffect(() => {
 		fetchBook();
 	}, [book]);
+
+	useEffect(() => {
+		console.log('bookInfo:', bookInfo);
+	}, [bookInfo]);
 
 	return (
 		<>
@@ -59,64 +84,68 @@ function BookOverview() {
 		<Container>
 			<Row className='my-12'>
 				<Col>
-					<Link href='/' className='no-underline'>
-						<div className={styles.btn} style={{width: '90px'}}>
-							<FontAwesomeIcon icon={ faChevronLeft } className="mr-2 mt-1 flex flex-row" />
-							{ t('Back') }
-						</div>
+					<Link href='/' className={`no-underline w-fit ${styles.btn}`} style={{width: '90px'}}>
+						<FontAwesomeIcon icon={ faChevronLeft } className="mr-2 mt-1 flex flex-row" />
+						{ t('Back') }
 					</Link>
 				</Col>
 			</Row>
 			<Row>
-				<Col>
-					<ImageCarousel 
-						images={exampleImages} 
-						width={imageWidth}
-						height={imageHeight}
-					/>
+				<Col className='flex justify-center'>
+					{bookInfo?.eventImage && (
+						<Image 
+							src={bookInfo?.eventImage}
+							width={imageWidth}
+							height={imageHeight}
+							alt='Image'
+							className='rounded shadow object-cover'
+						/>
+					)}
 				</Col>
 				<Col className='flex flex-col justify-center'>
 					<Row>
-						<Col className='text-4xl font-bold my-3'>{ bookInfo.eventTitle }</Col>
+						<Col className='text-4xl font-bold my-3'>{ bookInfo?.eventTitle }</Col>
 					</Row>
 					<Row className='my-2'>
-						<Col className='flex text-lg'>
-							<span className='mr-3'>{ t('Creator') }</span>
-							<Image
-								src='/profile-1.JPG' // TEST
+						<Col className='flex text-lg items-center'>
+							<div className={styles.userTitle}>{ t('Creator') }</div>
+							<Avatar 
+								avatar={bookInfo?.creator?.avatar} 
+								username={bookInfo?.creator?.username} 
 								width={profileSize[0]}
 								height={profileSize[1]}
-								alt='Example of Profile'
-								className='rounded-full shadow-sm'
 							/>
 							<span className='mx-2'>{bookInfo?.creator?.username}</span>
 						</Col>
 					</Row>
 					<Row className='my-2'>
-						<Col className='flex text-lg'>
-							<span className='mr-3'>{ t('Authors') }</span>
+						<Col className='flex text-lg items-center'>
+							<div className={styles.userTitle}>{ t('Authors') }</div>
 							{
 								bookInfo?.users?.map((user, i) => 
-								<Tooltip title={user?.username} arrow>
-									<Image 
-										src='/profile-2.jpeg' // TEST
-										width={profileSize[0]}
-										height={profileSize[1]}
-										alt={user?.username}
-										className='rounded-full shadow-sm mr-1'
-									/>
-								</Tooltip>)
+									<Tooltip title={user?.username} arrow>
+										<div>
+										<Avatar 
+											avatar={bookInfo?.creator?.avatar} 
+											username={bookInfo?.creator?.username} 
+											width={profileSize[0]}
+											height={profileSize[1]}
+											className='mr-1'
+										/>
+										</div>
+									</Tooltip>
+								)
 							}
 						</Col>
 					</Row>
-					<Row>
-						<Col className='h-24 overflow-y-scroll'>{ bookInfo.eventIntro }</Col>
+					<Row className='mt-2'>
+						<Col className='max-h-24 overflow-y-scroll'>{ bookInfo?.eventIntro }</Col>
 					</Row>
-					<Row className='mt-12'>
+					<Row className='mt-8'>
 						<Col>
 							<div className={styles.view}>
 								<FontAwesomeIcon icon={faEye} className="mr-2 mt-1 flex flex-row" />
-								{ bookInfo.viewCount }
+								{ bookInfo?.viewCount }
 							</div>
 						</Col>
 						<Col>
