@@ -1,0 +1,83 @@
+ 
+.button {
+  padding: 10px 10px;
+  font-size: 16px;
+  cursor: pointer;
+
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modalContent {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh; /* 設置最大高度 */
+  overflow-y: auto; /* 允許垂直滾動 */
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.closeButton:hover,
+.closeButton:focus {
+  color: black;
+  text-decoration: none;
+}
+
+.input {
+  padding: 10px;
+  width: calc(100% - 100px);
+  border: #888;
+}
+
+.searchButton {
+
+  border-radius: 5px;
+  background-color:#F5C265;
+  padding-top: 0px;    /* 上內間距 */
+  padding-right: 20px;  /* 右內間距 */
+  padding-bottom: 0px; /* 下內間距 */
+  padding-left: 20px;   /* 左內間距 */
+  cursor: pointer;
+}
+
+.searchResults {
+  margin-top: 20px;
+}
+
+.bookItem {
+  margin-bottom: 15px;
+}
+
+.text_truncate_multiline{
+  color:#686767;
+  font-size: 15px ;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4; /* 限制顯示的行數，例如3行 */
+  overflow: hidden;
+  max-width: 100%; /* 確保寬度限制生效 */
+}

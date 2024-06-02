@@ -22,7 +22,8 @@ const {
 function BookOverview() {
 
 	const router = useRouter();
-	const { book } = router.query;
+    const { book } = router.query;
+
 	const { t } = useTranslation();
 	const profileSize = [30, 30];
 
@@ -164,3 +165,4 @@ function BookOverview() {
 }
 
 export default BookOverview;
+

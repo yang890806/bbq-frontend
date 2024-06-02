@@ -11,6 +11,7 @@ import handleLogin from '@/auth/handleLogin';
 import handleLogout from '@/auth/handleLogout';
 import Avatar from '@/components/avatar';
 import styles from '@/styles/navbar.module.css';
+import BookSearch from '@/components/BookSearch';
 
 const {
     publicRuntimeConfig: { frontendRoot, apiRoot }
@@ -67,10 +68,9 @@ function NavBar() {
 	}, []);
 
 	return (
-		<>
-		<Navbar className='shadow-md'>
+		<Navbar  className={ styles.header } >
 			<Container>
-				<Navbar.Brand href="/" bsPrefix="text-2xl no-underline" className="text-black font-bold">
+				<Navbar.Brand href="/book/home" bsPrefix="text-2xl no-underline" className="text-black font-bold">
 					<span className='text-red'>B</span>
 					<span className='text-yellow'>B</span>
 					<span className='text-green'>Q</span>
@@ -79,10 +79,8 @@ function NavBar() {
 				<Navbar.Collapse id="responsive-navbar-nav" className="flex justify-end mt-1 border-b-white">
 					<Nav className="me-auto" />
 					<Nav>
-						<Nav.Link href="/" className="text-black hover:underline">
-							{ t('Home') }
-						</Nav.Link>
-						<Nav.Link href="/" className="text-black hover:underline">
+						<BookSearch/>
+						<Nav.Link href="/book/book_processing?status=finished" className="text-black hover:underline">
 							{ t('Books') }
 						</Nav.Link>
 						{user?.uId ? (
@@ -115,7 +113,6 @@ function NavBar() {
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>
-		</>
 	);
 }
 
