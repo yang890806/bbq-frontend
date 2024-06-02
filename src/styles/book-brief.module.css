@@ -21,6 +21,52 @@
 
 
 
+.carousel {
+	position: relative;
+	width: 100%;
+	margin: auto;
+	overflow: hidden;
+	z-index: 0;
+  }
+
+  .carousel_track_container {
+	overflow: hidden;
+	z-index: 1;
+  }
+
+
+  .carousel_track {
+	display: flex;
+	transition: transform 0.5s ease-in-out;
+  }
+  .carousel_item {
+	min-width: 25%;
+	padding: 12px;
+	text-align: center;
+  }
+
+  
+  .carousel_button {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	border: none;
+	color: black;
+	font-size: 2rem;
+	cursor: pointer;
+	padding: 10px;
+	z-index: 1000;
+  }
+  
+.left {
+	left: -10px;
+  }
+  .right {
+	right: -10px;
+  }
+
+
+
 .btn {
 	display: flex;
 	justify-content: center;
@@ -48,8 +94,6 @@
 	background-color:  #C05E51; 
 	color: #fff;
 }
-
-
 
   
 

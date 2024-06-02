@@ -7,6 +7,7 @@ import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/utils/i18n';
 import styles from '@/styles/navbar.module.css';
+import BookSearch from '@/components/BookSearch';
 
 function NavBar() {
 	const { t } = useTranslation();
@@ -39,10 +40,8 @@ function NavBar() {
 				<Navbar.Collapse id="responsive-navbar-nav" className="flex justify-end mt-1 border-b-white">
 					<Nav className="me-auto" />
 					<Nav>
-						<Nav.Link href="/book/home" className="text-black hover:underline">
-							{ t('Home') }
-						</Nav.Link>
-						<Nav.Link href="/book/book_finished" className="text-black hover:underline">
+						<BookSearch/>
+						<Nav.Link href="/book/book_processing?status=finished" className="text-black hover:underline">
 							{ t('Books') }
 						</Nav.Link>
 						<Nav.Link href="/book/book_personal">

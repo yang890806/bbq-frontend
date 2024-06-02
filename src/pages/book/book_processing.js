@@ -1,24 +1,80 @@
 import Head from 'next/head';
 import NavBar from '@/components/navbar';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 import { Container, Row, Col, ButtonGroup, ToggleButton  } from 'react-bootstrap';
 import {  Dropdown, DropdownButton,Form,FloatingLabel,InputGroup } from 'react-bootstrap';
 import All_processing from '@/components/cards/all_processing';
 import All_finished from '@/components/cards/all_finished';
+import axios from '@/utils/axios';
 import styles from '@/styles/book-brief.module.css';
-
 // 需要補上css style使用，對於bootstrap的基本code調整
 // 需要補上css style使用，對於bootstrap的基本code調整
 
-function book_processing() {
+// // 定義篩選函數
+// const filterBooks = (books) => {
+//   // 篩選已發布的書本
+//   books.finished = books.filter(book => book.isPublish === 1);
+//   // 篩選未發布的書本
+//   const unpublishedBooks = books.filter(book => book.isPublish === 0);
+//   console.log("已發布的書本:", publishedBooks);  // 輸出已發布的書本
+//   console.log("未發布的書本:", unpublishedBooks);  // 輸出未發布的書本
+//   return { publishedBooks, unpublishedBooks };
+// };
 
-  const [activeTab, setActiveTab] =useState('chain');
+
+function book_processing () {
+
+  const test = {
+    finished: [], // 已完成的書籍
+    chain: [],    // 連載中的書籍
+    vote: [],     // 投票中的書籍
+  };  
+
+  const [bookInfo, setBookInfo] = useState([]);
+  const fetchBook = async() => {
+    await axios.get(`/allEvent/1`, {}, {})
+    .then((res) => {
+
+      const events = Object.values(res).filter(item => typeof item === 'object' && item.eId);    
+      setBookInfo(events);
+  
+    })
+    .catch((error) => {
+      console.log('Fetch book error:', error);
+    });
+  
+	};
+
+	useEffect(() => {
+		fetchBook();
+	}, []);
+
+  test.finished = bookInfo.filter(book => book.isPublish === 1);
+  test.chain =bookInfo.filter(book => book.isPublish === 0);
+  console.log(test.finished);
+
+
+
+  const { t } = useTranslation();
+  const [activeTab, setActiveTab] =useState('finished');
   const [query, setQuery] = useState("");
   const [searchingtype , setsearchingtype] = useState('title');
 
 
+  const router = useRouter();
+	const { status } = router.query;
+
+  useEffect(() => {
+    if (status) {
+      setActiveTab(status);
+    }
+  }, [status]);
+
+
   const header={
+
     chain: {
       ch:"所有接龍",
       en:"All Solitaire"
@@ -35,6 +91,7 @@ function book_processing() {
     },
   };
 
+ 
 
   const books = {
     finished: [
@@ -67,8 +124,7 @@ function book_processing() {
       { title: '哈囉', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:0,part:3 },
       { title: '哈囉', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:0,part:3 },
     ]
-    
-    
+  
   };
   
   const filteredItems = books[activeTab].filter((item) =>
@@ -137,7 +193,7 @@ function book_processing() {
                     checked={activeTab ==="finished"}
                     onChange={() => setActiveTab("finished")}
                   >
-                  已出版 
+                   {t( "Publication" )}
                   </ToggleButton>
 
                   <ToggleButton
@@ -151,7 +207,7 @@ function book_processing() {
                     checked={activeTab === "chain"}
                     onChange={() => setActiveTab("chain")}
                   >
-                  接龍
+                   {t( "Solitaire" )}
                   </ToggleButton>
 
                   <ToggleButton
@@ -165,7 +221,7 @@ function book_processing() {
                     checked={activeTab ==="vote"}
                     onChange={() => setActiveTab("vote")}
                   >
-                  投票 
+                  {t( "Vote" )}
                   </ToggleButton>
 
                 </ButtonGroup>
@@ -181,9 +237,9 @@ function book_processing() {
                       label={(() => {
                         switch (searchingtype) {
                           case "title":
-                            return "以書名搜尋...";
+                            return `${t( "Search by Book Title..." )}`;
                           case "author":
-                            return "以作者搜尋...";
+                            return`${t( "Search by Authors..." )}`;
                           default:
                             return `以${searchingtype}搜尋...`;
                         }
@@ -197,9 +253,9 @@ function book_processing() {
                   <DropdownButton 
                     title={
                       searchingtype === "title"
-                      ? "書名"
+                      ? `${t( "Book Title" )}`
                       : searchingtype === "author"
-                      ? "作者"
+                      ? `${t( "Authors" )}`
                       : "代碼"
                     }
                     id="input-group-dropdown-1"

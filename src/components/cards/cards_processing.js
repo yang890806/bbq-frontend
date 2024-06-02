@@ -48,16 +48,16 @@ function Processing({ title , content, image, Stage, targetDate  }) {
       <Card.Body>
         <div  className="d-flex justify-content-between align-items-center">
           
-            <Card.Title className=' fw-bold fs-4'  >{title}</Card.Title>
+            <Card.Title className=' fw-bold fs-5'  >{title}</Card.Title>
   
           <div className='d-flex justify-content-center align-items-center '>
-            <Card.Text id="countdown" className=' fw-bold fs-5 text-green'  > {timeRemaining} </Card.Text>
+            <Card.Text id="countdown" className=' fw-bold fs-8 text-green'  > {timeRemaining} </Card.Text>
           </div>
         </div>
         <div  className="d-flex justify-content-between align-items-center">
 
-          <Card.Text style={{ width: '230px' }} className={`my-1  ${styles.text_truncate_multiline}`} >{content}</Card.Text>
-          <Button className='px-4 py-3 fs-6' variant={Stage ? 'success' : 'outline-success'} > {Stage ? <p> 我要投票!</p> : <p>接龍進行中...</p>} </Button>
+          <Card.Text style={{ width: '150px' }} className={styles.text_truncate_multiline} >{content}</Card.Text>
+          <Button className={Stage ? styles.text_button_chain : styles.text_button_vote} variant={Stage ? 'success' : 'outline-success'} > {Stage ? <p> 我要投票!</p> : <p>接龍進行中...</p>} </Button>
 
         </div>
       </Card.Body>

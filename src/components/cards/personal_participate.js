@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react';
 import styles from '@/styles/component-card.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from 'react-i18next';
 
 
 
 function Personal_participate({ title, image, targetDate, state, part, published, code} ) {
 
+  const { t } = useTranslation();
   const [timeRemaining, setTimeRemaining] = useState('');
 
   useEffect(() => {
@@ -50,7 +52,7 @@ function Personal_participate({ title, image, targetDate, state, part, published
             <div style={{ display: 'flex'}}>
                 <Card.Text >
                     {published === 0
-                        ? `活動代碼: ${code}`
+                        ? `${t('Code')}: ${code}`
                         : published === 1
                         ? "狀態: 公開"
                         : "代碼"
@@ -71,10 +73,10 @@ function Personal_participate({ title, image, targetDate, state, part, published
         <Card.Body style={{marginTop: -5 }}>
           <div  className="d-flex justify-content-between align-items-center">
             <div >
-                <Card.Text className="mr-2 flex flex-row fw-semibold text-green" >段落 {part}</Card.Text>
+                <Card.Text className="mr-2 flex flex-row fw-semibold text-green" >{t('Paragraph')} {part}</Card.Text>
                 <Card.Text className="mr-2 flex flex-row " >{timeRemaining}</Card.Text>
             </div>
-            <Button style={{fontSize:"12px"}}className={state ? 'py-1': ' py-1'} variant={state ? 'success' : 'warning'} > {state ? <p className='text'>前往設定  <FontAwesomeIcon icon={ faArrowRight }/></p> : <p className='text'>前往設定  <FontAwesomeIcon icon={ faArrowRight }/></p>} </Button>
+            <Button style={{fontSize:"12px"}}className={state ? 'py-2 px-2': 'px-2 py-2'} variant={state ? 'success' : 'warning'} > {state ? <p className='text'>{t('Settings')} <FontAwesomeIcon icon={ faArrowRight } className='ml-1'/></p> : <p className='text'>{t('Settings')}<FontAwesomeIcon icon={ faArrowRight } className='ml-1'/></p>} </Button>
   
           </div>
         </Card.Body>

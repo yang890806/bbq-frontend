@@ -17,13 +17,13 @@ function Cards({ title , content, image, author, profile }) {
           <div style={{ display: 'flex'}}>
             <Image src={profile} 
             roundedCircle 
-            width="30" 
-            className='mr-2'
+            width='20' 
+            className='mr-1'
             />
-            <Card.Text >{author}</Card.Text>
+            <Card.Text className='fs-7'>{author}</Card.Text>
           </div>
         </div>
-        <Card.Text className={`mt-2 mb-2 ${styles.text_truncate_multiline} `} >{content}</Card.Text>
+        <Card.Text className={`mt-1 mb-1 ${styles.text_truncate_multiline} `} >{content}</Card.Text>
       </Card.Body>
     </Card>
 

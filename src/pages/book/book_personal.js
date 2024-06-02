@@ -37,6 +37,7 @@ function book_finished() {
   }
   ;
 
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] =useState(0);
   const [state, setstate] =useState('public');
   const [query, setQuery] = useState("");
@@ -55,6 +56,7 @@ function book_finished() {
     const value = event.target.value;
     if (value === "1") {
       setstate("public");
+      setsearchingtype("title");
     } else if (value === "2") {
       setstate("privacy");
     }
@@ -83,8 +85,8 @@ function book_finished() {
             </div>
             <div>
             <Form.Select className='ml-6 fs-7 mt-2' onChange={handleChange}>
-              <option value="1" onChange={() => setstate("public")} >公開</option>
-              <option value="2" onChange={() => setstate("privacy")} >私人</option>
+              <option value="1" >{t( "Public" )}</option>
+              <option value="2" >{t( "Private" )}</option>
             </Form.Select>
             </div>      
             
@@ -101,7 +103,7 @@ function book_finished() {
                   checked={activeTab === "all"}
                   onChange={() => setActiveTab("all")}
                 >
-                顯示全部
+                {t('Show All')}
                 </ToggleButton>
                 <ToggleButton
                   className='mr-3 rounded-3'
@@ -114,7 +116,7 @@ function book_finished() {
                   checked={activeTab ===0}
                   onChange={() => setActiveTab(0)}
                 >
-                創建 
+                {t('Create')}
                 </ToggleButton>
                 <ToggleButton
                   className='mr-3 rounded-3'
@@ -127,7 +129,7 @@ function book_finished() {
                   checked={activeTab ===1}
                   onChange={() => setActiveTab(1)}
                 >
-                參與 
+                 {t('Participate')}
                 </ToggleButton>
               </ButtonGroup> 
             </div>
@@ -140,11 +142,11 @@ function book_finished() {
                     label={(() => {
                       switch (searchingtype) {
                         case "title":
-                          return "以書名搜尋...";
+                          return `${t( "Search by Book Title..." )}`;
                         case "author":
-                          return "以作者搜尋...";
+                          return `${t( "Search by Authors..." )}`;
                         case "code":
-                          return "以活動搜尋...";
+                          return `${t( "Search by Activity Code..." )}`;
                         default:
                           return `以${searchingtype}搜尋...`;
                       }
@@ -158,17 +160,17 @@ function book_finished() {
                   <DropdownButton 
                     title={
                       searchingtype === "title"
-                      ? "書名"
+                      ? `${t( "Book Title" )}`
                       : searchingtype === "author"
-                      ? "作者"
+                      ? `${t( "Authors" )}`
                       : "代碼"
                     }
                     id="input-group-dropdown-1"
                     >   
                     
-                    <Dropdown.Item onClick={() => setsearchingtype("title")}>書名</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setsearchingtype("title")}>{t( "Book Title" )}</Dropdown.Item>
                     {state === "privacy" && (
-                      <Dropdown.Item onClick={() => setsearchingtype("code")}>活動代碼</Dropdown.Item>
+                      <Dropdown.Item onClick={() => setsearchingtype("code")}>{t( "Code" )}</Dropdown.Item>
                     )}
                     
                   </DropdownButton>
