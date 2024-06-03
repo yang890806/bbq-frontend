@@ -49,6 +49,7 @@ function BookOverview() {
 							res.data.eventImage = convertImage(res?.data?.eventImage);
 							setBookInfo(res.data);
 						}
+						
 						else {
 							showErrorMsg(t('The book has not been published yet...'));
 						}

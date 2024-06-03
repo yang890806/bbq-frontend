@@ -10,7 +10,8 @@ import getMyInfo from '@/auth/me';
 import handleLogin from '@/auth/handleLogin';
 import handleLogout from '@/auth/handleLogout';
 import Avatar from '@/components/avatar';
-import BookSearch from '@/components/bookSearch';
+import BookSearch from '@/components/BookSearch';
+
 import styles from '@/styles/navbar.module.css';
 
 const {

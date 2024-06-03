@@ -1,22 +1,67 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { Image, Row, Col, Button } from 'react-bootstrap';
 import { useSpring, animated } from '@react-spring/web';
 import styles from '@/styles/book-search.module.css';
 import { useTranslation } from 'react-i18next';
+import axios from '@/utils/axios';
+import convertImage from '@/components/convertImage';
 
 const BookSearch = () => {
 
-  const books = [
-    { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',eventKey : "123",eventIntro:"南無喝囉怛那哆囉夜耶．南無阿唎耶，婆盧羯帝爍缽囉耶．菩提薩埵婆耶． 摩訶薩埵婆耶．摩訶迦盧尼迦耶．唵，薩皤囉罰曳．數怛那怛寫．南無 悉吉慄埵伊蒙阿唎耶．婆盧吉帝室佛囉愣馱婆．南無那囉謹墀．醯利摩訶 皤哆沙咩．摩訶薩埵婆耶．摩訶迦盧尼迦耶．唵，薩皤囉罰曳．數怛那怛寫．南無 悉吉慄埵伊蒙阿唎耶．婆盧吉帝室佛囉愣馱婆．南無那囉謹墀．醯利摩訶 皤哆沙咩．" },
-    { title: '夏天的規則', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-2.jpg',eventKey : "5111"},
-    { title: '大野狼要小心', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example.jpg',eventKey : "511223" },
-    { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',eventKey : "5442223" },
-    { title: '夏天的規則', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-2.jpg',eventKey : "4423"},
-    { title: '大野狼要小心', author: 'baxter', profile:'/profile-3.JPG', image: '/book-example.jpg',eventKey : "5444443" },
-    { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',eventKey : "5445553" },
-    { title: '夏天的規則', author: 'baxter', profile:'/profile-3.JPG', image: '/book-example-2.jpg',eventKey : "54466" },
-    { title: '大野狼要小心', author: 'baxter', profile:'/profile-3.JPG', image: '/book-example.jpg',eventKey : "54400" },
-  ];
+  const [books, setBooks] = useState([]);
+  const [bookInfo1, setBookInfo1] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+
+  const fetchBook = async() => {
+		try {
+			// 分別發送三個不同的請求
+      const response1 = await axios.get('/allEvent/1', { params: { eventStatus: 1 } });
+			const response2 = await axios.get('/allEvent/1', { params: { eventStatus: 2 } });
+
+      const combinedData = response1.data.concat(response2.data);
+
+			const privacyevent = combinedData.filter(event => event.eventKey);
+			setBookInfo1(privacyevent);
+  
+			// 所有請求完成後設置 dataLoaded 為 true
+			setDataLoaded(true);
+
+		} catch (error) {
+			console.log('Fetch book error:', error);
+		}
+	};
+
+	useEffect(() => {
+		fetchBook();
+	}, []);
+
+	
+	useEffect(() => {
+		if (dataLoaded) {
+		  setBooks(bookInfo1);
+		}
+	  }, [dataLoaded, bookInfo1]);
+
+
+
+
+
+
+  
+  // const books = [
+  //   { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',eventKey : "123",eventIntro:"南無喝囉怛那哆囉夜耶．南無阿唎耶，婆盧羯帝爍缽囉耶．菩提薩埵婆耶． 摩訶薩埵婆耶．摩訶迦盧尼迦耶．唵，薩皤囉罰曳．數怛那怛寫．南無 悉吉慄埵伊蒙阿唎耶．婆盧吉帝室佛囉愣馱婆．南無那囉謹墀．醯利摩訶 皤哆沙咩．摩訶薩埵婆耶．摩訶迦盧尼迦耶．唵，薩皤囉罰曳．數怛那怛寫．南無 悉吉慄埵伊蒙阿唎耶．婆盧吉帝室佛囉愣馱婆．南無那囉謹墀．醯利摩訶 皤哆沙咩．" },
+  //   { title: '夏天的規則', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-2.jpg',eventKey : "5111"},
+  //   { title: '大野狼要小心', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example.jpg',eventKey : "511223" },
+  //   { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',eventKey : "5442223" },
+  //   { title: '夏天的規則', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-2.jpg',eventKey : "4423"},
+  //   { title: '大野狼要小心', author: 'baxter', profile:'/profile-3.JPG', image: '/book-example.jpg',eventKey : "5444443" },
+  //   { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',eventKey : "5445553" },
+  //   { title: '夏天的規則', author: 'baxter', profile:'/profile-3.JPG', image: '/book-example-2.jpg',eventKey : "54466" },
+  //   { title: '大野狼要小心', author: 'baxter', profile:'/profile-3.JPG', image: '/book-example.jpg',eventKey : "54400" },
+  // ];
+
+
  
   const { t } = useTranslation();
   //設定query、isopen、results 的狀態
@@ -44,7 +89,7 @@ const BookSearch = () => {
         const filteredItems = books.filter((item) => {
           return item.eventKey && item.eventKey.toLowerCase() === query.toLowerCase();
         });
-  
+        console.log(filteredItems)
         setResults(filteredItems || []);
   
       } catch (error) {
@@ -91,23 +136,23 @@ const BookSearch = () => {
                  <Row className='my-2'>
                  <Col>
                  <Image 
-                   src={results[0].image} 
+                   src={convertImage(results[0].eventImage)} 
                    className=' rounded-md '
                    />
                  </Col>
                  <Col className='flex flex-col justify-content-between '>
                    <Row>
-                     <Col className='text-3xl font-bold border-radius-5px'>{results[0].title}</Col>
+                     <Col className='text-3xl font-bold border-radius-5px'>{results[0].eventTitle}</Col>
                    </Row>
                    <Row className='mt-2 '>
                      <Col className='flex text-lg'>
                        <Image
-                         src={results[0].profile} 
+                         src={convertImage(results[0].creator.avatar)} 
                          width='25px' 
                          alt='Example of Profile'
                          className='rounded-full shadow-sm mr-3'
                        />
-                       <span className='ml-1'>{results[0].author}</span>
+                       <span className='ml-1'>{results[0].creator.username}</span>
                      </Col>
                    </Row>
                    <Row>

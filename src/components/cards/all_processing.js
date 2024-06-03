@@ -44,7 +44,9 @@ function All_processing({ title, image, author, profile, targetDate, State, part
     <div className={styles.bookcard_allprocessing} >
 
       <div  className="d-flex justify-content-between align-items-center mb-2">
-        <Card.Title className=' fw-bold fs-4 text-center'  >{title}</Card.Title>
+        <span className={styles.bookcard_span}>
+          <Card.Title className={ `fw-bold ${ styles.bookcard_cardtitle}`}  >{title}</Card.Title>
+        </span>
         <div style={{ display: 'flex'}}>
           <Image src={profile} 
           roundedCircle 

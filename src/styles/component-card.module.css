@@ -8,6 +8,7 @@
 .bookcard_allfinished_image {
 	width: auto;
 	height: 200px;
+	border:#5cb85c;
 	object-fit: cover;
 }
 /* 總覽_全部完成_滑過 */
@@ -24,9 +25,24 @@
 }
 
 
+/* 總覽_cardtitle */
+.bookcard_cardtitle  {
+	white-space: nowrap; /* 不換行 */
+	overflow: hidden;     /* 隱藏超出部分 */
+	text-overflow: ellipsis; /* 顯示省略號 */
+	max-width: 170px;   
+}
+
+.bookcard_span {
+	display: inline-block; /* 讓文字可自動縮小 */
+	max-width: 100%;      /* 最大寬度 */
+	max-height: 100%;     /* 最大高度 */
+	font-size: inherit;   /* 繼承父元素的字體大小 */
+}
 
 /* 總覽_正在進行 */
 .bookcard_allprocessing  {
+	margin-bottom: 30px ;
 	height: 300px;
 	background-color: #FCFBF7 !important;
 }
@@ -53,6 +69,13 @@
 
 
 /* 個人頁面 */
+.bookcard_cardtitle_person  {
+	white-space: nowrap; /* 不換行 */
+	overflow: hidden;     /* 隱藏超出部分 */
+	text-overflow: ellipsis; /* 顯示省略號 */
+	max-width: 120px;   
+}
+
 .bookcard_personal {
 	height: auto;
 	border: none;

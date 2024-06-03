@@ -48,9 +48,9 @@ function Personal_participate({ title, image, targetDate, state, part, published
     <div className={styles.bookcard_personal} >
 
         <div  className="d-flex justify-content-between align-items-center mb-2">
-            <Card.Title className=' fw-bold fs-4 text-center'  >{title}</Card.Title>
+            <Card.Title className={` fw-bold fs-5 text-center ${styles.bookcard_cardtitle_person}`}  >{title}</Card.Title>
             <div style={{ display: 'flex'}}>
-                <Card.Text >
+                <Card.Text className='fs-7'>
                     {published === 0
                         ? `${t('Code')}: ${code}`
                         : published === 1

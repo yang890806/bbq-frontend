@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { useState,useRef  } from 'react';
+import axios from '@/utils/axios';
+import { useState,useRef,useEffect  } from 'react';
 import { Container, Row, Col, Carousel, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,46 +10,77 @@ import NavBar from '@/components/navbar';
 import Cards from '@/components/cards/cards_finished';
 import Processing from '@/components/cards/cards_processing.js';
 import styles from '@/styles/book-brief.module.css';
+import convertImage from '@/components/convertImage';
+
 
 function Home() {
 
-    const books = {
-        finished: [
-          { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg', content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the"},
-          { title: '夏天的規則', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-2.jpg', content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '大野狼要小心', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example.jpg', content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg', content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '夏天的規則', author: 'baxter', profile:'/profile-3.JPG', image: '/book-example-2.jpg', content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '大野狼要小心', author: 'baxter', profile:'/profile-3.JPG', image: '/book-example.jpg', content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '長板坡', author: 'baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg', content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '夏天的規則', author: 'baxter', profile:'/profile-3.JPG', image: '/book-example-2.jpg', content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '大野狼要小心', author: 'baxter', profile:'/profile-3.JPG', image: '/book-example.jpg',  content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-        ],
-        chain: [
-          { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:1,part:1,content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:1,part:1,content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:1,part:1,content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:1,part:2,content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:1,part:2,content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:1,part:2,content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:1,part:2,content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-          { title: '長板坡', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:1,part:3,content:"Some quick example text to build on the card title and make up thebulk of the card's content.Some quick example text to build on the card title and make up the" },
-        ],
-        vote: [
-          { title: '哈囉', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:0,part:3},
-          { title: '哈囉', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:0,part:3 },
-          { title: '哈囉', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:0,part:3 },
-          { title: '哈囉', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:0,part:3 },
-          { title: '哈囉', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:0,part:3 },
-          { title: '哈囉', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:0,part:3 },
-          { title: '哈囉', author: 'james baxter', profile:'/profile-3.JPG', image: '/book-example-3.jpg',targetDate : '2024-07-25T00:00:00',State:0,part:3 },
-        ]
-      
-      };
-      
+    const [books, setBooks] = useState({
+		finished: [],
+		chain: [],
+		vote: [],
+	});
+
+    const trackRef = useRef(null);
+	const [bookInfo1, setBookInfo1] = useState([]);
+	const [bookInfo2, setBookInfo2] = useState([]);
+	const [bookInfo3, setBookInfo3] = useState([]);
+	const [dataLoaded, setDataLoaded] = useState(false);
+    const [itemWidth, setItemWidth] = useState(0);
+
+
+	const fetchBook = async() => {
+		try {
+			// 分別發送三個不同的請求
+			const response1 = await axios.get('/allEvent/1', { params: { eventStatus: 1 } });
+			const response2 = await axios.get('/allEvent/1', { params: { eventStatus: 2 } });
+			const response3 = await axios.get('/allEvent/1', { params: { eventStatus: 3 } });
+            
+			// 將回應資料分別賦值給不同的狀態
+			setBookInfo1(response1.data);
+			setBookInfo2(response2.data);
+			setBookInfo3(response3.data);
+
+			// 所有請求完成後設置 dataLoaded 為 true
+			setDataLoaded(true);
+
+
+		} catch (error) {
+			console.log('Fetch book error:', error);
+		}
+	};
+
+	useEffect(() => {
+		fetchBook();
+	}, []);
+	
+
+	useEffect(() => {
+    if (dataLoaded) {
+        setBooks(prevBooks => ({
+        ...prevBooks,
+        finished: bookInfo1,
+        chain: bookInfo2,
+        vote: bookInfo3,
+        }));
+
+        const firstChild = trackRef.current.children[0];
+        if (firstChild) {
+            const width = firstChild.getBoundingClientRect().width;
+            setItemWidth(width);
+        }
+
+
+    }
+    }, [dataLoaded, bookInfo1, bookInfo2, bookInfo3]);
+
+   
+
+
+
+
     //第一個滾動軸
     const { t } = useTranslation();
-    const trackRef = useRef(null);
     const [currentIndex_1, setCurrentIndex_1] = useState(0);
     const [currentIndex_2, setCurrentIndex_2] = useState(0);
     const [currentIndex_3, setCurrentIndex_3] = useState(0);
@@ -79,6 +111,9 @@ function Home() {
             }
         }
     };
+
+    console.log(books.vote)
+
     
 
     const handleLeftClick = (state) => {
@@ -110,8 +145,7 @@ function Home() {
 
     };
 
-    const itemWidth = trackRef.current ? trackRef.current.children[0].getBoundingClientRect().width : 0;
-
+   
 
     
  
@@ -175,13 +209,13 @@ function Home() {
                         {books.finished.map((book, index) => (
                             <Col className={styles.carousel_item}>
                                 <Cards
-                                    key={index}
-                                    title={book.title}
-                                    author={book.author}
-                                    profile={book.profile}
-                                    image={book.image}
-                                    content={book.content}
-                                    
+                                    key={index || 'undefined'}
+                                    title={book.eventTitle || 'undefined'}
+                                    author={book.creator.username || 'undefined'}
+                                    //avatar為空數值，需要更改
+                                    //profile={convertImage(books.creator.avatar}
+                                    image={convertImage(book.eventImage) || 'undefined'}
+                                    content={book.eventIntro || 'undefined'}
                                 />
                             </Col>
                         ))} 
@@ -224,15 +258,19 @@ function Home() {
                     ref={trackRef} 
                     style={{ transform: `translateX(-${itemWidth * currentIndex_2}px)` }}
                     >
+
+                   
+
+
                         {books.chain.map((book, index) => (
                             <Col className={styles.carousel_item}>
                                 <Processing
-                                    key={index}
-                                    title={book.title}
+                                    key={index|| 'undefined'}
+                                    title={book.eventTitle || 'undefined'}
                                     Stage = {false}
-                                    image={book.image}
-                                    content={book.content}
-                                    targetDate={book.targetDate}
+                                    image={convertImage(book.eventImage) || 'undefined'}
+                                    content={book.eventIntro || 'undefined'}
+                                    targetDate={book.time.submitTime || 'undefined'}
                                 />
                             </Col>
                         ))} 
@@ -272,15 +310,16 @@ function Home() {
                     ref={trackRef} 
                     style={{ transform: `translateX(-${itemWidth * currentIndex_3}px)` }}
                     >
+                     
                         {books.chain.map((book, index) => (
                             <Col className={styles.carousel_item}>
                                 <Processing
-                                    key={index}
-                                    title={book.title}
+                                    key={index|| 'undefined'}
+                                    title={book.eventTitle|| 'undefined'}
                                     Stage = {true}
-                                    image={book.image}
-                                    content={book.content}
-                                    targetDate={book.targetDate}
+                                    image={convertImage(book.eventImage)|| 'undefined'}
+                                    content={book.eventIntro|| 'undefined'}
+                                    targetDate={book.time.submitTime|| 'undefined'}
                                 />
                             </Col>
                         ))} 
@@ -292,10 +331,6 @@ function Home() {
                     </button>
                 </Col>
             </Row>
-
-           
-            
-
 
             {/* <!-- 回到最上部分 --> */}
             <Row>
