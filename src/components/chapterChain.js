@@ -107,7 +107,7 @@ function ChapterChain({ chapter, className }) {
 					<Row>
 						<Col className='flex justify-end'>
 							<div className={styles.btn} onClick={(e) => goToChain(e)}>
-								{ t('我要接龍') }
+								{ t('I want to chain!') }
 							</div>
 						</Col>
 					</Row>
@@ -138,7 +138,7 @@ function ChapterChain({ chapter, className }) {
 									<textarea
 										className='border border-gray-300 rounded w-full py-2 px-3 mt-3 mb-2 outline-none'
 										rows='6'
-										placeholder={t('輸入文字...')}
+										placeholder={t('Enter text...')}
 										value={text}
 										onChange={(e) => setText(e.target.value)}
 									></textarea>

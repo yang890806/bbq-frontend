@@ -92,7 +92,7 @@ function BookIndex() {
         var color = "text-dark-cream";
         var statusText = (
           <span className={color}>
-            {t("接龍中")} |{" "}
+            {t("Chaining")} |{" "}
             <CountdownTimer targetDate={"2024-07-25T00:00:00"} />
           </span>
         );
@@ -101,14 +101,14 @@ function BookIndex() {
         var color = "text-red";
         var statusText = (
           <span className={color}>
-            {t("投票進行中")} |{" "}
+            {t("Voting")} |{" "}
             <CountdownTimer targetDate={"2024-07-25T00:00:00"} />
           </span>
         );
         break;
       default:
         color = "";
-        var statusText = <span>{t("已完成")}</span>;
+        var statusText = <span>{t("Completed")}</span>;
         break;
     }
 
