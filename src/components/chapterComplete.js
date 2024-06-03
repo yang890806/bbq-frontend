@@ -16,7 +16,7 @@ function ChapterComplete({ chapter, className }) {
 		<Row className={`bg-gray-200 shadow-sm rounded-md p-3 my-2 ${className}`}>
 			<Col xs={4}>
 				<Image 
-					src={convertImage(chapter?.finishedpage?.imageContent) ?? '/book-example.JPG'} // TEST
+					src={convertImage(chapter?.finishedpage?.imageContent) ?? '/book-example.JPG'} // TEST 若沒有image會報錯，所以找一個類似空白的圖片，把'/book-example.JPG'，讓他比較美觀
 					width={imageWidth / 1.5}
 					height={imageHeight / 1.5}
 					alt='Image'

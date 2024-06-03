@@ -34,7 +34,7 @@ function BookIntro({ data, className }) {
 			{/* 繪本圖片 */}
 			<Col xs={{span: 3}} className='flex justify-center'>
 				<Image 
-					src={convertImage(data?.eventImage) ?? '/book-example.JPG'} // TEST
+					src={convertImage(data?.eventImage) ?? '/book-example.JPG'} // TEST 若沒有image會報錯，所以找一個類似空白的圖片，把'/book-example.JPG'，讓他比較美觀
 					width={imageWidth / 2.2}
 					height={imageHeight / 2.2}
 					alt='Image'

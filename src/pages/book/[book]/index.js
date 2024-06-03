@@ -88,7 +88,7 @@ function BookIndex() {
 	const showChapterStatus = (status, expandStatus) => {
 		switch(status) {
 			case 1:
-				// TEST 倒數計時需要改掉
+				// TEST 倒數計時需要改，讓它動起來
 				var color = 'text-dark-cream';
 				var statusText = <span className={color}>{t('接龍中')} | 9:25:33</span>;
 				break;
