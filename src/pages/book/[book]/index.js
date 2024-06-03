@@ -151,7 +151,7 @@ function BookIndex() {
 								{chapter?.chapterStatus === 3 && <span className='ml-8'>By. {chapter?.finishedpage?.pageCreator?.username}</span>}
 							</Col>
 							<Col className='text-end'>
-								{showChapterStatus(chapter?.chapterStatus)}
+								{showChapterStatus(chapter?.chapterStatus, expandChapters[i])}
 							</Col>
 						</Row>
 						{expandChapters[i] && showExpandChapter(chapter)}
