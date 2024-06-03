@@ -60,6 +60,12 @@ i18n.use(initReactI18next).init({
 				'Search by Event Code': 'Search by Event Code',
 				'Enter Event Code...': 'Enter Event Code...',
 				'No relevant books found.': 'No relevant books found.', 
+				'Post': 'Post', 
+				'Vote': 'Vote', 
+				'Please log in first.': 'Please log in first.', 
+				'Add': 'Add', 
+				'The chapter fails to be created.': 'The chapter fails to be created.', 
+				'Add Chapter': 'Add Chapter', 
 			}
 		},
 		zh: {
@@ -118,6 +124,12 @@ i18n.use(initReactI18next).init({
 				'Search by Event Code': '以活動代碼搜尋',
 				'Enter Event Code...': '輸入活動代碼...',
 				'No relevant books found.': '沒有找到相關書本。', 
+				'Post': '投稿', 
+				'Vote': '投票', 
+				'Please log in first.': '請先登入', 
+				'Add': '新增', 
+				'Add Chapter': '新增章節', 
+				'The chapter fails to be created.': '章節建立失敗', 
 			}
 		},
 	},

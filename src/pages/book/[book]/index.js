@@ -2,6 +2,7 @@ import Head from 'next/head';
 import getConfig from 'next/config';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'react-i18next';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -11,9 +12,9 @@ import BookIntro from '@/components/bookIntro';
 import ChapterComplete from '@/components/chapterComplete';
 import ChapterVoting from '@/components/chapterVoting';
 import ChapterChain from '@/components/chapterChain';
+import ChapterAdd from '@/components/chapterAdd';
 import axios from '@/utils/axios';
 import styles from '@/styles/book.module.css';
-import { t } from 'i18next';
 
 const { 
 	publicRuntimeConfig: { frontendRoot } 
@@ -21,12 +22,13 @@ const {
 
 function BookIndex() {
 
+	const { t } = useTranslation();
 	const router = useRouter();
     const { book } = router.query;
 
 	const [bookInfo, setBookInfo] = useState({});
 	const [chapters, setChapters] = useState([]);
-	const [exapndChapters, setExpandChapters] = useState([]);
+	const [expandChapters, setExpandChapters] = useState([]);
 
 	// 顯示錯誤訊息
 	const showErrorMsg = (text) => {
@@ -83,16 +85,24 @@ function BookIndex() {
 	};
 
 	// 顯示章節狀態
-	const showChapterStatus = (status) => {
+	const showChapterStatus = (status, expandStatus) => {
 		switch(status) {
 			case 1:
 				// TEST 倒數計時需要改掉
-				return <span className='text-dark-cream'>{t('接龍中')} | 9:25:33</span>; 
+				var color = 'text-dark-cream';
+				var statusText = <span className={color}>{t('接龍中')} | 9:25:33</span>;
+				break;
 			case 2:
-				return <span className='text-red'>{t('投票進行中')} | 9:25:33</span>;
+				var color = 'text-red';
+				var statusText = <span className={color}>{t('投票進行中')} | 9:25:33</span>;
+				break;
 			default:
-				return <span>{t('已完成')}</span>;
+				color = '';
+				var statusText = <span>{t('已完成')}</span>;
+				break;
 		}
+
+		return <>{statusText} <FontAwesomeIcon icon={(expandStatus) ? faChevronUp : faChevronDown} className={`ml-2 ${color}`}/></>;
 	};
 
 	const showExpandChapter = (chapter) => {
@@ -107,7 +117,7 @@ function BookIndex() {
 	};
 
 	const updateExpand = (e, index) => {
-		setExpandChapters(exapndChapters.map((status, i) => 
+		setExpandChapters(expandChapters.map((status, i) => 
 			i === index ? !status : status
 		));
 	};
@@ -131,24 +141,26 @@ function BookIndex() {
 			{/* 書本簡介 */}
 			<BookIntro data={bookInfo} className='my-6'/>
 
+			{/* 章節 */}
 			{chapters?.map((chapter, i) => 
 				<Row key={i} className={styles.chapterBlock}>
 					<Col>
-						<Row>
+						<Row className='cursor-pointer' onClick={(e) => updateExpand(e, i)}>
 							<Col>
 								<span>{i + 1}. {chapter?.chapterTitle}</span>
-								{/* TEST {Authors}需要改掉 */}
-								<span className='ml-8'>By. Authors</span> 
+								{chapter?.chapterStatus === 3 && <span className='ml-8'>By. {chapter?.finishedpage?.pageCreator?.username}</span>}
 							</Col>
-							<Col className='text-end cursor-pointer' onClick={(e) => updateExpand(e, i)}>
+							<Col className='text-end'>
 								{showChapterStatus(chapter?.chapterStatus)}
-								<FontAwesomeIcon icon={(exapndChapters[i]) ? faChevronUp : faChevronDown} className='ml-2'/>
 							</Col>
 						</Row>
-						{exapndChapters[i] && showExpandChapter(chapter)}
+						{expandChapters[i] && showExpandChapter(chapter)}
 					</Col>
 				</Row>
 			)}
+
+			{/* 新增章節 */}
+			<ChapterAdd book={book} totalChapters={chapters?.length}/>
 		</Container>
 		</>
 	);

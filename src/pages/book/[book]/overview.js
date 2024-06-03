@@ -84,7 +84,7 @@ function BookOverview() {
 		<Container>
 			<Row className='my-12'>
 				<Col>
-					<Link href='/' className={`no-underline w-fit ${styles.btn}`} style={{width: '90px'}}>
+					<Link href='/' className={`no-underline w-fit ${styles.btn}`}>
 						<FontAwesomeIcon icon={ faChevronLeft } className="mr-2 mt-1 flex flex-row" />
 						{ t('Back') }
 					</Link>
@@ -150,7 +150,7 @@ function BookOverview() {
 						</Col>
 						<Col>
 							<Link href={`/book/${book}/view`} className='no-underline flex justify-end'>
-								<div className={styles.btn} style={{width: '100px'}}>
+								<div className={styles.btn}>
 									{ t('Read') }
 									<FontAwesomeIcon icon={faPlay} className="ml-2 mt-1 flex flex-row" />
 								</div>
