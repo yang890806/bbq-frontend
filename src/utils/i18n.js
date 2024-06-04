@@ -81,6 +81,7 @@ i18n.use(initReactI18next).init({
 				'Completed':'Completed',
 				'Post!': 'Post!', 
 				'Paragraph': 'Paragraph', 
+				'Published': 'Published', 
 			}
 		},
 		zh: {
@@ -160,6 +161,7 @@ i18n.use(initReactI18next).init({
 				'Completed':'已完成', 
 				'Post!': '發布！', 
 				'Paragraph': '段落', 
+				'Published': '已發布', 
 			}
 		},
 	},

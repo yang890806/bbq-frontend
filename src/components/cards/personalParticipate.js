@@ -15,12 +15,16 @@ function PersonalParticipate({ book, title, image, targetDate, state, part, publ
 	};
 
 	return (
-		<Card onClick={redirectPage}>
+		<Card className={styles.myEventCard} onClick={redirectPage}>
 			<Card.Img 
 				src={image} 
 				className={styles.bookcard_personal_image}
 			/>
-			<Card.Title className='mx-3 mt-2 font-bold'>{title}</Card.Title>
+			<Card.Title className='mx-3 mt-2 font-bold flex items-center'>
+				{title}
+				{ state ? <div className={styles.publishedText}>{t('Published')}</div> : <></> }
+				
+			</Card.Title>
 			<Card.Body className='pt-0'>
 				<Card.Text className='mr-2 flex flex-row fw-semibold text-green'>
 					{t('Paragraph')} {part+1} |&nbsp;<CountdownTimer targetDate={'2024-08-06 10:00:00'}/>
@@ -39,7 +43,7 @@ function PersonalParticipate({ book, title, image, targetDate, state, part, publ
 								{t('Private')}
 							</Card.Text>
 							<Card.Text>
-								{ `${t('Code')}: ${12345}`}
+								{ `${t('Code')}: ${code}`}
 							</Card.Text>
 						</>}
 					</div>
@@ -58,7 +62,6 @@ function PersonalParticipate({ book, title, image, targetDate, state, part, publ
 					</Button>
 				</div>
 			</Card.Body>
-
 		</Card>
 	)
 }

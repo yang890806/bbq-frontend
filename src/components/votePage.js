@@ -14,7 +14,7 @@ function VotePage({ index, page, selected, handleClick }) {
 			onClick={() => handleClick(index)}
 		>
 			<Image 
-				src={convertImage(page?.imageContent)}
+				src={convertImage(page?.imageContent) ?? '/image-not-found.jpg'}
 				width={imageWidth / 3}
 				height={imageHeight / 3}
 				alt='Image'

@@ -18,7 +18,7 @@ const {
 function BookIntro({ data, className }) {
 
 	const { t } = useTranslation();
-	const profileSize = [30, 30];
+	const profileSize = [20, 20];
 	const [authors, setAuthors] = useState([]);
 
 	const checkCreator = () => {
@@ -98,7 +98,7 @@ function BookIntro({ data, className }) {
 				</Row>
 				}
 				<Row>
-					<Col className='flex'>
+					<Col className='flex items-center'>
 						<div className='mr-2'>{t('Authors')}</div>
 						{
 							authors?.map((author, i) => 

@@ -391,7 +391,7 @@ function BookCreate() {
 
 		{/* Loading動畫 */}
 		{showLoading && (
-			<div className='w-screen h-screen absolute z-[999] top-0 left-0 flex justify-center items-center bg-opacity-50 bg-black'>
+			<div className='w-screen h-screen absolute z-[999] top-0 left-0 flex justify-center items-center bg-opacity-75 bg-black'>
 				<HashLoader color='#F5C265' loading={showLoading} aria-label='Loading' />
 			</div>
 		)}

@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { SlideDown } from 'react-slidedown';
 import 'react-slidedown/lib/slidedown.css';
+import { HashLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import getLoggedUser from '@/auth/getLoggedUser';
 import NavBar from "@/components/navbar";
@@ -32,6 +33,7 @@ function BookIndex() {
 	const [bookInfo, setBookInfo] = useState({});
 	const [chapters, setChapters] = useState([]);
 	const [expandChapters, setExpandChapters] = useState([]);
+	const [showLoading, setShowLoading] = useState(false);
 
 	const checkCreator = () => {
 		return getLoggedUser({ t }) === bookInfo?.creator?.uId;
@@ -56,6 +58,7 @@ function BookIndex() {
 
 	const fetchBook = async () => {
 		if (book) {
+			setShowLoading(true);
 			await axios
 				.get(`/event/${book}`, {}, {})
 				.then((res) => {
@@ -65,6 +68,7 @@ function BookIndex() {
 						fetchChapters();
 					} else {
 						showErrorMsg(t("The event is not found..."));
+						setShowLoading(false);
 					}
 				})
 				.catch((error) => {
@@ -78,7 +82,7 @@ function BookIndex() {
 			await axios
 				.get(`/allChapter/${book}`, {}, {})
 				.then((res) => {
-					console.log("chapters:", res.data);
+					setShowLoading(false);
 					if (res.status === 200) {
 						setChapters(res.data);
 						initExpandChapters(res.data?.length);
@@ -199,6 +203,12 @@ function BookIndex() {
 				}
 				
 			</Container>
+			{/* Loading動畫 */}
+			{showLoading && (
+				<div className='w-screen h-screen absolute z-[999] top-0 left-0 flex justify-center items-center bg-opacity-75 bg-black'>
+					<HashLoader color='#F5C265' loading={showLoading} aria-label='Loading' />
+				</div>
+			)}
 		</>
 	);
 }

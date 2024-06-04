@@ -3,6 +3,7 @@ import { useEffect,useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, Row, Col, ButtonGroup, ToggleButton  } from 'react-bootstrap';
 import { Dropdown, DropdownButton, Form, FloatingLabel, InputGroup, Button } from 'react-bootstrap';
+import { HashLoader } from 'react-spinners';
 import NavBar from '@/components/navbar';
 import axios from '@/utils/axios';
 import convertImage from '@/components/convertImage';
@@ -21,9 +22,12 @@ function BookPersonal() {
 	const [bookInfo1, setBookInfo1] = useState([]);
 	const [bookInfo2, setBookInfo2] = useState([]);
 	const [dataLoaded, setDataLoaded] = useState(false);
+	const [showLoading, setShowLoading] = useState(false);
 	
 	const fetchBook = async() => {
 		try {
+			setShowLoading(true);
+
 			// 分別發送三個不同的請求
 			const response1 = await axios.get('/allCreatedEvent/2', {}, {});
 			const response2 = await axios.get('/allUploadEvent/2', {}, {});
@@ -36,6 +40,7 @@ function BookPersonal() {
 
 			// 所有請求完成後設置 dataLoaded 為 true
 			setDataLoaded(true);
+			setShowLoading(false);
 
 		} catch (error) {
 			console.log('Fetch book error:', error);
@@ -58,7 +63,7 @@ function BookPersonal() {
 		}
 	}, [dataLoaded, bookInfo1, bookInfo2]);
 
-	const [activeTab, setActiveTab] =useState(0);
+	const [activeTab, setActiveTab] = useState(0);
 	const [state, setstate] =useState('public');
 	const [query, setQuery] = useState('');
 	const [searchingtype , setsearchingtype] = useState('eventTitle');
@@ -98,7 +103,7 @@ function BookPersonal() {
 				<Col className='d-flex justify-content-between align-items-center  mt-5' >
 					{/* Title 顯示 */}
 					<div>
-						<h2 className='text-2xl'>All activity</h2>
+						<h2 className='text-2xl'>My Events</h2>
 						<h2 className='text-4xl font-bold mb-4'>我的活動</h2>
 
 					</div>
@@ -154,12 +159,10 @@ function BookPersonal() {
 								id='input-group-dropdown-1'
 								variant='warning'
 							>   
-								
-								<Dropdown.Item onClick={() => setsearchingtype('eventTitle')}>{t( 'Book Title' )}</Dropdown.Item>
+								<Dropdown.Item onClick={() => setsearchingtype('eventTitle')}>{t('Book Title')}</Dropdown.Item>
 								{state === 'privacy' && (
-									<Dropdown.Item onClick={() => setsearchingtype('eventKey')}>{t('Code' )}</Dropdown.Item>
+									<Dropdown.Item onClick={() => setsearchingtype('eventKey')}>{t('Code')}</Dropdown.Item>
 								)}
-								
 							</DropdownButton>
 						</InputGroup>
 					</div>
@@ -204,9 +207,14 @@ function BookPersonal() {
 				</Col>
 				))
 			)}
-
 			</Row>
 		</Container>
+		{/* Loading動畫 */}
+		{showLoading && (
+			<div className='w-screen h-screen absolute z-[999] top-0 left-0 flex justify-center items-center bg-opacity-75 bg-black'>
+				<HashLoader color='#F5C265' loading={showLoading} aria-label='Loading' />
+			</div>
+		)}
 		</>
 	)
 }
