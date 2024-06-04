@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import getConfig from 'next/config';
 import { useEffect,useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -11,6 +12,10 @@ import axios from '@/utils/axios';
 import convertImage from '@/components/convertImage';
 import PersonalParticipate from '@/components/cards/personalParticipate';
 import styles from '@/styles/book-brief.module.css';
+
+const { 
+	publicRuntimeConfig: { frontendRoot } 
+} = getConfig();
 
 function BookPersonal() {
 
@@ -27,6 +32,10 @@ function BookPersonal() {
 			'title': t('Please log in first.'), 
 			'icon': 'warning', 
 			'confirmButtonColor': '#F5C265', 
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.replace(frontendRoot);
+			}
 		});
 	};
 	

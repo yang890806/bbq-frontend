@@ -90,7 +90,9 @@ function BookCreate() {
 		formData.append('creatorId', creator);
 		formData.append('eventTitle', bookTitle);
 		formData.append('eventIntro', bookIntro);
-		formData.append('eventKey', code);
+		if (code) {
+			formData.append('eventKey', code);
+		}
 		formData.append('chapterTitle', chapterTitle);
 		formData.append('chapterIntro', chapterIntro);
 		formData.append('createTime', now);

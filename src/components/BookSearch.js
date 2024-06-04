@@ -32,7 +32,6 @@ const BookSearch = () => {
 
 			const user = getLoggedUser();
 			if (!user) {
-				showWarningMsg();
 				return;
 			}
 
