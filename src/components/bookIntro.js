@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Tooltip } from '@mui/material';
+import Swal from 'sweetalert2';
 import Avatar from '@/components/avatar';
 import convertImage from '@/components/convertImage';
+import axios from '@/utils/axios';
+import styles from '@/styles/book.module.css';
 
 const { 
-	publicRuntimeConfig: { imageWidth, imageHeight } 
+	publicRuntimeConfig: { frontendRoot, imageWidth, imageHeight } 
 } = getConfig();
 
 function BookIntro({ data, className }) {
@@ -25,6 +28,43 @@ function BookIntro({ data, className }) {
 		setAuthors(newAuthors);
 	};
 
+	const showSuccessMsg = () => {
+		Swal.fire({
+			title: t('Post Book Successfully!'),
+			icon: 'success',
+			confirmButtonColor: '#F5C265',
+		}).then(() => {
+			window.location.replace(`${frontendRoot}/book/${data?.eId}/overview`);
+		});
+	};
+
+	const showErrorMsg = () => {
+		Swal.fire({
+			title: t('Failed to post book...'),
+			text: 'Please try it again later.',
+			icon: 'error',
+			confirmButtonColor: '#F5C265',
+		});
+	};
+
+	const postBook = async() => {
+		const bookId = data?.eId;
+		if (bookId) {
+			await axios.put(`/event/${bookId}`, { isPublish: 1 }, {})
+				.then((res) => {
+					if (res.status === 200) {
+						showSuccessMsg();
+					}
+					else {
+						showErrorMsg();
+					}
+				})
+				.catch((error) => {
+					console.log('Post book error:', error);
+				});
+		}
+	};
+
 	useEffect(() => {
 		handleAuthors();
 	}, [data]);
@@ -34,7 +74,7 @@ function BookIntro({ data, className }) {
 			{/* 繪本圖片 */}
 			<Col xs={{span: 3}} className='flex justify-center'>
 				<Image 
-					src={convertImage(data?.eventImage) ?? '/book-example.JPG'} // TEST 若沒有image會報錯，所以找一個類似空白的圖片，把'/book-example.JPG'，讓他比較美觀
+					src={convertImage(data?.eventImage) ?? '/image-not-found.jpg'}
 					width={imageWidth / 2.2}
 					height={imageHeight / 2.2}
 					alt='Image'
@@ -43,7 +83,12 @@ function BookIntro({ data, className }) {
 			</Col>
 			<Col className='my-6'>
 				<Row>
-					<Col className='text-2xl font-bold my-2'>{data?.eventTitle}</Col>
+					<Col className='flex text-2xl font-bold my-2'>
+						{data?.eventTitle}
+						<div className={`ml-12 text-base font-bold ${styles.btn}`} onClick={postBook}>
+							{ t('Post!') }
+						</div>
+					</Col>
 				</Row>
 				<Row>
 					<Col className='flex'>

@@ -17,7 +17,7 @@ function getLoggedUser({ t }) {
 		return null;
 	}
 	
-	return user;
+	return parseInt(user, 10);
 }
 
 export default getLoggedUser;

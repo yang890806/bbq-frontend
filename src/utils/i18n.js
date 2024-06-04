@@ -79,6 +79,7 @@ i18n.use(initReactI18next).init({
 				'Chaining':'Chaining',
 				'Voting':'Voting',
 				'Completed':'Completed',
+				'Post!': 'Post!', 
 			}
 		},
 		zh: {
@@ -155,7 +156,8 @@ i18n.use(initReactI18next).init({
 				'Please try again.':'請再試一次',
 				'Chaining':'接龍中',
 				'Voting':'投票進行中',
-				'Completed':'已完成',
+				'Completed':'已完成', 
+				'Post!': '發布！', 
 			}
 		},
 	},

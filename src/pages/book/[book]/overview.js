@@ -46,7 +46,6 @@ function BookOverview() {
 				.then((res) => {
 					if (res.status === 200) {
 						if (res?.data?.isPublish === 1) {
-							res.data.eventImage = convertImage(res?.data?.eventImage);
 							setBookInfo(res.data);
 						}
 						else {
@@ -92,15 +91,13 @@ function BookOverview() {
 			</Row>
 			<Row>
 				<Col className='flex justify-center'>
-					{bookInfo?.eventImage && (
-						<Image 
-							src={bookInfo?.eventImage}
-							width={imageWidth}
-							height={imageHeight}
-							alt='Image'
-							className='rounded shadow object-cover'
-						/>
-					)}
+					<Image 
+						src={convertImage(bookInfo?.eventImage) ?? '/image-not-found.jpg'}
+						width={imageWidth}
+						height={imageHeight}
+						alt='Image'
+						className='rounded shadow object-cover'
+					/>
 				</Col>
 				<Col className='flex flex-col justify-center'>
 					<Row>
