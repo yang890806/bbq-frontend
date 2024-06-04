@@ -59,7 +59,7 @@ function ChapterVoting({ chapter, className }) {
 
 	const sendVote = async() => {
 
-		const user = getLoggedUser({ t });
+		const user = getLoggedUser();
 		if (!user) {
 			showWarningMsg();
 			return;

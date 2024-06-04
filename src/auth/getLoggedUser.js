@@ -1,6 +1,6 @@
 import { getCookie } from 'cookies-next';
 
-function getLoggedUser({ t }) {
+function getLoggedUser() {
 
 	const user = getCookie('user-id');
 	if (!user) {

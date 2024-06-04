@@ -22,7 +22,7 @@ function BookIntro({ data, className }) {
 	const [authors, setAuthors] = useState([]);
 
 	const checkCreator = () => {
-		return getLoggedUser({ t }) === data?.creator?.uId;
+		return getLoggedUser() === data?.creator?.uId;
 	};
 
 	const handleAuthors = () => {

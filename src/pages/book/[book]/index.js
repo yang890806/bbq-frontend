@@ -36,7 +36,7 @@ function BookIndex() {
 	const [showLoading, setShowLoading] = useState(false);
 
 	const checkCreator = () => {
-		return getLoggedUser({ t }) === bookInfo?.creator?.uId;
+		return getLoggedUser() === bookInfo?.creator?.uId;
 	};
 
 	// 顯示錯誤訊息

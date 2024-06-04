@@ -75,7 +75,7 @@ function BookCreate() {
 	// 發送創建書本API
 	const createBook = async() => {
 
-		const creator = getLoggedUser({ t });
+		const creator = getLoggedUser();
 		if (!creator) {
 			showWarningMsg();
 			return;

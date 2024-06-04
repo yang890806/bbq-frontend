@@ -5,12 +5,12 @@ import { faArrowRight, faLock, faEarthAmericas } from '@fortawesome/free-solid-s
 import { useTranslation } from 'react-i18next';
 import CountdownTimer from '@/components/countdownTimer';
 
-function PersonalParticipate({ book, title, image, targetDate, state, part, published, code} ) {
+function PersonalParticipate({ book, title, image, targetDate, creator, state, part, published, code} ) {
 
 	const { t } = useTranslation();
 
 	const redirectPage = () => {
-		const redirectURL = state ? `/book/${book}/overview` : `/book/${book}`;
+		const redirectURL = published ? `/book/${book}/overview` : `/book/${book}`;
 		window.location.href = redirectURL;
 	};
 
@@ -22,16 +22,16 @@ function PersonalParticipate({ book, title, image, targetDate, state, part, publ
 			/>
 			<Card.Title className='mx-3 mt-2 font-bold flex items-center'>
 				{title}
-				{ state ? <div className={styles.publishedText}>{t('Published')}</div> : <></> }
+				{ published ? <div className={styles.publishedText}>{t('Published')}</div> : <></> }
 				
 			</Card.Title>
 			<Card.Body className='pt-0'>
 				<Card.Text className='mr-2 flex flex-row fw-semibold text-green'>
-					{t('Paragraph')} {part+1} |&nbsp;<CountdownTimer targetDate={'2024-08-06 10:00:00'}/>
+					{t('Paragraph')} {part+1} |&nbsp;<CountdownTimer targetDate={targetDate}/>
 				</Card.Text>
 				<div className='mt-1 d-flex justify-between items-center'>
 					<div className='text-sm text-brown'>
-						{ published ? <>
+						{ (state === 'PUBLIC') ? <>
 							<Card.Text className='flex items-center'>
 								<FontAwesomeIcon icon={faEarthAmericas} className='mr-1'/>
 								{t('Public')}
@@ -40,25 +40,14 @@ function PersonalParticipate({ book, title, image, targetDate, state, part, publ
 						<>
 							<Card.Text className='flex items-center my-1'>
 								<FontAwesomeIcon icon={faLock} className='mr-1'/>
-								{t('Private')}
-							</Card.Text>
-							<Card.Text>
-								{ `${t('Code')}: ${code}`}
+								{t('Private')} | { `${t('Code')}: ${code}`}
 							</Card.Text>
 						</>}
 					</div>
-					<Button 
-						style={{fontSize:'12px'}} 
-						variant={state ? 'success' : 'warning'}
-					>
-						{state ? 
-						<p className='text'>{t('Settings')}
-							<FontAwesomeIcon icon={ faArrowRight } className='ml-1'/>
-						</p> : 
+					<Button style={{fontSize:'12px'}} variant={creator ? 'warning' : 'success'}>
 						<p className='text'>{t('Settings')}
 							<FontAwesomeIcon icon={ faArrowRight } className='ml-1'/>
 						</p>
-						}
 					</Button>
 				</div>
 			</Card.Body>

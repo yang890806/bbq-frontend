@@ -1,9 +1,11 @@
 import Head from 'next/head';
 import { useEffect,useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Container, Row, Col, ButtonGroup, ToggleButton  } from 'react-bootstrap';
-import { Dropdown, DropdownButton, Form, FloatingLabel, InputGroup, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { HashLoader } from 'react-spinners';
+import Swal from 'sweetalert2';
+import getLoggedUser from '@/auth/getLoggedUser';
 import NavBar from '@/components/navbar';
 import axios from '@/utils/axios';
 import convertImage from '@/components/convertImage';
@@ -14,32 +16,53 @@ function BookPersonal() {
 
 	const { t } = useTranslation();
 
-	const [books, setBooks] = useState({
-		public:[],
-		privacy:[]
-	});
-
-	const [bookInfo1, setBookInfo1] = useState([]);
-	const [bookInfo2, setBookInfo2] = useState([]);
-	const [dataLoaded, setDataLoaded] = useState(false);
+	const [state, setState] = useState('ALL');
+	const [activeTab, setActiveTab] = useState('ALL');
+	const [books, setBooks] = useState([]);
+	const [filteredBooks, setFilteredBooks] = useState([]);
 	const [showLoading, setShowLoading] = useState(false);
+
+	const showWarningMsg = () => {
+		Swal.fire({
+			'title': t('Please log in first.'), 
+			'icon': 'warning', 
+			'confirmButtonColor': '#F5C265', 
+		});
+	};
 	
-	const fetchBook = async() => {
+	const fetchBooks = async() => {
 		try {
 			setShowLoading(true);
 
-			// 分別發送三個不同的請求
-			const response1 = await axios.get('/allCreatedEvent/2', {}, {});
-			const response2 = await axios.get('/allUploadEvent/2', {}, {});
-			const combinedData = response1.data.concat(response2.data);
-			const publicevent = combinedData.filter(event => event.eventKey);
-			const pravicyevent  = combinedData.filter(event =>!event.eventKey);
+			const user = getLoggedUser();
+			if (!user) {
+				showWarningMsg();
+				return;
+			}
 
-			setBookInfo1(pravicyevent);
-			setBookInfo2(publicevent);
+			var url = '';
+			switch(activeTab) {
+				case 'CREATE':
+					url = `/allCreatedEvent/${user}`;
+					break;
+				case 'PARTICIPATE':
+					url = `/allUploadEvent/${user}`;
+					break;
+				default:
+					url = `/allEvent/${user}`;
+					break;
+			}
 
-			// 所有請求完成後設置 dataLoaded 為 true
-			setDataLoaded(true);
+			await axios.get(url, {}, {})
+				.then((res) => {
+					if (res.status === 200) {
+						setBooks(res?.data);
+					}
+				})
+				.catch((error) => {
+					console.log(`Fetch ${url} error:`, error);
+				});
+
 			setShowLoading(false);
 
 		} catch (error) {
@@ -47,44 +70,31 @@ function BookPersonal() {
 		}
 	};
 
-	useEffect(() => {
-		fetchBook();
-	}, []);
-
-	
-	useEffect(() => {
-		if (dataLoaded) {
-		setBooks(prevBooks => ({
-			...prevBooks,
-			public: bookInfo1,
-			privacy: bookInfo2,
-			
-		}));
+	// 篩選公開、私人狀態
+	const filterBooks = () => {
+		console.log('books:', books);
+		var newFilteredBooks = books;
+		switch (state) {
+			case 'PUBLIC':
+				newFilteredBooks = books.filter(book => !book.eventKey);
+				break;
+			case 'PRIVATE':
+				newFilteredBooks = books.filter(book => book.eventKey);
+				break;
+			default:
+				break;
 		}
-	}, [dataLoaded, bookInfo1, bookInfo2]);
-
-	const [activeTab, setActiveTab] = useState(0);
-	const [state, setstate] =useState('public');
-	const [query, setQuery] = useState('');
-	const [searchingtype , setsearchingtype] = useState('eventTitle');
-
-	const filteredItems = books[state].filter((item) => {
-		if (activeTab === 'all') {
-			return item[searchingtype] && item[searchingtype].toLowerCase().includes(query.toLowerCase());
-		} else {
-			return item.isPublish === activeTab && item[searchingtype] && item[searchingtype].toLowerCase().includes(query.toLowerCase());
-		}
-	});
-
-	const handleChange = (event) => {
-		const value = event.target.value;
-		if (value === '1') {
-			setstate('public');
-			setsearchingtype('eventTitle');
-		} else if (value === '2') {
-			setstate('privacy');
-		}
+		console.log('filtered books:', newFilteredBooks);
+		setFilteredBooks(newFilteredBooks);
 	};
+
+	useEffect(() => {
+		fetchBooks();
+	}, [activeTab]);
+
+	useEffect(() => {
+		filterBooks();
+	}, [books]);
 
 	return (
 		<>
@@ -108,105 +118,43 @@ function BookPersonal() {
 
 					</div>
 					<div>
-					<Form.Select className='ml-6 fs-7 mt-2' onChange={handleChange}>
-						<option value='1' >{t('Public')}</option>
-						<option value='2' >{t('Private')}</option>
+					<Form.Select className='ml-6 fs-7 mt-2' onChange={(e) => setState(e.target.value)}>
+						<option value='ALL'>{t('All')}</option>
+						<option value='PUBLIC' >{t('Public')}</option>
+						<option value='PRIVATE' >{t('Private')}</option>
 					</Form.Select>
 					</div>
 					
 					<div className='ml-auto'>
-						<Button className={(activeTab === 'all') ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab('all')}>
+						<Button className={(activeTab === 'ALL') ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab('ALL')}>
 							{t('Show All')}
 						</Button>
-						<Button className={(activeTab === 0) ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab(0)}>
+						<Button className={(activeTab === 'CREATE') ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab('CREATE')}>
 							{t('Create')}
 						</Button>
-						<Button className={(activeTab === 1) ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab(1)}>
+						<Button className={(activeTab === 'PARTICIPATE') ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab('PARTICIPATE')}>
 							{t('Participate')}
 						</Button>
-					</div>  
-
-					<div className='ml-3'>
-						<InputGroup >   
-							<FloatingLabel
-								controlId='floatingInput'
-								label={(() => {
-									switch (searchingtype) {
-										case 'eventTitle':
-											return `${t( 'Search by Book Title...' )}`;
-										case 'author':
-											return `${t( 'Search by Authors...' )}`;
-										case 'code':
-											return `${t( 'Search by Activity Code...' )}`;
-										default:
-											return `以${searchingtype}搜尋...`;
-									}
-								})()}
-							>
-							<Form.Control
-								placeholder=''  
-								onChange={(e)=>{setQuery(e.target.value)}}  
-							/>
-							</FloatingLabel>
-							<DropdownButton 
-								title={
-								searchingtype === 'eventTitle'
-									? `${t('Book Title')}`
-									: searchingtype === 'author'
-									? `${t('Authors')}`
-									: `${t('Code')}`
-								}
-								id='input-group-dropdown-1'
-								variant='warning'
-							>   
-								<Dropdown.Item onClick={() => setsearchingtype('eventTitle')}>{t('Book Title')}</Dropdown.Item>
-								{state === 'privacy' && (
-									<Dropdown.Item onClick={() => setsearchingtype('eventKey')}>{t('Code')}</Dropdown.Item>
-								)}
-							</DropdownButton>
-						</InputGroup>
 					</div>
 				</Col> 
 			</Row>
-
 			<Row>
-	
-			{state === 'public' ? (
-			// 狀態為 'public' 時的渲染內容
-			filteredItems.map((book, index) => (
-				<Col xs={4} md={3}>
-					<PersonalParticipate 
-						key={index}
-						book={book?.eId}
-						title={book?.eventTitle} 
-						image={convertImage(book?.eventImage) ?? '/image-not-found.jpg'} 
-						targetDate={book?.time?.submitTime} 
-						part={book?.totalChapterNum} 
-						published={1}
-						state={book?.isPublish}
-						code={book?.eventKey}
-					/>
-				</Col>
-			))
-			) : (
-			// 狀態不為 'public' 時的渲染內容
-			state === 'privacy' &&
-				filteredItems.map((book, index) => (
-				<Col xs={4} md={3}>
-					<PersonalParticipate 
-						key={index}
-						book={book?.eId}
-						title={book?.eventTitle} 
-						image={convertImage(book?.eventImage) ?? '/image-not-found.jpg'} 
-						targetDate={book?.time?.submitTime} 
-						part={book?.totalChapterNum} 
-						published={0}
-						state={book?.isPublish}
-						code={book?.eventKey}
-					/>
-				</Col>
-				))
-			)}
+				{filteredBooks?.map((book, index) => 
+					<Col xs={4} md={3}>
+						<PersonalParticipate 
+							key={index}
+							book={book?.eId}
+							title={book?.eventTitle} 
+							image={convertImage(book?.eventImage) ?? '/image-not-found.jpg'} 
+							creator={book?.creator?.uId}
+							targetDate={book?.time?.submitTime} 
+							part={book?.totalChapterNum} 
+							state={book?.eventKey ? 'PRIVATE' : 'PUBLIC'}
+							publish={book?.isPublish}
+							code={book?.eventKey}
+						/>
+					</Col>
+				)}
 			</Row>
 		</Container>
 		{/* Loading動畫 */}

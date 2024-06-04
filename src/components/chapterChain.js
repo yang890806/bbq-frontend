@@ -100,7 +100,7 @@ function ChapterChain({ chapter, className }) {
 								<Col className='mb-2 text-xl'>{chapter?.chapterTitle}</Col>
 							</Row>
 							<Row>
-								<Col className='text-md'>{chapter?.chapterIntro}</Col>
+								<Col className='text-md whitespace-pre-wrap'>{chapter?.chapterIntro}</Col>
 							</Row>
 						</Col>
 					</Row>
