@@ -1,11 +1,13 @@
 .banner{
-		position: relative;
-		height: 483px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		color: #fff;
+	position: relative;
+	width: 100vw;
+	height: 483px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	color: #fff;
+	margin-left: -48px;
 
 }
 

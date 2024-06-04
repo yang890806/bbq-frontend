@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect,useState } from 'react';
 import { Container, Row, Col, Button, Dropdown, DropdownButton, Form, FloatingLabel, InputGroup } from 'react-bootstrap';
 import { HashLoader } from 'react-spinners';
+import getLoggedUser from '@/auth/getLoggedUser';
 import AllProcessing from '@/components/cards/allProcessing';
 import AllFinished from '@/components/cards/allFinished';
 import axios from '@/utils/axios';
@@ -43,15 +44,21 @@ function Books() {
 	const [dataLoaded, setDataLoaded] = useState(false);
 	const [showLoading, setShowLoading] = useState(false);
 
+	const getURL = () => {
+		const user = getLoggedUser();
+		return user ? `/allEvent/${user}` : '/allPublicEvent';
+	};
+
 	const fetchBook = async() => {
 		try {
-
 			setShowLoading(true);
 
+			const url = getURL();
+
 			// 分別發送三個不同的請求
-			const response1 = await axios.get('/allEvent/1', { params: { eventStatus: 1 } });
-			const response2 = await axios.get('/allEvent/1', { params: { eventStatus: 2 } });
-			const response3 = await axios.get('/allEvent/1', { params: { eventStatus: 3 } });
+			const response1 = await axios.get(url, { params: { eventStatus: 1 } });
+			const response2 = await axios.get(url, { params: { eventStatus: 2 } });
+			const response3 = await axios.get(url, { params: { eventStatus: 3 } });
 
 			// 將回應資料分別賦值給不同的狀態
 			setBookInfo1(response1.data);
@@ -74,9 +81,9 @@ function Books() {
 		if (dataLoaded) {
 			setBooks(prevBooks => ({
 				...prevBooks,
-				finished: bookInfo1,
-				chain: bookInfo2,
-				vote: bookInfo3,
+				chain: bookInfo1,
+				vote: bookInfo2,
+				finished: bookInfo3,
 			}));
 		}
 	}, [dataLoaded, bookInfo1, bookInfo2, bookInfo3]);
@@ -95,10 +102,10 @@ function Books() {
 		}
 	}, [status]);
 
-	const filteredItems =  books[activeTab].filter((item) =>
-		item[searchingtype] && item[searchingtype].toLowerCase().includes(query.toLowerCase()))
+	const filteredItems =  books[activeTab]?.filter((item) =>
+		item[searchingtype] && item[searchingtype].toLowerCase().includes(query.toLowerCase()));
 	
-	const renderedItems = filteredItems.map((book, index) => {
+	const renderedItems = filteredItems?.map((book, index) => {
 		if (activeTab === 'finished') {
 			return (
 				<Col xs={2} md={3}>

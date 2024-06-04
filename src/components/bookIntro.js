@@ -5,6 +5,8 @@ import { Row, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Tooltip } from '@mui/material';
 import Swal from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock, faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 import getLoggedUser from '@/auth/getLoggedUser';
 import Avatar from '@/components/avatar';
 import convertImage from '@/components/convertImage';
@@ -70,6 +72,23 @@ function BookIntro({ data, className }) {
 		}
 	};
 
+	const showEventStatus = (eventKey) => {
+		var icon = faEarthAmericas;
+		var color = 'text-green';
+		var statusText = t('Public');
+
+		if (eventKey) {
+			icon = faLock;
+			color = 'text-red';
+			statusText = t('Private');
+		}
+
+		return <div className={`mx-1 text-sm font-normal ${color}`}>
+			<FontAwesomeIcon icon={icon} size='xs' className='mx-1'/>
+			<span>{statusText}</span>
+		</div>;
+	};
+
 	useEffect(() => {
 		handleAuthors();
 	}, [data]);
@@ -87,16 +106,25 @@ function BookIntro({ data, className }) {
 				/>
 			</Col>
 			<Col className='my-6'>
-				{checkCreator() && 
 				<Row>
-					<Col className='flex text-2xl font-bold my-2'>
+					<Col className='flex items-center text-2xl font-bold my-1'>
 						{data?.eventTitle}
-						<div className={`ml-12 text-base font-bold ${styles.btn}`} onClick={postBook}>
-							{ t('Post!') }
-						</div>
+						{showEventStatus(data?.eventKey)}
+						{checkCreator() && 
+							<div className={`ml-12 text-base font-bold ${styles.btn}`} onClick={postBook}>
+								{ t('Post!') }
+							</div>
+						}
 					</Col>
 				</Row>
-				}
+				<Row>
+					<Col>
+					{data?.eventKey && 
+						<span className='text-brown text-sm underline'>{`${t('Code')}: ${data?.eventKey}`}	
+						</span>
+					}
+					</Col>
+				</Row>
 				<Row>
 					<Col className='flex items-center'>
 						<div className='mr-2'>{t('Authors')}</div>

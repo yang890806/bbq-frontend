@@ -49,7 +49,7 @@ function BookPersonal() {
 					url = `/allUploadEvent/${user}`;
 					break;
 				default:
-					url = `/allEvent/${user}`;
+					url = `/myAllEvents/${user}`;
 					break;
 			}
 
@@ -72,7 +72,6 @@ function BookPersonal() {
 
 	// 篩選公開、私人狀態
 	const filterBooks = () => {
-		console.log('books:', books);
 		var newFilteredBooks = books;
 		switch (state) {
 			case 'PUBLIC':
@@ -84,7 +83,6 @@ function BookPersonal() {
 			default:
 				break;
 		}
-		console.log('filtered books:', newFilteredBooks);
 		setFilteredBooks(newFilteredBooks);
 	};
 
@@ -94,7 +92,7 @@ function BookPersonal() {
 
 	useEffect(() => {
 		filterBooks();
-	}, [books]);
+	}, [books, state]);
 
 	return (
 		<>
@@ -117,24 +115,26 @@ function BookPersonal() {
 						<h2 className='text-4xl font-bold mb-4'>我的活動</h2>
 
 					</div>
-					<div>
-					<Form.Select className='ml-6 fs-7 mt-2' onChange={(e) => setState(e.target.value)}>
-						<option value='ALL'>{t('All')}</option>
-						<option value='PUBLIC' >{t('Public')}</option>
-						<option value='PRIVATE' >{t('Private')}</option>
-					</Form.Select>
-					</div>
-					
-					<div className='ml-auto'>
-						<Button className={(activeTab === 'ALL') ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab('ALL')}>
-							{t('Show All')}
-						</Button>
-						<Button className={(activeTab === 'CREATE') ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab('CREATE')}>
-							{t('Create')}
-						</Button>
-						<Button className={(activeTab === 'PARTICIPATE') ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab('PARTICIPATE')}>
-							{t('Participate')}
-						</Button>
+					<div className='flex items-center'>
+						<div className='mr-3'>
+							<Form.Select className='fs-7' onChange={(e) => setState(e.target.value)}>
+								<option value='ALL'>{t('All')}</option>
+								<option value='PUBLIC' >{t('Public')}</option>
+								<option value='PRIVATE' >{t('Private')}</option>
+							</Form.Select>
+						</div>
+						
+						<div className='ml-auto'>
+							<Button className={(activeTab === 'ALL') ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab('ALL')}>
+								{t('Show All')}
+							</Button>
+							<Button className={(activeTab === 'CREATE') ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab('CREATE')}>
+								{t('Create')}
+							</Button>
+							<Button className={(activeTab === 'PARTICIPATE') ? styles.activeToggleBtn : styles.toggleBtn} onClick={() => setActiveTab('PARTICIPATE')}>
+								{t('Participate')}
+							</Button>
+						</div>
 					</div>
 				</Col> 
 			</Row>

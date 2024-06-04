@@ -82,6 +82,8 @@ i18n.use(initReactI18next).init({
 				'Post!': 'Post!', 
 				'Paragraph': 'Paragraph', 
 				'Published': 'Published', 
+				'All': 'All', 
+				'Join': 'Join', 
 			}
 		},
 		zh: {
@@ -162,6 +164,8 @@ i18n.use(initReactI18next).init({
 				'Post!': '發布！', 
 				'Paragraph': '段落', 
 				'Published': '已發布', 
+				'All': '全部', 
+				'Join': '加入', 
 			}
 		},
 	},

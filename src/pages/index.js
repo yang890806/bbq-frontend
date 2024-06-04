@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { HashLoader } from 'react-spinners';
+import getLoggedUser from '@/auth/getLoggedUser';
 import NavBar from '@/components/navbar';
 import Cards from '@/components/cards/cardsFinished';
 import Processing from '@/components/cards/cardsProcessing.js';
@@ -31,14 +32,21 @@ function Home() {
     const [itemWidth, setItemWidth] = useState(0);
     const [showLoading, setShowLoading] = useState(false);
 
+    const getURL = () => {
+		const user = getLoggedUser();
+		return user ? `/allEvent/${user}` : '/allPublicEvent';
+	};
+
 	const fetchBook = async() => {
 		try {
             setShowLoading(true);
 
+            const url = getURL();
+
 			// 分別發送三個不同的請求
-			const response1 = await axios.get('/allEvent/1', { params: { eventStatus: 1 } });
-			const response2 = await axios.get('/allEvent/1', { params: { eventStatus: 2 } });
-			const response3 = await axios.get('/allEvent/1', { params: { eventStatus: 3 } });
+			const response1 = await axios.get(url, { params: { eventStatus: 1 } });
+			const response2 = await axios.get(url, { params: { eventStatus: 2 } });
+			const response3 = await axios.get(url, { params: { eventStatus: 3 } });
             
 			// 將回應資料分別賦值給不同的狀態
 			setBookInfo1(response1.data);
@@ -62,10 +70,10 @@ function Home() {
 	useEffect(() => {
     if (dataLoaded) {
         setBooks(prevBooks => ({
-        ...prevBooks,
-        finished: bookInfo1,
-        chain: bookInfo2,
-        vote: bookInfo3,
+            ...prevBooks,
+            chain: bookInfo1,
+            vote: bookInfo2,
+            finished: bookInfo3,
         }));
 
         const firstChild = trackRef.current.children[0];
