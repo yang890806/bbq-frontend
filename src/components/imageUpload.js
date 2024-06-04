@@ -9,7 +9,7 @@ const {
 	publicRuntimeConfig: { imageWidth, imageHeight } 
 } = getConfig();
 
-const ImageUpload = ({ image, handleImage }) => {
+const ImageUpload = ({ image, handleImage, className, iconColor }) => {
 	const imgWidth = imageWidth / 1.6;
 	const imgHeight = imageHeight / 1.6;
 
@@ -47,9 +47,9 @@ const ImageUpload = ({ image, handleImage }) => {
 						type='submit'
 						onClick={handleImageUpload}
 						style={{width: `${imgWidth}px`, height: `${imgHeight}px`}}
-						className='bg-zinc-200 rounded'
+						className={className ?? 'bg-zinc-200 rounded'}
 					>
-						<FontAwesomeIcon icon={faPlus} size='2xl' className='text-white'/>
+						<FontAwesomeIcon icon={faPlus} size='2xl' className={iconColor ?? 'text-white'}/>
 					</button>
 				)}
 				<input 
