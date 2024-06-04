@@ -26,7 +26,7 @@ const Page = React.forwardRef((props, ref) => {
 			</div>
 			<div className='h-96 flex justify-center'>
 				<Image 
-					src={props?.page?.finishedpage?.imageContent ?? '/book-example.jpg'} 
+					src={props?.page?.finishedpage?.imageContent ?? '/image-not-found.jpg'} 
 					width={0} 
 					height={0} 
 					sizes='100vw'

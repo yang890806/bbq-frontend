@@ -11,6 +11,7 @@ import { faCopy, faLock, faEarthAmericas } from '@fortawesome/free-solid-svg-ico
 import { HashLoader } from 'react-spinners';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import getLoggedUser from '@/auth/getLoggedUser';
 import axios from '@/utils/axios';
 import NavBar from '@/components/navbar';
 import ImageUpload from '@/components/imageUpload';
@@ -66,12 +67,17 @@ function BookCreate() {
 	// 發送創建書本API
 	const createBook = async() => {
 
+		const creator = getLoggedUser({ t });
+		if (!creator) {
+			return;
+		}
+
 		// 取得現在時間
 		const now = getNow();
 
 		var formData = new FormData();
 		formData.append('eventImage', bookImage);
-		formData.append('creatorId', 1); // TEST
+		formData.append('creatorId', creator);
 		formData.append('eventTitle', bookTitle);
 		formData.append('eventIntro', bookIntro);
 		formData.append('eventKey', code);
@@ -376,7 +382,7 @@ function BookCreate() {
 
 		{/* Loading動畫 */}
 		{showLoading && (
-			<div className='w-screen h-screen absolute z-50 top-0 left-0 flex justify-center items-center bg-opacity-50 bg-black'>
+			<div className='w-screen h-screen absolute z-[999] top-0 left-0 flex justify-center items-center bg-opacity-50 bg-black'>
 				<HashLoader color='#F5C265' loading={showLoading} aria-label='Loading' />
 			</div>
 		)}

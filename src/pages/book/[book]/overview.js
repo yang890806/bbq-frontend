@@ -46,7 +46,6 @@ function BookOverview() {
 				.then((res) => {
 					if (res.status === 200) {
 						if (res?.data?.isPublish === 1) {
-							res.data.eventImage = convertImage(res?.data?.eventImage);
 							setBookInfo(res.data);
 						}
 						else {
@@ -84,7 +83,7 @@ function BookOverview() {
 		<Container>
 			<Row className='my-12'>
 				<Col>
-					<Link href='/' className={`no-underline w-fit ${styles.btn}`} style={{width: '90px'}}>
+					<Link href='/' className={`no-underline w-fit ${styles.btn}`}>
 						<FontAwesomeIcon icon={ faChevronLeft } className="mr-2 mt-1 flex flex-row" />
 						{ t('Back') }
 					</Link>
@@ -92,15 +91,13 @@ function BookOverview() {
 			</Row>
 			<Row>
 				<Col className='flex justify-center'>
-					{bookInfo?.eventImage && (
-						<Image 
-							src={bookInfo?.eventImage}
-							width={imageWidth}
-							height={imageHeight}
-							alt='Image'
-							className='rounded shadow object-cover'
-						/>
-					)}
+					<Image 
+						src={convertImage(bookInfo?.eventImage) ?? '/image-not-found.jpg'}
+						width={imageWidth}
+						height={imageHeight}
+						alt='Image'
+						className='rounded shadow object-cover'
+					/>
 				</Col>
 				<Col className='flex flex-col justify-center'>
 					<Row>
@@ -150,7 +147,7 @@ function BookOverview() {
 						</Col>
 						<Col>
 							<Link href={`/book/${book}/view`} className='no-underline flex justify-end'>
-								<div className={styles.btn} style={{width: '100px'}}>
+								<div className={styles.btn}>
 									{ t('Read') }
 									<FontAwesomeIcon icon={faPlay} className="ml-2 mt-1 flex flex-row" />
 								</div>
