@@ -110,7 +110,7 @@ function BookView() {
 			<Row className='my-12'>
 				<Col xs={3}>
 					<Link href={`/book/${book}/overview`} className='no-underline'>
-						<div className={styles.btn} style={{width: '90px'}}>
+						<div className={styles.btn}>
 							<FontAwesomeIcon icon={ faChevronLeft } className="mr-2 mt-1 flex flex-row" />
 							{ t('Back') }
 						</div>

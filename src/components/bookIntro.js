@@ -5,6 +5,9 @@ import { Row, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Tooltip } from '@mui/material';
 import Swal from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock, faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
+import getLoggedUser from '@/auth/getLoggedUser';
 import Avatar from '@/components/avatar';
 import convertImage from '@/components/convertImage';
 import axios from '@/utils/axios';
@@ -17,8 +20,12 @@ const {
 function BookIntro({ data, className }) {
 
 	const { t } = useTranslation();
-	const profileSize = [30, 30];
+	const profileSize = [20, 20];
 	const [authors, setAuthors] = useState([]);
+
+	const checkCreator = () => {
+		return getLoggedUser() === data?.creator?.uId;
+	};
 
 	const handleAuthors = () => {
 		var newAuthors = [data?.creator];
@@ -65,6 +72,23 @@ function BookIntro({ data, className }) {
 		}
 	};
 
+	const showEventStatus = (eventKey) => {
+		var icon = faEarthAmericas;
+		var color = 'text-green';
+		var statusText = t('Public');
+
+		if (eventKey) {
+			icon = faLock;
+			color = 'text-red';
+			statusText = t('Private');
+		}
+
+		return <div className={`mx-1 text-sm font-normal ${color}`}>
+			<FontAwesomeIcon icon={icon} size='sm' className='mx-1'/>
+			<span>{statusText}</span>
+		</div>;
+	};
+
 	useEffect(() => {
 		handleAuthors();
 	}, [data]);
@@ -83,15 +107,29 @@ function BookIntro({ data, className }) {
 			</Col>
 			<Col className='my-6'>
 				<Row>
-					<Col className='flex text-2xl font-bold my-2'>
+					<Col xs={4} className='flex items-center text-2xl font-bold my-1'>
 						{data?.eventTitle}
+						{showEventStatus(data?.eventKey)}
+						
+					</Col>
+					<Col>
+					{checkCreator() && 
 						<div className={`ml-12 text-base font-bold ${styles.btn}`} onClick={postBook}>
 							{ t('Post!') }
 						</div>
+					}
 					</Col>
 				</Row>
 				<Row>
-					<Col className='flex'>
+					<Col>
+					{data?.eventKey && 
+						<span className='text-brown text-sm underline'>{`${t('Code')}: ${data?.eventKey}`}	
+						</span>
+					}
+					</Col>
+				</Row>
+				<Row>
+					<Col className='flex items-center'>
 						<div className='mr-2'>{t('Authors')}</div>
 						{
 							authors?.map((author, i) => 
@@ -111,7 +149,7 @@ function BookIntro({ data, className }) {
 					</Col>
 				</Row>
 				<Row>
-					<Col className='max-h-24 overflow-y-scroll whitespace-pre-wrap'>
+					<Col xs={6} className='max-h-24 overflow-y-scroll whitespace-pre-wrap'>
 						{data?.eventIntro}
 					</Col>
 				</Row>

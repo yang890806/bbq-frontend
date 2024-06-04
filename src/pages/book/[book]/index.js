@@ -1,24 +1,25 @@
-import Head from "next/head";
-import getConfig from "next/config";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
-import { Container, Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import Head from 'next/head';
+import getConfig from 'next/config';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'react-i18next';
+import { Container, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { SlideDown } from 'react-slidedown';
 import 'react-slidedown/lib/slidedown.css';
-import Swal from "sweetalert2";
+import { HashLoader } from 'react-spinners';
+import Swal from 'sweetalert2';
 import getLoggedUser from '@/auth/getLoggedUser';
-import NavBar from "@/components/navbar";
-import BookIntro from "@/components/bookIntro";
-import ChapterComplete from "@/components/chapterComplete";
-import ChapterVoting from "@/components/chapterVoting";
-import ChapterChain from "@/components/chapterChain";
-import ChapterAdd from "@/components/chapterAdd";
-import axios from "@/utils/axios";
-import styles from "@/styles/book.module.css";
-import CountdownTimer from "@/components/countdownTimer";
+import NavBar from '@/components/navbar';
+import BookIntro from '@/components/bookIntro';
+import CountdownTimer from '@/components/countdownTimer';
+import ChapterComplete from '@/components/chapterComplete';
+import ChapterVoting from '@/components/chapterVoting';
+import ChapterChain from '@/components/chapterChain';
+import ChapterAdd from '@/components/chapterAdd';
+import axios from '@/utils/axios';
+import styles from '@/styles/book.module.css';
 
 const {
 	publicRuntimeConfig: { frontendRoot },
@@ -32,18 +33,19 @@ function BookIndex() {
 	const [bookInfo, setBookInfo] = useState({});
 	const [chapters, setChapters] = useState([]);
 	const [expandChapters, setExpandChapters] = useState([]);
+	const [showLoading, setShowLoading] = useState(false);
 
 	const checkCreator = () => {
-		return getLoggedUser({ t }) === bookInfo?.creator?.uId;
+		return getLoggedUser() === bookInfo?.creator?.uId;
 	};
 
 	// 顯示錯誤訊息
 	const showErrorMsg = (text) => {
 		Swal.fire({
-			title: t("Oops..."),
+			title: t('Oops...'),
 			text: text,
-			icon: "error",
-			confirmButtonColor: "#F5C265",
+			icon: 'error',
+			confirmButtonColor: '#F5C265',
 		}).then(() => {
 			window.location.replace(frontendRoot);
 		});
@@ -56,6 +58,7 @@ function BookIndex() {
 
 	const fetchBook = async () => {
 		if (book) {
+			setShowLoading(true);
 			await axios
 				.get(`/event/${book}`, {}, {})
 				.then((res) => {
@@ -64,11 +67,12 @@ function BookIndex() {
 						setBookInfo(res.data);
 						fetchChapters();
 					} else {
-						showErrorMsg(t("The event is not found..."));
+						showErrorMsg(t('The event is not found...'));
+						setShowLoading(false);
 					}
 				})
 				.catch((error) => {
-					console.log("Fetch book error:", error);
+					console.log('Fetch book error:', error);
 				});
 		}
 	};
@@ -78,16 +82,16 @@ function BookIndex() {
 			await axios
 				.get(`/allChapter/${book}`, {}, {})
 				.then((res) => {
-					console.log("chapters:", res.data);
+					setShowLoading(false);
 					if (res.status === 200) {
 						setChapters(res.data);
 						initExpandChapters(res.data?.length);
 					} else {
-						showErrorMsg(t("The event has no any chapter..."));
+						showErrorMsg(t('The event has no any chapter...'));
 					}
 				})
 				.catch((error) => {
-					console.log("Fetch chapters error:", error);
+					console.log('Fetch chapters error:', error);
 				});
 		}
 	};
@@ -96,32 +100,32 @@ function BookIndex() {
 	const showChapterStatus = (chapter, expandStatus) => {
 		switch (chapter?.chapterStatus) {
 			case 1:
-				var color = "text-dark-cream";
+				var color = 'text-dark-cream';
 				var statusText = (
 					<span className={color}>
-						{t("Chaining")} |{" "}
+						{t('Chaining')} |{' '}
 						<CountdownTimer targetDate={chapter?.submitTime} />
 					</span>
 				);
 				break;
 			case 2:
-				var color = "text-red";
+				var color = 'text-red';
 				var statusText = (
 					<span className={color}>
-						{t("Voting")} |{" "}
+						{t('Voting')} |{' '}
 						<CountdownTimer targetDate={chapter?.voteTime} />
 					</span>
 				);
 				break;
 			default:
-				color = "";
-				var statusText = <span>{t("Completed")}</span>;
+				color = '';
+				var statusText = <span>{t('Completed')}</span>;
 				break;
 		}
 
 		return (
 			<>
-				{statusText}{" "}
+				{statusText}{' '}
 				<FontAwesomeIcon
 					icon={expandStatus ? faChevronUp : faChevronDown}
 					className={`ml-2 ${color}`}
@@ -155,19 +159,19 @@ function BookIndex() {
 		<>
 			<Head>
 				<title>BBQ</title>
-				<meta property="og:description" content="BBQ - BoundlessBrushQuill" />
+				<meta property='og:description' content='BBQ - BoundlessBrushQuill' />
 			</Head>
 			<NavBar />
 			<Container>
 				{/* 書本簡介 */}
-				<BookIntro data={bookInfo} className="my-6" />
+				<BookIntro data={bookInfo} className='my-6' />
 
 				{/* 章節 */}
 				{chapters?.map((chapter, i) => (
 					<Row key={i} className={styles.chapterBlock}>
 						<Col>
 							<Row
-								className="cursor-pointer"
+								className='cursor-pointer'
 								onClick={(e) => updateExpand(e, i)}
 							>
 								<Col>
@@ -175,12 +179,12 @@ function BookIndex() {
 										{i + 1}. {chapter?.chapterTitle}
 									</span>
 									{chapter?.chapterStatus === 3 && (
-										<span className="ml-8">
+										<span className='ml-8'>
 											By. {chapter?.finishedpage?.pageCreator?.username}
 										</span>
 									)}
 								</Col>
-								<Col className="text-end">
+								<Col className='text-end'>
 									{showChapterStatus(chapter, expandChapters[i])}
 								</Col>
 							</Row>
@@ -199,6 +203,12 @@ function BookIndex() {
 				}
 				
 			</Container>
+			{/* Loading動畫 */}
+			{showLoading && (
+				<div className='w-screen h-screen absolute z-[999] top-0 left-0 flex justify-center items-center bg-opacity-75 bg-black'>
+					<HashLoader color='#F5C265' loading={showLoading} aria-label='Loading' />
+				</div>
+			)}
 		</>
 	);
 }

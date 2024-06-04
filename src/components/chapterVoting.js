@@ -49,10 +49,19 @@ function ChapterVoting({ chapter, className }) {
 		});
 	};
 
+	const showWarningMsg = () => {
+		Swal.fire({
+			'title': t('Please log in first.'), 
+			'icon': 'warning', 
+			'confirmButtonColor': '#F5C265', 
+		});
+	};
+
 	const sendVote = async() => {
 
-		const user = getLoggedUser({ t });
+		const user = getLoggedUser();
 		if (!user) {
+			showWarningMsg();
 			return;
 		}
 

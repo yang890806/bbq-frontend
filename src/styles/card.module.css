@@ -1,0 +1,224 @@
+/* 總覽_全部完成 */
+.bookcard_allfinished {
+	cursor: pointer;
+	height: 300px;
+	border: none;
+	background-color: #FCFBF7;
+	/* background-color: white !important; */
+	padding: 10px;
+	border-radius: 10px;
+	
+}
+/* 總覽_全部完成_簡介圖片 */
+.bookcard_allfinished_image {
+	width: auto;
+	height: 200px;
+	/* border:#5cb85c; */
+	object-fit: cover;
+	box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+/* 總覽_全部完成_滑過 */
+.bookcard_allfinished:hover {
+	transform: translateY(-5px);
+	transition: transform 0.5s;
+	
+
+}
+/* 總覽_全部完成_點擊 */
+.bookcard_allfinished:active {
+	transform: translateY(15px);
+	transition: transform 0.5s;
+}
+
+
+/* 總覽_cardtitle */
+.bookcard_cardtitle  {
+	white-space: nowrap; /* 不換行 */
+	overflow: hidden;     /* 隱藏超出部分 */
+	text-overflow: ellipsis; /* 顯示省略號 */
+	max-width: 170px;
+	padding-left: 10px;
+}
+
+.bookcard_span {
+	display: inline-block; /* 讓文字可自動縮小 */
+	max-width: 100%;      /* 最大寬度 */
+	max-height: 100%;     /* 最大高度 */
+	font-size: inherit;   /* 繼承父元素的字體大小 */
+}
+
+/* 總覽_正在進行 */
+.bookcard_allprocessing  {
+	margin-bottom: 30px ;
+	height: 300px;
+	background-color: #FCFBF7 !important;
+}
+/* 總覽_正在進行_簡介圖片 */
+.bookcard_allprocessing_image {
+	width: auto;
+	height: 200px;
+	object-fit: cover;
+	border-bottom-left-radius: 0 !important;
+  	border-bottom-right-radius: 0 !important;
+}
+/* 總覽_正在進行_滑過 */
+.bookcard_allprocessing:hover {
+	transform: translateY(-5px);
+	transition: transform 0.5s;
+}
+/* 總覽_正在進行_點擊 */
+.bookcard_allprocessing:active {
+	transform: translateY(15px);
+	transition: transform 0.5s;
+}
+
+
+/* 個人頁面 */
+.bookcard_cardtitle_person  {
+	white-space: nowrap; /* 不換行 */
+	overflow: hidden;     /* 隱藏超出部分 */
+	text-overflow: ellipsis; /* 顯示省略號 */
+	max-width: 120px;   
+}
+
+.bookcard_personal {
+	cursor: pointer;
+	width: 300px;
+	border: none;
+	background-color: #FCFBF7 !important;
+}
+/* 個人頁面_簡介圖片 */
+.bookcard_personal_image {
+	width: auto;
+	height: 200px;
+	object-fit: cover;
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+/* 個人頁面_滑過 */
+.bookcard_personal:hover {
+	transform: translateY(-5px);
+	transition: transform 0.5s;
+}
+/* 個人頁面_點擊 */
+.bookcard_personal:active {
+	transform: translateY(15px);
+	transition: transform 0.5s;
+}
+
+/* 首頁_卡片樣式 */
+.bookcard {
+	cursor: pointer;
+	height: 350px;
+	width: 300px;
+}
+.bookcard:hover {
+	transform: translateY(-5px);
+	transition: transform 0.5s, box-shadow 0.5s;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.bookcard:active {
+	transform: translateY(15px);
+	transition: transform 0.5s, box-shadow 0.5s;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.bookcard_image{
+	width: auto;
+	height: 220px;
+	object-fit: cover;
+}
+
+
+
+/* 單行文本截斷 */
+.text-truncate {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* 多行文本截斷 */
+.text_truncate_multiline {
+	font-size: 13px;
+	color: rgb(91, 89, 89);
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3; /* 限制顯示的行數，例如3行 */
+	overflow: hidden;
+	max-width: 100%; /* 確保寬度限制生效 */
+}
+
+.voteBtn{
+	border: 1px solid #5A6E5A;
+	background-color: #5A6E5A;	
+	font-size: 13px;
+}
+
+.voteBtn:hover {
+	color: #5A6E5A;
+	border: 1px solid #5A6E5A;
+	background-color: white;
+}
+
+.chainBtn {
+	color: #5A6E5A;
+	border: 1px solid #5A6E5A;
+	background-color: white;
+	font-size: 13px;
+}
+
+.chainBtn:hover {
+	color: white;
+	border: 1px solid #5A6E5A;
+	background-color: #5A6E5A;
+	font-size: 13px;	
+}
+
+.btn-outline-custom {
+	border-color: #5cb85c;
+	color: #5cb85c;
+}
+
+.btn-outline-custom:hover {
+	background-color: #5cb85c;
+	color: #fff;
+}
+
+.settingBtn {
+	color: black;
+	border: 1px solid #F5C265;
+	background-color: #F5C265;
+}
+
+.settingBtn:hover {
+	color: #F5C265 !important;
+	border: 1px solid #F5C265 !important;
+	background-color: transparent !important;
+}
+
+.myEventCard {
+	cursor: pointer;
+}
+.myEventCard:hover {
+	transform: translateY(-5px);
+	transition: transform 0.5s, box-shadow 0.5s;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.myEventCard:active {
+	transform: translateY(15px);
+	transition: transform 0.5s, box-shadow 0.5s;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.publishedText {
+	/* color: white; */
+	/* background-color: #C05E51; */
+	background-color: transparent;
+	border: 1px solid #C05E51;
+	color: #C05E51;
+	border-radius: 5px;
+	font-size: 12px;
+	font-weight: normal;
+	padding: 3px 5px;
+	margin-left: 10px;
+}

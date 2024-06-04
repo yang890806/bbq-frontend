@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import convertImage from '@/components/convertImage';
+import Avatar from '@/components/avatar';
 
 const Page = React.forwardRef((props, ref) => {
 
@@ -9,28 +11,24 @@ const Page = React.forwardRef((props, ref) => {
 		<div ref={ref} style={{width: '500px'}} className='mx-1 bg-light-cream'>
 			<div className='flex flex-row my-2 justify-center items-center'>
 				<span className='font-bold mx-3' style={{fontSize: '24px'}}>{props?.page?.chapterTitle}</span>
-				<div className='pt-1'>
-				{(props?.page?.finishedpage?.pageCreator?.avatar) ? (
-					<Image 
-						src={props?.page?.finishedpage?.pageCreator?.avatar}
+				<div className='pt-1 flex items-center'>
+					<Avatar 
+						avatar={props?.page?.finishedpage?.pageCreator?.avatar} 
+						username={props?.page?.finishedpage?.pageCreator?.username} 
 						width={30}
 						height={30}
-						alt={props?.page?.finishedpage?.pageCreator?.username}
-						className='rounded-full shadow-sm'
+						className='mr-1'
 					/>
-				): (
-					<FontAwesomeIcon icon={faCircleUser} size='lg' className='text-green'/>
-				)}
-				<span className='mx-2'>{props?.page?.finishedpage?.pageCreator?.username}</span>
+					<span className='mx-1'>{props?.page?.finishedpage?.pageCreator?.username}</span>
 				</div>
 			</div>
 			<div className='h-96 flex justify-center'>
 				<Image 
-					src={props?.page?.finishedpage?.imageContent ?? '/image-not-found.jpg'} 
+					src={convertImage(props?.page?.finishedpage?.imageContent) ?? '/image-not-found.jpg'} 
 					width={0} 
 					height={0} 
-					sizes='100vw'
-					style={{ width: 'auto', height: '100%' }}
+					sizes='10vw'
+					style={{ width: 'auto', height: '95%' }}
 					alt={`Page ${props?.pageNumber}`} 
 				/>
 			</div>

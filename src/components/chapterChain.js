@@ -33,6 +33,11 @@ function ChapterChain({ chapter, className }) {
 			'text': t('The page is created.'), 
 			'icon': 'success', 
 			'confirmButtonColor': '#F5C265', 
+		})
+		.then((result) => {
+			if (result.isConfirmed) {
+				window.location.replace(window.location.href);
+			}
 		});
 	};
 
@@ -100,7 +105,7 @@ function ChapterChain({ chapter, className }) {
 								<Col className='mb-2 text-xl'>{chapter?.chapterTitle}</Col>
 							</Row>
 							<Row>
-								<Col className='text-md'>{chapter?.chapterIntro}</Col>
+								<Col className='text-md whitespace-pre-wrap'>{chapter?.chapterIntro}</Col>
 							</Row>
 						</Col>
 					</Row>
@@ -162,7 +167,7 @@ function ChapterChain({ chapter, className }) {
 		</Row>
 		{/* Loading動畫 */}
 		{showLoading && (
-			<div className='w-screen h-screen absolute z-[999] top-0 left-0 flex justify-center items-center bg-opacity-50 bg-black'>
+			<div className='w-screen h-screen absolute z-[999] top-0 left-0 flex justify-center items-center bg-opacity-75 bg-black'>
 				<HashLoader color='#F5C265' loading={showLoading} aria-label='Loading' />
 			</div>
 		)}
