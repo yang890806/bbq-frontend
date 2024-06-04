@@ -20,7 +20,7 @@ function VotePage({ index, page, selected, handleClick }) {
 				alt='Image'
 				className='rounded shadow object-cover'
 			/>
-			<div className='w-full pl-2'>
+			<div className='w-48 pl-2'>
 				<p className='text-gray-900 text-lg leading-tight my-2'>{`By. ${page?.pageCreator?.username}`}</p>
 				<p>{page?.textContent}</p>
 			</div>

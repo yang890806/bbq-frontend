@@ -53,6 +53,10 @@ function Home() {
 			setBookInfo2(response2.data);
 			setBookInfo3(response3.data);
 
+            console.log('response1:', response1.data);
+            console.log('response2:', response2.data);
+            console.log('response3:', response3.data);
+
 			// 所有請求完成後設置dataLoaded為true
 			setDataLoaded(true);
 
@@ -68,20 +72,20 @@ function Home() {
 	
 
 	useEffect(() => {
-    if (dataLoaded) {
-        setBooks(prevBooks => ({
-            ...prevBooks,
-            chain: bookInfo1,
-            vote: bookInfo2,
-            finished: bookInfo3,
-        }));
+        if (dataLoaded) {
+            setBooks(prevBooks => ({
+                ...prevBooks,
+                chain: bookInfo1,
+                vote: bookInfo2,
+                finished: bookInfo3,
+            }));
 
-        const firstChild = trackRef.current.children[0];
-        if (firstChild) {
-            const width = firstChild.getBoundingClientRect().width;
-            setItemWidth(width);
+            const firstChild = trackRef.current.children[0];
+            if (firstChild) {
+                const width = firstChild.getBoundingClientRect().width;
+                setItemWidth(width);
+            }
         }
-    }
     }, [dataLoaded, bookInfo1, bookInfo2, bookInfo3]);
 
     //第一個滾動軸
@@ -91,7 +95,7 @@ function Home() {
 
     const handleRightClick = (state) => {
         if( state ==='finished' ){
-            if (currentIndex_1 < books.finished.length- 4) {
+            if (currentIndex_1 < books?.finished.length- 4) {
                 setCurrentIndex_1(prevIndex => prevIndex + 1);
             }
             else{
@@ -99,7 +103,7 @@ function Home() {
             }
         }
         if( state ==='chain' ){
-            if (currentIndex_2 < books.chain.length- 4) {
+            if (currentIndex_2 < books?.chain.length- 4) {
                 setCurrentIndex_2(prevIndex => prevIndex + 1);
             }
             else{
@@ -107,7 +111,7 @@ function Home() {
             }
         }
         if( state ==='vote' ){
-            if (currentIndex_3 < books.vote.length- 4) {
+            if (currentIndex_3 < books?.vote.length- 4) {
                 setCurrentIndex_3(prevIndex => prevIndex + 1);
             }
             else{
@@ -116,8 +120,9 @@ function Home() {
         }
     };
 
-    console.log(books.vote)
-
+    useEffect(() => {
+        console.log('books', books);
+    }, [books]);
     
 
     const handleLeftClick = (state) => {
@@ -126,7 +131,7 @@ function Home() {
                 setCurrentIndex_1(prevIndex => prevIndex - 1);
             }
             else {
-                setCurrentIndex_1(books.finished.length- 4);
+                setCurrentIndex_1(books?.finished.length- 4);
             }
         }
         if( state ==='chain' ){
@@ -134,7 +139,7 @@ function Home() {
                 setCurrentIndex_2(prevIndex => prevIndex - 1);
             }
             else {
-                setCurrentIndex_2(books.finished.length- 4);
+                setCurrentIndex_2(books?.chain.length- 4);
             }
         }
 
@@ -143,7 +148,7 @@ function Home() {
                 setCurrentIndex_3(prevIndex => prevIndex - 1);
             }
             else {
-                setCurrentIndex_3(books.finished.length- 4);
+                setCurrentIndex_3(books?.vote.length- 4);
             }
         }
 
@@ -302,7 +307,7 @@ function Home() {
                         style={{ transform: `translateX(-${itemWidth * currentIndex_3}px)` }}
                     >
                      
-                        {books?.chain.map((book, index) => (
+                        {books?.vote.map((book, index) => (
                             <div className={styles.carousel_item}>
                                 <Processing
                                     key={index}

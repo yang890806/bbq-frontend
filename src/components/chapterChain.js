@@ -33,6 +33,11 @@ function ChapterChain({ chapter, className }) {
 			'text': t('The page is created.'), 
 			'icon': 'success', 
 			'confirmButtonColor': '#F5C265', 
+		})
+		.then((result) => {
+			if (result.isConfirmed) {
+				window.location.replace(window.location.href);
+			}
 		});
 	};
 

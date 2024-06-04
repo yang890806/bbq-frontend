@@ -124,8 +124,8 @@ function BookOverview() {
 									<Tooltip title={user?.username} arrow>
 										<div>
 										<Avatar 
-											avatar={bookInfo?.creator?.avatar} 
-											username={bookInfo?.creator?.username} 
+											avatar={user?.avatar} 
+											username={user?.username} 
 											width={profileSize[0]}
 											height={profileSize[1]}
 											className='mr-1'
