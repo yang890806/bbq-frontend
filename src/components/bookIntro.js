@@ -84,7 +84,7 @@ function BookIntro({ data, className }) {
 		}
 
 		return <div className={`mx-1 text-sm font-normal ${color}`}>
-			<FontAwesomeIcon icon={icon} size='xs' className='mx-1'/>
+			<FontAwesomeIcon icon={icon} size='sm' className='mx-1'/>
 			<span>{statusText}</span>
 		</div>;
 	};
@@ -107,14 +107,17 @@ function BookIntro({ data, className }) {
 			</Col>
 			<Col className='my-6'>
 				<Row>
-					<Col className='flex items-center text-2xl font-bold my-1'>
+					<Col xs={4} className='flex items-center text-2xl font-bold my-1'>
 						{data?.eventTitle}
 						{showEventStatus(data?.eventKey)}
-						{checkCreator() && 
-							<div className={`ml-12 text-base font-bold ${styles.btn}`} onClick={postBook}>
-								{ t('Post!') }
-							</div>
-						}
+						
+					</Col>
+					<Col>
+					{checkCreator() && 
+						<div className={`ml-12 text-base font-bold ${styles.btn}`} onClick={postBook}>
+							{ t('Post!') }
+						</div>
+					}
 					</Col>
 				</Row>
 				<Row>
@@ -146,7 +149,7 @@ function BookIntro({ data, className }) {
 					</Col>
 				</Row>
 				<Row>
-					<Col className='max-h-24 overflow-y-scroll whitespace-pre-wrap'>
+					<Col xs={6} className='max-h-24 overflow-y-scroll whitespace-pre-wrap'>
 						{data?.eventIntro}
 					</Col>
 				</Row>

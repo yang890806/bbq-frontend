@@ -27,7 +27,7 @@ function PersonalParticipate({ book, title, image, targetDate, creator, state, p
 			</Card.Title>
 			<Card.Body className='pt-0'>
 				<Card.Text className='mr-2 flex flex-row fw-semibold text-green'>
-					{t('Paragraph')} {part+1} |&nbsp;<CountdownTimer targetDate={targetDate}/>
+					{t('Paragraph')} {part} |&nbsp;<CountdownTimer targetDate={targetDate}/>
 				</Card.Text>
 				<div className='mt-1 d-flex justify-between items-center'>
 					<div className='text-sm text-brown'>

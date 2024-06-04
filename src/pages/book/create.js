@@ -19,7 +19,7 @@ import BaseModal from '@/components/modal';
 import styles from '@/styles/book-create.module.css';
 
 const { 
-	publicRuntimeConfig: { imageWidth, imageHeight } 
+	publicRuntimeConfig: { frontendRoot, imageWidth, imageHeight } 
 } = getConfig();
 
 function BookCreate() {
@@ -39,6 +39,7 @@ function BookCreate() {
 	const [code, setCode] = useState('');
 	const [copied, setCopied] = useState(false);
 
+	const [newBook, setNewBook] = useState('');
 	const [showModal, setShowModal] = useState(false);
 	const [showLoading, setShowLoading] = useState(false);
 
@@ -102,6 +103,8 @@ function BookCreate() {
 			.then((res) => {
 				setShowLoading(false);
 				if (res.status === 200) {
+					setNewBook(res?.data?.eventData);
+					console.log('new book:', res?.data?.eventData);
 					setShowModal(true);
 				}
 				else {
@@ -140,6 +143,11 @@ function BookCreate() {
 		  return s.length >= length;
 		});
 		return s.slice(0, length);
+	};
+
+	const closeModal = () => {
+		setShowModal(false);
+		window.location.href = `${frontendRoot}/book/${newBook}`;
 	};
 
 	// 若權限為「私人」，則隨機產生並顯示活動碼
@@ -303,7 +311,7 @@ function BookCreate() {
 
 		{/* 創建書本成功 Modal */}
 		{showModal && (
-			<BaseModal className='text-md text-center' show={showModal} handleClose={() => setShowModal(false)}>
+			<BaseModal className='text-md text-center' show={showModal} handleClose={closeModal}>
 				{/* 繪本圖 */}
 				<Row>
 					<Col className='flex justify-center'>
@@ -383,7 +391,7 @@ function BookCreate() {
 				</Row>
 				<Row className='mt-3'>
 					<Col>
-						<Button className={`${styles.confirmBtn}`} onClick={() => setShowModal(false)}>{ t('OK') }</Button>
+						<Button className={`${styles.confirmBtn}`} onClick={closeModal}>{ t('OK') }</Button>
 					</Col>
 				</Row>
 			</BaseModal>

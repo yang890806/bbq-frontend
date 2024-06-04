@@ -81,6 +81,9 @@ function NavBar() {
 					<Nav className='me-auto' />
 					<Nav className='flex items-center'>
 						<BookSearch/>
+						<Nav.Link href='/book/create' className='text-black hover:underline'>
+							{ t('Create Event') }
+						</Nav.Link>
 						<Nav.Link href='/books?status=finished' className='text-black hover:underline'>
 							{ t('Books') }
 						</Nav.Link>

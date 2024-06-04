@@ -84,6 +84,7 @@ i18n.use(initReactI18next).init({
 				'Published': 'Published', 
 				'All': 'All', 
 				'Join': 'Join', 
+				'Create Event': 'Create Event', 
 			}
 		},
 		zh: {
@@ -166,6 +167,7 @@ i18n.use(initReactI18next).init({
 				'Published': '已發布', 
 				'All': '全部', 
 				'Join': '加入', 
+				'Create Event': '建立活動', 
 			}
 		},
 	},

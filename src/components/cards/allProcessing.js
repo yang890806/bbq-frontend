@@ -32,7 +32,7 @@ function AllProcessing({ book, title, image, author, profile, targetDate, state,
 				<Card.Body>
 					<div  className='d-flex justify-content-between align-items-end'>
 						<div >
-							<Card.Text className='mr-2 flex flex-row fw-semibold text-green'>{t('Paragraph')} {part+1}</Card.Text>
+							<Card.Text className='mr-2 flex flex-row fw-semibold text-green'>{t('Paragraph')} {part}</Card.Text>
 							<Card.Text className='fw-semibold text-dark-cream'>
 								{`${t('剩餘時間')}: `}
 								<CountdownTimer targetDate={targetDate}></CountdownTimer>
