@@ -39,8 +39,9 @@
 	display: flex;
 	transition: transform 0.5s ease-in-out;
   }
+
   .carousel_item {
-	min-width: 25%;
+	/* min-width: 25%; */
 	padding: 12px;
 	text-align: center;
   }
@@ -110,8 +111,6 @@
 	color: #fff;
 }
 
-
-  
 .btn_group_process {
 	border-color: #5A6E5A !important;
 	font-size: 16px;
@@ -119,6 +118,15 @@
 	color:  #5A6E5A !important ;
 }
 
+.toggleBtn {
+	color: #F5C265;
+	border: 1px solid #F5C265;
+	background-color: transparent;
+	margin: 0px 5px;
+}
 
- 
-  
+.toggleBtn:hover, .toggleBtn:focus, .activeToggleBtn {
+	color: black !important;
+	border: 1px solid #F5C265 !important;
+	background-color: #F5C265 !important;
+}

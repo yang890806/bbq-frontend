@@ -49,6 +49,7 @@
   padding: 10px;
   width: calc(100% - 100px);
   border: #888;
+  outline: none;
 }
 
 .searchButton {

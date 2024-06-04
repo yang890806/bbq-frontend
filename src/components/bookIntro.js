@@ -5,6 +5,7 @@ import { Row, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Tooltip } from '@mui/material';
 import Swal from 'sweetalert2';
+import getLoggedUser from '@/auth/getLoggedUser';
 import Avatar from '@/components/avatar';
 import convertImage from '@/components/convertImage';
 import axios from '@/utils/axios';
@@ -19,6 +20,10 @@ function BookIntro({ data, className }) {
 	const { t } = useTranslation();
 	const profileSize = [30, 30];
 	const [authors, setAuthors] = useState([]);
+
+	const checkCreator = () => {
+		return getLoggedUser({ t }) === data?.creator?.uId;
+	};
 
 	const handleAuthors = () => {
 		var newAuthors = [data?.creator];
@@ -82,6 +87,7 @@ function BookIntro({ data, className }) {
 				/>
 			</Col>
 			<Col className='my-6'>
+				{checkCreator() && 
 				<Row>
 					<Col className='flex text-2xl font-bold my-2'>
 						{data?.eventTitle}
@@ -90,6 +96,7 @@ function BookIntro({ data, className }) {
 						</div>
 					</Col>
 				</Row>
+				}
 				<Row>
 					<Col className='flex'>
 						<div className='mr-2'>{t('Authors')}</div>

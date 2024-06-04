@@ -79,9 +79,9 @@ function NavBar() {
 				<Navbar.Toggle aria-controls='responsive-navbar-nav' />
 				<Navbar.Collapse id='responsive-navbar-nav' className='flex justify-end mt-1 border-b-white'>
 					<Nav className='me-auto' />
-					<Nav>
+					<Nav className='flex items-center'>
 						<BookSearch/>
-						<Nav.Link href='/book/processing?status=finished' className='text-black hover:underline'>
+						<Nav.Link href='/books?status=finished' className='text-black hover:underline'>
 							{ t('Books') }
 						</Nav.Link>
 						{user?.uId ? (
@@ -97,7 +97,7 @@ function NavBar() {
 								</Dropdown.Toggle>
 								<Dropdown.Menu className='text-center'>
 									<DropdownItemText>Hello, {user?.username}!</DropdownItemText>
-									<Dropdown.Item className='hover:bg-light-yellow focus:bg-yellow' href='/book/personal'>{t('My Events')}</Dropdown.Item>
+									<Dropdown.Item className='hover:bg-light-yellow focus:bg-yellow' href='/personal'>{t('My Events')}</Dropdown.Item>
 									<Dropdown.Item className='hover:bg-light-red focus:bg-red' onClick={logout}>{t('Logout')}</Dropdown.Item>
 								</Dropdown.Menu>
 							</Dropdown>
